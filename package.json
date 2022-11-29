@@ -1,6 +1,6 @@
 {
-	"name": "react-vite-boilerplate",
-	"description": "A boilerplate/starter project for quickly building web using React with Vite",
+	"name": "stafflab-fe",
+	"description": "A Frontend Stafflab project",
 	"version": "1.0.0",
 	"author": "irfnd <irfandiabimanyu@gmail.com>",
 	"private": false,
@@ -16,10 +16,21 @@
 		"format": "prettier --write ./**/*.{js,jsx,json,html,css,md} --config ./.prettierrc.json"
 	},
 	"dependencies": {
+		"@chakra-ui/react": "^2.4.1",
+		"@emotion/react": "^11.10.5",
+		"@emotion/styled": "^11.10.5",
+		"@fontsource/inter": "^4.5.14",
+		"@fontsource/share-tech-mono": "^4.5.9",
+		"framer-motion": "^7.6.12",
+		"lucide-react": "^0.102.0",
 		"react": "^18.2.0",
-		"react-dom": "^18.2.0"
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.4.3",
+		"react-use": "^17.4.0",
+		"use-react-router-breadcrumbs": "^4.0.1"
 	},
 	"devDependencies": {
+		"@babel/core": "^7.20.2",
 		"@types/react": "^18.0.22",
 		"@types/react-dom": "^18.0.7",
 		"@vitejs/plugin-react": "^2.2.0",
