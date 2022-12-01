@@ -10,8 +10,8 @@ export default function BaseSidebar({ disclosure }) {
 
 	return (
 		<>
-			<SidebarContent onClose={onClose} display={{ base: "none", md: "flex" }} bg={bgSidebar} />
-			<Drawer isOpen={isOpen} onClose={onClose} placement="left" size="full">
+			<SidebarContent onClose={onClose} display={{ base: "none", lg: "flex" }} bg={bgSidebar} />
+			<Drawer isOpen={isOpen} onClose={onClose} placement="left" size={{ base: "full", md: "xs" }}>
 				<DrawerContent>
 					<SidebarContent onClose={onClose} bg={bgSidebar} />
 				</DrawerContent>

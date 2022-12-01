@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Page Component
 import BaseLayout from "@/components/layouts/BaseLayout";
+import Login from "@/pages/Auth/Login";
 import Home from "@/pages/Home/Home";
 import Aktif from "@/pages/Pegawai/Aktif";
 import Magang from "@/pages/Pegawai/Magang";
@@ -20,6 +21,7 @@ export default function App() {
 						<Route path="magang" element={<Magang />} />
 					</Route>
 				</Route>
+				<Route path="/login" element={<Login />} />
 			</Routes>
 		</BrowserRouter>
 	);

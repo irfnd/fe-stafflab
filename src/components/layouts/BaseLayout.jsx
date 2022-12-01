@@ -19,7 +19,7 @@ export default function BaseLayout() {
 			<BaseSidebar disclosure={disclosure} />
 			<BaseNavbar disclosure={disclosure} />
 			<Flex direction="column" bg={bgContent} minH="100vh">
-				<Flex direction="column" ml={{ base: 0, md: 80 }} mt={20} p={10} gap={10}>
+				<Flex direction="column" ml={{ base: 0, lg: 80 }} mt={20} p={10} gap={10}>
 					<BaseBreadcrumbs />
 					<Outlet />
 				</Flex>

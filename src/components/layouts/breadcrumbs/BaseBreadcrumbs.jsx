@@ -12,7 +12,7 @@ export default function BaseBreadcrumbs() {
 	const breadcrumbs = useBreadcrumbs(BREADCRUMBS);
 
 	return (
-		<Breadcrumb spacing={2} separator={<ChevronRight size={18} />}>
+		<Breadcrumb spacing={2} separator={<ChevronRight color="#2ebeb9" size={18} />}>
 			{breadcrumbs.map(({ match, breadcrumb }) => (
 				<BreadcrumbItem key={match.pathname}>
 					<BreadcrumbLink as={NavLink} to={match.pathname} fontSize={{ base: 14, md: 16 }} fontWeight="semibold">

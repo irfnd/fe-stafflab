@@ -11,8 +11,8 @@ export default function BaseNavbar({ disclosure }) {
 	const bgNavbar = useColorModeValue("white", "gray.800");
 
 	return (
-		<Flex pos="fixed" align="center" justify={{ base: "space-between", md: "flex-end" }} bg={bgNavbar} px={{ base: 7, md: 10 }} h={20} w="full">
-			<IconButton size="lg" display={{ base: "flex", md: "none" }} onClick={onOpen} variant="ghost" rounded="full" icon={<Menu size={28} />} />
+		<Flex pos="fixed" align="center" justify={{ base: "space-between", lg: "flex-end" }} bg={bgNavbar} px={{ base: 7, md: 10 }} h={20} w="full">
+			<IconButton size="lg" display={{ base: "flex", lg: "none" }} onClick={onOpen} variant="ghost" rounded="full" icon={<Menu size={28} />} />
 			<Flex gap={{ base: 2, md: 4 }}>
 				<ToggleTheme />
 				<UserAvatar />

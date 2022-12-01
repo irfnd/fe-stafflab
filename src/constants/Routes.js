@@ -1,4 +1,4 @@
-import { Home, Users, UserCheck, UserCog, UserPlus } from "lucide-react";
+import { Home, Plus, Users, UserCheck, UserCog, UserPlus } from "lucide-react";
 
 export const BREADCRUMBS = [
 	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard" },

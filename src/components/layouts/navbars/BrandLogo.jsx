@@ -1,9 +1,19 @@
+import { useNavigate } from "react-router-dom";
+
 // Styles & Icons
 import { Text, Flex } from "@chakra-ui/react";
 
-export default function BrandLogo() {
+export default function BrandLogo({ type = "navbar" }) {
+	const navigate = useNavigate();
+
 	return (
-		<Flex direction="column" align={{ base: "start", md: "center" }} w="full" cursor="pointer">
+		<Flex
+			direction="column"
+			align={type === "navbar" ? { base: "start", md: "center" } : "center"}
+			w="full"
+			cursor="pointer"
+			onClick={() => navigate("/")}
+		>
 			<Flex justify="center">
 				<Text fontFamily="mono" fontSize="4xl" fontWeight="bold" lineHeight={10}>
 					Staff
