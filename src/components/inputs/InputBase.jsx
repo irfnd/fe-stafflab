@@ -7,7 +7,7 @@ export default function InputBase(props) {
 	return (
 		<FormControl>
 			{label && <FormLabel fontWeight="semibold">{label}</FormLabel>}
-			<Input size="lg" {...{ type, placeholder }} focusBorderColor="brand.blue.500" />
+			<Input size="lg" {...{ type, placeholder }} focusBorderColor="cyan.500" />
 			<FormErrorMessage>Email is required.</FormErrorMessage>
 		</FormControl>
 	);

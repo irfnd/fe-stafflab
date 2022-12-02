@@ -18,7 +18,7 @@ export default function BrandLogo({ type = "navbar" }) {
 				<Text fontFamily="mono" fontSize="4xl" fontWeight="bold" lineHeight={10}>
 					Staff
 				</Text>
-				<Text fontFamily="mono" color="brand.blue.500" fontSize="4xl" fontWeight="bold" lineHeight={10}>
+				<Text fontFamily="mono" color="cyan.500" fontSize="4xl" fontWeight="bold" lineHeight={10}>
 					Lab
 				</Text>
 			</Flex>

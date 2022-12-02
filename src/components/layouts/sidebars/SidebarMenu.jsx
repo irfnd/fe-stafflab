@@ -22,8 +22,10 @@ export default function SidebarMenu({ onClose }) {
 	const [NestedOpen, setNestedOpen] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate();
-	const activeLink = useColorModeValue("brand.blue.300", "brand.blue.500");
+
+	const activeLink = useColorModeValue("cyan.400", "cyan.200");
 	const activeNestedLink = useColorModeValue("gray.100", "gray.700");
+	const expandTextLink = useColorModeValue("gray.800", "white");
 	const sidebarMenu = Object.values(SIDEBARS);
 
 	useEffect(() => {
@@ -49,13 +51,14 @@ export default function SidebarMenu({ onClose }) {
 						display="flex"
 						justifyContent="space-between"
 						alignItems="center"
-						transition="0.5s ease"
+						transition="0.3s ease"
 						rounded="md"
 						py={4}
 						px={6}
 						bg={location.pathname === menu.path || (menu.children && location.pathname.includes(menu.path)) ? activeLink : "transparent"}
-						_hover={{ bg: activeLink }}
-						_expanded={{ bg: menu.children && activeNestedLink }}
+						color={(location.pathname === menu.path && "gray.800") || (menu.children && location.pathname.includes(menu.path) && "gray.800")}
+						_hover={{ bg: activeLink, color: "gray.800" }}
+						_expanded={{ bg: menu.children && activeNestedLink, color: expandTextLink }}
 						onClick={() => {
 							if (!menu.children) {
 								navigate(menu.path);
@@ -65,7 +68,7 @@ export default function SidebarMenu({ onClose }) {
 					>
 						<Flex alignItems="center" gap={4}>
 							<Icon as={menu.icon} fontSize={22} />
-							<Text>{menu.name}</Text>
+							<Text fontWeight="semibold">{menu.name}</Text>
 						</Flex>
 						{menu.children && <AccordionIcon />}
 					</AccordionButton>
@@ -79,16 +82,21 @@ export default function SidebarMenu({ onClose }) {
 												? (menu.path === location.pathname && activeLink) || (child.path === location.pathname && activeLink)
 												: child.path === location.pathname && activeLink
 										}
-										transition="0.5s ease"
+										color={
+											child.isIndex
+												? (menu.path === location.pathname && "gray.800") || (child.path === location.pathname && "gray.800")
+												: child.path === location.pathname && "gray.800"
+										}
+										transition="0.3s ease"
 										align="center"
 										rounded="md"
 										gap={4}
 										py={4}
 										px={6}
-										_hover={{ bg: activeLink }}
+										_hover={{ bg: activeLink, color: "gray.800" }}
 									>
 										<Icon as={child.icon} fontSize={20} />
-										<Text>{child.name}</Text>
+										<Text fontWeight="semibold">{child.name}</Text>
 									</Flex>
 								</Link>
 							))}

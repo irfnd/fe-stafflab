@@ -12,11 +12,11 @@ export default function InputPassword(props) {
 		<FormControl>
 			{label && <FormLabel fontWeight="semibold">{label}</FormLabel>}
 			<InputGroup>
-				<Input type={ShowPass ? "text" : "password"} size="lg" {...{ placeholder }} focusBorderColor="brand.blue.500" />
+				<Input type={ShowPass ? "text" : "password"} size="lg" {...{ placeholder }} focusBorderColor="cyan.500" />
 				<InputRightElement h="full" mr={1}>
 					<IconButton
 						variant="ghost"
-						colorScheme="brand.blue"
+						colorScheme="cyan"
 						size="sm"
 						icon={ShowPass ? <EyeOff size={18} /> : <Eye size={18} />}
 						onClick={() => setShowPass(!ShowPass)}

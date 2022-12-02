@@ -8,9 +8,9 @@ export default function PegawaiCard({ pegawai }) {
 	const bgCard = useColorModeValue("white", "gray.800");
 
 	return (
-		<Flex bg={bgCard} direction="column" shadow="lg" rounded="md" h="fit-content">
+		<Flex bg={bgCard} direction="column" shadow="md" rounded="md" h="fit-content">
 			<Flex h="200px">
-				<Image src={IMAGE} boxSize="full" roundedTop="xl" fit="cover" />
+				<Image src={IMAGE} boxSize="full" roundedTop="md" fit="cover" />
 			</Flex>
 			<Flex direction="column" justify="center" p={6} gap={4} h="full">
 				<Text fontSize={24} fontWeight="semibold" noOfLines={1}>
@@ -32,7 +32,13 @@ export default function PegawaiCard({ pegawai }) {
 					<Flex align="center" gap={2}>
 						{/* <Icon as={PackageSearch} fontSize={22} color="purple.500" /> */}
 						<Text fontSize={16} noOfLines={1}>
-							{pegawai?.stock} Pieces
+							{pegawai?.stock} Posisi
+						</Text>
+					</Flex>
+					<Flex align="center" gap={2}>
+						{/* <Icon as={PackageSearch} fontSize={22} color="purple.500" /> */}
+						<Text fontSize={16} noOfLines={1}>
+							{pegawai?.stock} Divisi
 						</Text>
 					</Flex>
 				</Flex>

@@ -10,7 +10,7 @@ export default function AuthLayout({ children }) {
 	usePageTitle();
 
 	return (
-		<Flex w="full" justify="center" align="center" minH="100vh" bgGradient="linear(to-br, brand.blue.500, blue.500)" py={4}>
+		<Flex w="full" justify="center" align="center" minH="100vh" bgGradient="linear(to-br, cyan.500, blue.500)" py={4}>
 			<Flex
 				direction="column"
 				justify="center"

@@ -16,6 +16,7 @@
 		"format": "prettier --write ./**/*.{js,jsx,json,html,css,md} --config ./.prettierrc.json"
 	},
 	"dependencies": {
+		"@ajna/pagination": "^1.4.19",
 		"@chakra-ui/react": "^2.4.1",
 		"@emotion/react": "^11.10.5",
 		"@emotion/styled": "^11.10.5",
