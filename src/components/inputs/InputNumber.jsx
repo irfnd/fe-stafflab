@@ -45,6 +45,7 @@ export default function InputNumber({ name, label, order, leftAddon, rightAddon,
 						</InputGroup>
 					) : (
 						<Input
+							size='lg'
 							focusBorderColor='cyan.500'
 							{...props}
 							as={NumericFormat}
