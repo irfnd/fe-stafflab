@@ -3,14 +3,14 @@ import { Avatar, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text }
 
 export default function UserAvatar() {
 	return (
-		<Flex alignItems="center">
+		<Flex alignItems='center'>
 			<Menu>
-				<MenuButton transition="all 0.3s" _focus={{ boxShadow: "none" }}>
-					<Flex align="center">
-						<Avatar size="sm" />
-						<Flex direction="column" display={{ base: "none", md: "flex" }} alignItems="flex-start" ml="2">
-							<Text fontSize="sm">Justina Clark</Text>
-							<Text fontSize="xs" color="gray.600">
+				<MenuButton transition='all 0.3s' _focus={{ boxShadow: "none" }}>
+					<Flex align='center'>
+						<Avatar size='sm' />
+						<Flex direction='column' display={{ base: "none", md: "flex" }} alignItems='flex-start' ml='2'>
+							<Text fontSize='sm'>Justina Clark</Text>
+							<Text fontSize='xs' color='gray.600'>
 								Admin
 							</Text>
 						</Flex>

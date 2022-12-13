@@ -36,8 +36,8 @@ export default function SidebarMenu({ onClose }) {
 
 	return (
 		<Accordion
-			display="flex"
-			flexDirection="column"
+			display='flex'
+			flexDirection='column'
 			px={6}
 			gap={2}
 			mt={4}
@@ -46,13 +46,13 @@ export default function SidebarMenu({ onClose }) {
 			onChange={(index) => setNestedOpen(index)}
 		>
 			{sidebarMenu.map((menu, i) => (
-				<AccordionItem bg={activeNestedLink} rounded="md" border="none" key={i}>
+				<AccordionItem bg={activeNestedLink} rounded='md' border='none' key={i}>
 					<AccordionButton
-						display="flex"
-						justifyContent="space-between"
-						alignItems="center"
-						transition="0.3s ease"
-						rounded="md"
+						display='flex'
+						justifyContent='space-between'
+						alignItems='center'
+						transition='0.3s ease'
+						rounded='md'
 						py={4}
 						px={6}
 						bg={location.pathname === menu.path || (menu.children && location.pathname.includes(menu.path)) ? activeLink : "transparent"}
@@ -66,16 +66,16 @@ export default function SidebarMenu({ onClose }) {
 							}
 						}}
 					>
-						<Flex alignItems="center" gap={4}>
+						<Flex alignItems='center' gap={4}>
 							<Icon as={menu.icon} fontSize={22} />
-							<Text fontWeight="semibold">{menu.name}</Text>
+							<Text fontWeight='semibold'>{menu.name}</Text>
 						</Flex>
 						{menu.children && <AccordionIcon />}
 					</AccordionButton>
 					{menu.children && (
-						<AccordionPanel display="flex" flexDir="column" p={2} gap={1}>
+						<AccordionPanel display='flex' flexDir='column' p={2} gap={1}>
 							{menu.children.map((child, j) => (
-								<Link as={NavLink} to={child.path} key={j} _hover={{ textDecor: "none" }} w="full" onClick={onClose}>
+								<Link as={NavLink} to={child.path} key={j} _hover={{ textDecor: "none" }} w='full' onClick={onClose}>
 									<Flex
 										bg={
 											child.isIndex
@@ -87,16 +87,16 @@ export default function SidebarMenu({ onClose }) {
 												? (menu.path === location.pathname && "gray.800") || (child.path === location.pathname && "gray.800")
 												: child.path === location.pathname && "gray.800"
 										}
-										transition="0.3s ease"
-										align="center"
-										rounded="md"
+										transition='0.3s ease'
+										align='center'
+										rounded='md'
 										gap={4}
 										py={4}
 										px={6}
 										_hover={{ bg: activeLink, color: "gray.800" }}
 									>
 										<Icon as={child.icon} fontSize={20} />
-										<Text fontWeight="semibold">{child.name}</Text>
+										<Text fontWeight='semibold'>{child.name}</Text>
 									</Flex>
 								</Link>
 							))}

@@ -8,17 +8,17 @@ export default function BrandLogo({ type = "navbar" }) {
 
 	return (
 		<Flex
-			direction="column"
+			direction='column'
 			align={type === "navbar" ? { base: "start", md: "center" } : "center"}
-			w="full"
-			cursor="pointer"
+			w='full'
+			cursor='pointer'
 			onClick={() => navigate("/")}
 		>
-			<Flex justify="center">
-				<Text fontFamily="mono" fontSize="4xl" fontWeight="bold" lineHeight={10}>
+			<Flex justify='center'>
+				<Text fontFamily='mono' fontSize='4xl' fontWeight='bold' lineHeight={10}>
 					Staff
 				</Text>
-				<Text fontFamily="mono" color="cyan.500" fontSize="4xl" fontWeight="bold" lineHeight={10}>
+				<Text fontFamily='mono' color='cyan.500' fontSize='4xl' fontWeight='bold' lineHeight={10}>
 					Lab
 				</Text>
 			</Flex>

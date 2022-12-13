@@ -17,12 +17,12 @@ export default function BaseLayout() {
 	const colorBorder = useColorModeValue("gray.200", "transparent");
 
 	return (
-		<Flex direction="column" jusfity="space-between" minH="100vh" w="full">
+		<Flex direction='column' jusfity='space-between' minH='100vh' w='full'>
 			<BaseSidebar disclosure={disclosure} />
 			<BaseNavbar disclosure={disclosure} />
-			<Flex direction="column" bg={bgContent} minH="100vh">
+			<Flex direction='column' bg={bgContent} minH='100vh'>
 				<Flex
-					direction="column"
+					direction='column'
 					borderLeftWidth={{ base: 0, md: 2 }}
 					borderLeftColor={{ base: "transparent", lg: colorBorder }}
 					ml={{ base: 0, lg: 80 }}

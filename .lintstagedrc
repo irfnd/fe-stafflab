@@ -1,4 +1,0 @@
-{
-	"./**/*.{js,jsx}": "eslint",
-	"./**/*.{js,jsx,json,html,css,md}": "prettier --write"
-}

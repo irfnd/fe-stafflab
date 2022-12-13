@@ -12,16 +12,16 @@ export default function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
-				<Route path="/" element={<BaseLayout />}>
+				<Route path='/' element={<BaseLayout />}>
 					<Route index element={<Home />} />
-					<Route path="/pegawai">
+					<Route path='/pegawai'>
 						<Route index element={<Aktif />} />
-						<Route path="aktif" element={<Aktif />} />
-						<Route path="outsourcing" element={<Outsourcing />} />
-						<Route path="magang" element={<Magang />} />
+						<Route path='aktif' element={<Aktif />} />
+						<Route path='outsourcing' element={<Outsourcing />} />
+						<Route path='magang' element={<Magang />} />
 					</Route>
 				</Route>
-				<Route path="/login" element={<Login />} />
+				<Route path='/login' element={<Login />} />
 			</Routes>
 		</BrowserRouter>
 	);

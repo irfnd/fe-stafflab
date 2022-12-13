@@ -13,7 +13,7 @@ export default function Aktif() {
 	const totalPages = 10;
 
 	return (
-		<Flex direction="column" w="full" gap={8}>
+		<Flex direction='column' w='full' gap={8}>
 			<SearchForm />
 			<PegawaiAktifList />
 			<BasePagination handlePage={{ Page, setPage, totalPages }} />

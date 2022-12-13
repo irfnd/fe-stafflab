@@ -1,7 +1,7 @@
 import { Home, UserCheck, UserCog, UserPlus, Users } from "lucide-react";
 
 export const BREADCRUMBS = [
-	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard", isIndex: true },
+	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard" },
 	{ path: "/login", title: "Login" },
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
 	{ path: "/pegawai/aktif", title: "Pegawai Aktif", breadcrumb: "Aktif", isIndex: true },
