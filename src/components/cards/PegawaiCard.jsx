@@ -41,6 +41,12 @@ export default function PegawaiCard({ pegawai }) {
 							{pegawai?.stock} Divisi
 						</Text>
 					</Flex>
+					<Flex align='center' gap={2}>
+						{/* <Icon as={PackageSearch} fontSize={22} color="purple.500" /> */}
+						<Text fontSize={16} noOfLines={1}>
+							{pegawai?.stock} Cabang
+						</Text>
+					</Flex>
 				</Flex>
 			</Flex>
 		</Flex>

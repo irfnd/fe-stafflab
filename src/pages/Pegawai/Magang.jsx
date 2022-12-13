@@ -1,14 +1,19 @@
 // Styles & Icons
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 // Components
 import SearchForm from "@/components/forms/SearchForm";
+import BasePagination from "@/components/layouts/paginations/BasePagination";
+import PegawaiMagangList from "@/components/lists/PegawaiMagangList";
 
 export default function Magang() {
+	const totalPages = 10;
+
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<SearchForm />
-			<Text>Pegawai Magang Page</Text>
+			<PegawaiMagangList />
+			<BasePagination totalPages={totalPages} />
 		</Flex>
 	);
 }
