@@ -46,6 +46,7 @@ export default function InputFile({ name, label, order, file }) {
 
 	const bgFileInput = useColorModeValue("gray.100", "gray.800");
 	const borderColorFileInput = useColorModeValue("gray.200", "whiteAlpha.300");
+	const borderColorFileInputError = useColorModeValue("red.500", "red.300");
 	const TextColorFileInput = useColorModeValue("gray.500", "whiteAlpha.300");
 	const colorError = useColorModeValue("red.500", "red.300");
 
@@ -58,8 +59,8 @@ export default function InputFile({ name, label, order, file }) {
 				w='full'
 				h={12}
 				bg={bgFileInput}
-				borderWidth={1}
-				borderColor={borderColorFileInput}
+				borderWidth={messages || errors[name] ? 2 : 1}
+				borderColor={messages || errors[name] ? borderColorFileInputError : borderColorFileInput}
 				shadow='md'
 				rounded='md'
 				paddingInlineStart={4}

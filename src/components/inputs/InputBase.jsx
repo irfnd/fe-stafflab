@@ -30,7 +30,11 @@ export default function InputBase({ type = "text", name, label, order, leftAddon
 				{rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
 				{rightElement && <InputRightElement>{rightElement}</InputRightElement>}
 			</InputGroup>
-			{errors[name] && <FormErrorMessage>*{errors[name].message}</FormErrorMessage>}
+			{errors[name] && (
+				<FormErrorMessage fontSize='sm' fontStyle='italic'>
+					*{errors[name].message}
+				</FormErrorMessage>
+			)}
 		</FormControl>
 	);
 }

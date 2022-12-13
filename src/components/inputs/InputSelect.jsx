@@ -19,7 +19,11 @@ export default function InputSelect({ name, label, options, order, ...props }) {
 					</option>
 				))}
 			</Select>
-			{errors[name] && <FormErrorMessage>*{errors[name].message}</FormErrorMessage>}
+			{errors[name] && (
+				<FormErrorMessage fontSize='sm' fontStyle='italic'>
+					*{errors[name].message}
+				</FormErrorMessage>
+			)}
 		</FormControl>
 	);
 }

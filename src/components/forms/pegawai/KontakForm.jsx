@@ -14,7 +14,15 @@ export default function KontakForm() {
 			</Heading>
 			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
 				<Input name='email' type='email' label='Email' placeholder='Masukan Email' shadow='md' rounded='md' />
-				<Input name='noTelepon' type='tel' label='Nomor Telepon' placeholder='Masukan Nomor Telepon' leftAddon='+62' shadow='md' rounded='md' />
+				<Input
+					name='noTelepon'
+					type='number'
+					label='Nomor Telepon'
+					placeholder='Masukan Nomor Telepon'
+					leftAddon='+62'
+					shadow='md'
+					rounded='md'
+				/>
 			</SimpleGrid>
 		</Flex>
 	);

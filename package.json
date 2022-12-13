@@ -32,7 +32,8 @@
 		"react-router-dom": "^6.4.5",
 		"react-use": "^17.4.0",
 		"use-react-router-breadcrumbs": "^4.0.1",
-		"yup": "^0.32.11"
+		"yup": "^0.32.11",
+		"yup-password": "^0.2.2"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.20.5",

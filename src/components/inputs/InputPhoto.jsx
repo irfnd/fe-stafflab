@@ -13,7 +13,7 @@ export default function InputPhoto({ name, label, file, h }) {
 	const fileExtensions = allowedFile[file].extensions.map((el) => el).join(", ");
 	const fileMaxSize = allowedFile[file].maxSize;
 
-	const { register, formState, setValue, getValues } = useFormContext();
+	const { register, formState, setValue, getValues, clearErrors } = useFormContext();
 	const { formName } = register(name);
 	const { errors } = formState;
 
@@ -33,6 +33,7 @@ export default function InputPhoto({ name, label, file, h }) {
 			if (SelectedFile?.preview) URL.revokeObjectURL(SelectedFile.preview);
 			setSelectedFile({ ...accepted[0], preview: URL.createObjectURL(accepted[0]) });
 			setValue(name, accepted);
+			clearErrors(name);
 			setMessages(null);
 		}
 	};
@@ -48,6 +49,7 @@ export default function InputPhoto({ name, label, file, h }) {
 
 	const bgFileInput = useColorModeValue("gray.100", "gray.800");
 	const borderColorFileInput = useColorModeValue("gray.200", "whiteAlpha.300");
+	const borderColorFileInputError = useColorModeValue("red.500", "red.300");
 	const TextColorFileInput = useColorModeValue("gray.500", "whiteAlpha.300");
 	const colorError = useColorModeValue("red.500", "red.300");
 
@@ -61,8 +63,8 @@ export default function InputPhoto({ name, label, file, h }) {
 				align='center'
 				h={h}
 				bg={bgFileInput}
-				borderWidth={1}
-				borderColor={borderColorFileInput}
+				borderWidth={messages || errors[name] ? 2 : 1}
+				borderColor={messages || errors[name] ? borderColorFileInputError : borderColorFileInput}
 				shadow='md'
 				rounded='md'
 				gap={4}

@@ -1,9 +1,10 @@
 // Components
 import InputBase from "@/components/inputs/InputBase";
-import InputPassword from "@/components/inputs/InputPassword";
-import InputSelect from "@/components/inputs/InputSelect";
 import InputFile from "@/components/inputs/InputFile";
+import InputNumber from "@/components/inputs/InputNumber";
+import InputPassword from "@/components/inputs/InputPassword";
 import InputPhoto from "@/components/inputs/InputPhoto";
+import InputSelect from "@/components/inputs/InputSelect";
 
 export default function Input({ type, ...props }) {
 	switch (type) {
@@ -15,6 +16,8 @@ export default function Input({ type, ...props }) {
 			return <InputFile {...props} />;
 		case "photo":
 			return <InputPhoto {...props} />;
+		case "number":
+			return <InputNumber {...props} />;
 		default:
 			return <InputBase type={type} {...props} />;
 	}
