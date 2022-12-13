@@ -11,7 +11,7 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"prepare": "husky install",
-		"lint": "eslint . --cache --fix",
+		"lint": "eslint . --fix",
 		"format": "prettier --loglevel warn --write \"**/*.{js,jsx,json,md}\""
 	},
 	"dependencies": {
@@ -47,7 +47,7 @@
 		"vite": "^4.0.1"
 	},
 	"lint-staged": {
-		"*.{js,jsx}": "eslint --cache --fix",
+		"*.{js,jsx}": "eslint --fix",
 		"*.{js,jsx,md}": "prettier --write"
 	}
 }
