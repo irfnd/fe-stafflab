@@ -1,3 +1,5 @@
+import useInstansi from "@/helpers/hooks/useInstansi";
+
 // Styles & Icons
 import { Flex, Heading, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 
@@ -6,6 +8,8 @@ import Input from "@/components/inputs/Input";
 import { StatusPegawai } from "@/constants/InputProps";
 
 export default function IdentitasForm() {
+	const instansi = useInstansi()?.instansi?.map((el) => ({ value: el.id, text: el.nama }));
+
 	const bgSection = useColorModeValue("white", "gray.800");
 
 	return (
@@ -32,11 +36,11 @@ export default function IdentitasForm() {
 					/>
 				</Flex>
 			</Flex>
+			<Input type='select' name='instansi' label='Instansi' placeholder='Masukan Instansi' options={instansi} shadow='md' rounded='md' />
 			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
-				<Input name='jabatan' label='Jabatan' placeholder='Masukan Jabatan' shadow='md' rounded='md' />
 				<Input name='divisi' label='Divisi' placeholder='Masukan Divisi' shadow='md' rounded='md' />
+				<Input name='jabatan' label='Jabatan' placeholder='Masukan Jabatan' shadow='md' rounded='md' />
 			</SimpleGrid>
-			<Input name='instansi' label='Instansi' placeholder='Masukan Instansi' shadow='md' rounded='md' />
 		</Flex>
 	);
 }

@@ -5,11 +5,12 @@ import InputNumber from "@/components/inputs/InputNumber";
 import InputPassword from "@/components/inputs/InputPassword";
 import InputPhoto from "@/components/inputs/InputPhoto";
 import InputSelect from "@/components/inputs/InputSelect";
+import InputTextarea from "@/components/inputs/InputTextarea";
 
 export default function Input({ type, ...props }) {
 	switch (type) {
 		case "password":
-			return <InputPassword type={type} {...props} />;
+			return <InputPassword {...props} />;
 		case "select":
 			return <InputSelect {...props} />;
 		case "file":
@@ -18,6 +19,8 @@ export default function Input({ type, ...props }) {
 			return <InputPhoto {...props} />;
 		case "number":
 			return <InputNumber {...props} />;
+		case "textarea":
+			return <InputTextarea {...props} />;
 		default:
 			return <InputBase type={type} {...props} />;
 	}

@@ -22,15 +22,15 @@ export default function SidebarMenu({ onClose }) {
 	const [NestedOpen, setNestedOpen] = useState([]);
 	const location = useLocation();
 	const navigate = useNavigate();
+	const sidebarMenu = Object.values(SIDEBARS);
 
 	const activeLink = useColorModeValue("cyan.400", "cyan.200");
 	const activeNestedLink = useColorModeValue("gray.100", "gray.700");
 	const expandTextLink = useColorModeValue("gray.800", "white");
-	const sidebarMenu = Object.values(SIDEBARS);
 
 	useEffect(() => {
 		const getNestedMenu = sidebarMenu.map((el, index) => ({ index, ...{ ...(el.children ? el : null) } })).filter((el) => el.path);
-		const getIndex = getNestedMenu.map((el) => location.pathname.includes(el.path) && el.index)[0];
+		const getIndex = getNestedMenu.map((el) => location.pathname.includes(el.path) && el.index).filter((el) => el !== false)[0];
 		setNestedOpen(getIndex ? [getIndex] : []);
 	}, [location]);
 

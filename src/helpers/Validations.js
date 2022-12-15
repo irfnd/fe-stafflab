@@ -40,9 +40,15 @@ export const PegawaiSchema = yup.object({
 	tempatLahir: yup.string().trim().max(20, "Tempat lahir harus berisi kurang dari 20 karakter!").required("Tempat lahir wajib diisi!"),
 });
 
+export const InstansiSchema = yup.object({
+	nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama Instansi wajib diisi"),
+	alamat: yup.string().trim().max(300, "Alamat instansi harus berisi kurang dari 300 karakter!").required("Alamat instansi wajib diisi!"),
+});
+
 const validations = {
 	LoginSchema,
 	PegawaiSchema,
+	InstansiSchema,
 };
 
 export default validations;

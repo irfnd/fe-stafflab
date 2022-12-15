@@ -1,11 +1,13 @@
+import { Navigate } from "react-router-dom";
+
 // Styles & Icons
-import { Text } from "@chakra-ui/react";
 
 // Components
-import AuthLayout from "@/components/layouts/AuthLayout";
 import LoginForm from "@/components/forms/LoginForm";
+import AuthLayout from "@/components/layouts/AuthLayout";
 
-export default function Login() {
+export default function Login({ session }) {
+	if (session) return <Navigate to='/' />;
 	return (
 		<AuthLayout>
 			<LoginForm />

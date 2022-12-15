@@ -3,18 +3,18 @@ import { useFormContext } from "react-hook-form";
 // Styles & Icons
 import {
 	FormControl,
-	FormLabel,
 	FormErrorMessage,
-	Input,
+	FormLabel,
 	InputGroup,
 	InputLeftAddon,
-	InputRightAddon,
 	InputLeftElement,
+	InputRightAddon,
 	InputRightElement,
+	Textarea,
 	useColorModeValue,
 } from "@chakra-ui/react";
 
-export default function InputBase({ type = "text", name, label, order, leftAddon, rightAddon, leftElement, rightElement, ...props }) {
+export default function InputTextarea({ name, label, order, leftAddon, rightAddon, leftElement, rightElement, ...props }) {
 	const { register, formState } = useFormContext();
 	const { errors } = formState;
 
@@ -27,12 +27,12 @@ export default function InputBase({ type = "text", name, label, order, leftAddon
 				<InputGroup size='lg' bg={bgInput} rounded={props.rounded} shadow={props.shadow}>
 					{leftAddon && <InputLeftAddon>{leftAddon}</InputLeftAddon>}
 					{leftElement && <InputLeftElement>{leftElement}</InputLeftElement>}
-					<Input type={type} focusBorderColor='cyan.500' {...props} {...register(name)} />
+					<Textarea focusBorderColor='cyan.500' {...props} {...register(name)} />
 					{rightAddon && <InputRightAddon>{rightAddon}</InputRightAddon>}
 					{rightElement && <InputRightElement>{rightElement}</InputRightElement>}
 				</InputGroup>
 			) : (
-				<Input type={type} size='lg' focusBorderColor='cyan.500' bg={bgInput} {...props} {...register(name)} />
+				<Textarea size='lg' focusBorderColor='cyan.500' bg={bgInput} {...props} {...register(name)} />
 			)}
 			{errors[name] && (
 				<FormErrorMessage fontSize='sm' fontStyle='italic'>
