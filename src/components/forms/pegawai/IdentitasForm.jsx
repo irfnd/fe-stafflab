@@ -1,4 +1,6 @@
+import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
+import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -7,10 +9,9 @@ import { Flex, Heading, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 
 // Components & Constants
 import Input from "@/components/inputs/Input";
-import { StatusPegawai } from "@/constants/InputProps";
-import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 
 export default function IdentitasForm() {
+	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
 
@@ -35,8 +36,7 @@ export default function IdentitasForm() {
 						name='status'
 						label='Status'
 						placeholder='Pilih Status'
-						options={StatusPegawai}
-						defaultValue='magang'
+						options={statusPegawai?.filter((el) => el.nama !== "Aktif").map((el) => ({ value: el.id, text: el.nama }))}
 						shadow='md'
 						rounded='md'
 					/>
@@ -46,7 +46,7 @@ export default function IdentitasForm() {
 				type='select'
 				name='instansi'
 				label='Instansi'
-				placeholder='Masukan Instansi'
+				placeholder='Pilih Instansi'
 				options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
 				shadow='md'
 				rounded='md'
@@ -56,7 +56,7 @@ export default function IdentitasForm() {
 					type='select'
 					name='divisi'
 					label='Divisi'
-					placeholder='Masukan Divisi'
+					placeholder='Pilih Divisi'
 					options={divisi?.filter((el) => el.idInstansi === parseInt(watch("instansi"), 10)).map((el) => ({ value: el.id, text: el.nama }))}
 					shadow='md'
 					rounded='md'

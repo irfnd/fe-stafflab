@@ -1,36 +1,42 @@
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DivisiSchema } from "@/helpers/Validations";
+import { StatusPegawaiSchema } from "@/helpers/Validations";
 import Supabase from "@/helpers/Supabase";
 
 // Styles & Icons
 import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useToast } from "@chakra-ui/react";
 
 // Components
-import DivisiForm from "@/components/forms/divisi/DivisiForm";
+import StatusPegawaiForm from "@/components/forms/statusPegawai/StatusPegawaiForm";
 
-export default function DivisiModal({ type = "add", disclosure, divisi = null }) {
+export default function StatusPegawaiModal({ type = "add", disclosure, statusPegawai = null }) {
 	const { isOpen, onClose } = disclosure;
 	const [loading, setLoading] = useState(false);
 
-	const resolver = yupResolver(DivisiSchema);
+	const resolver = yupResolver(StatusPegawaiSchema);
 	const mainForm = useForm({ resolver, mode: "onChange" });
 	const toast = useToast();
 
 	useEffect(() => {
-		mainForm.reset({ nama: divisi?.nama, idInstansi: divisi?.idInstansi });
-	}, [divisi]);
+		mainForm.reset({
+			nama: statusPegawai?.nama,
+			idInstansi: statusPegawai?.idInstansi,
+			idDivisi: statusPegawai?.idDivisi,
+		});
+	}, [statusPegawai]);
 
 	const onSubmit = async (data) => {
 		clearTimeout();
 		setLoading(true);
 		const { error } =
-			type === "add" ? await Supabase.from("divisi").insert(data).single() : await Supabase.from("divisi").update(data).eq("id", divisi?.id);
+			type === "add"
+				? await Supabase.from("status").insert(data).single()
+				: await Supabase.from("status").update(data).eq("id", statusPegawai?.id);
 		if (error) {
 			setLoading(false);
 			toast({
-				title: type === "add" ? "Gagal Menambahkan Divisi." : "Gagal Memperbarui Divisi.",
+				title: type === "add" ? "Gagal Menambahkan Status Pegawai." : "Gagal Memperbarui Status Pegawai.",
 				description: error.message,
 				status: "error",
 				position: "top",
@@ -40,8 +46,8 @@ export default function DivisiModal({ type = "add", disclosure, divisi = null })
 		} else {
 			setLoading(false);
 			toast({
-				title: type === "add" ? "Berhasil Menambahkan Divisi." : "Berhasil Memperbarui Divisi.",
-				description: type === "add" ? "Divisi baru telah ditambahkan!" : "Divisi telah diperbarui!",
+				title: type === "add" ? "Berhasil Menambahkan Status Pegawai." : "Berhasil Memperbarui Status Pegawai.",
+				description: type === "add" ? "Status pegawai baru telah ditambahkan!" : "Status pegawai telah diperbarui!",
 				status: "success",
 				position: "top",
 				duration: 2000,
@@ -60,18 +66,18 @@ export default function DivisiModal({ type = "add", disclosure, divisi = null })
 		<Modal size='lg' isOpen={isOpen} onClose={onCancel} isCentered>
 			<ModalOverlay />
 			<ModalContent p={4} mx={4}>
-				<ModalHeader>{type === "add" ? "Tambah Divisi" : "Perbarui Divisi"}</ModalHeader>
+				<ModalHeader>{type === "add" ? "Tambah Status Pegawai" : "Perbarui Status Pegawai"}</ModalHeader>
 				<ModalCloseButton size='lg' mt={4} mr={4} />
 				<ModalBody>
 					<FormProvider {...mainForm}>
-						<form id='form-divisi' onSubmit={mainForm.handleSubmit(onSubmit)}>
-							<DivisiForm />
+						<form id='form-status-pegawai' onSubmit={mainForm.handleSubmit(onSubmit)}>
+							<StatusPegawaiForm />
 						</form>
 					</FormProvider>
 				</ModalBody>
 
 				<ModalFooter display='flex' gap={2}>
-					<Button isLoading={loading} type='submit' form='form-divisi' colorScheme='cyan'>
+					<Button isLoading={loading} type='submit' form='form-status-pegawai' colorScheme='cyan'>
 						{type === "add" ? "Tambah" : "Perbarui"}
 					</Button>
 					<Button colorScheme='red' variant='ghost' onClick={onCancel}>

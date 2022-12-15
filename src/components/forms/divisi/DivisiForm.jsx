@@ -12,7 +12,6 @@ export default function DivisiForm() {
 
 	return (
 		<Flex direction='column' w='full' gap={4}>
-			<Input name='nama' label='Nama Divisi' placeholder='Masukan Nama Divisi' shadow='md' rounded='md' />
 			<Input
 				type='select'
 				name='idInstansi'
@@ -21,8 +20,8 @@ export default function DivisiForm() {
 				options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
 				shadow='md'
 				rounded='md'
-				rows={8}
 			/>
+			<Input name='nama' label='Nama Divisi' placeholder='Masukan Nama Divisi' shadow='md' rounded='md' />
 		</Flex>
 	);
 }

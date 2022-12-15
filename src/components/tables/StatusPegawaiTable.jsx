@@ -1,5 +1,4 @@
-import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
-import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
+import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -8,20 +7,19 @@ import { IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useC
 import { Edit, Trash } from "lucide-react";
 
 // Components
-import DivisiDeleteModal from "@/components/modals/divisi/DivisiDeleteModal";
-import DivisiModal from "@/components/modals/divisi/DivisiModal";
+import StatusPegawaiDeleteModal from "@/components/modals/statusPegawai/StatusPegawaiDeleteModal";
+import StatusPegawaiModal from "@/components/modals/statusPegawai/StatusPegawaiModal";
 
-export default function DivisiTable() {
-	const instansi = useSelector(InstansiSelector.selectAll);
-	const divisi = useSelector(DivisiSelector.selectAll);
-	const [selectedDivisi, setSelectedDivisi] = useState();
+export default function StatusPegawaiTable() {
+	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
+	const [selectedStatusPegawai, setSelectedStatusPegawai] = useState();
 	const disclosureUpdate = useDisclosure();
 	const disclosureDelete = useDisclosure();
 
 	const bgTable = useColorModeValue("white", "gray.800");
 
-	const modalOpen = (type, selectDivisi) => {
-		setSelectedDivisi(selectDivisi);
+	const modalOpen = (type, selectStatusPegawai) => {
+		setSelectedStatusPegawai(selectStatusPegawai);
 		if (type === "update") disclosureUpdate.onOpen();
 		if (type === "delete") disclosureDelete.onOpen();
 	};
@@ -33,10 +31,7 @@ export default function DivisiTable() {
 					<Thead>
 						<Tr>
 							<Th>
-								<Text>Nama Instansi</Text>
-							</Th>
-							<Th>
-								<Text>Nama Divisi</Text>
+								<Text>Nama Status Pegawai</Text>
 							</Th>
 							<Th>
 								<Text align='center'>Aksi</Text>
@@ -44,9 +39,8 @@ export default function DivisiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{divisi?.map((el) => (
+						{statusPegawai?.map((el) => (
 							<Tr key={el.id}>
-								<Td>{instansi?.filter((item) => item.id === el.idInstansi)[0]?.nama}</Td>
 								<Td>{el.nama}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
 									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
@@ -57,8 +51,8 @@ export default function DivisiTable() {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			<DivisiModal type='update' disclosure={disclosureUpdate} divisi={selectedDivisi} />
-			<DivisiDeleteModal disclosure={disclosureDelete} divisi={selectedDivisi} />
+			<StatusPegawaiModal type='update' disclosure={disclosureUpdate} statusPegawai={selectedStatusPegawai} />
+			<StatusPegawaiDeleteModal disclosure={disclosureDelete} statusPegawai={selectedStatusPegawai} />
 		</>
 	);
 }
