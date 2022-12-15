@@ -9,13 +9,16 @@ import "@fontsource/share-tech-mono";
 
 // Redux Toolkit
 import { Provider } from "react-redux";
-import store from "@/helpers/redux/store";
+import { PersistGate } from "redux-persist/integration/react";
+import store, { persistor } from "@/helpers/redux/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<ChakraProvider theme={theme}>
 		<ColorModeScript initialColorMode={theme.config.initialColorMode} />
 		<Provider store={store}>
-			<App />
+			<PersistGate loading={null} persistor={persistor}>
+				<App />
+			</PersistGate>
 		</Provider>
 	</ChakraProvider>
 );

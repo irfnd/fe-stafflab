@@ -1,3 +1,4 @@
+import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -7,19 +8,20 @@ import { IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useC
 import { Edit, Trash } from "lucide-react";
 
 // Components
-import InstansiDeleteModal from "@/components/modals/instansi/InstansiDeleteModal";
-import InstansiModal from "@/components/modals/instansi/InstansiModal";
+import DivisiDeleteModal from "@/components/modals/divisi/DivisiDeleteModal";
+import DivisiModal from "@/components/modals/divisi/DivisiModal";
 
-export default function InstansiTable() {
+export default function DivisiTable() {
 	const instansi = useSelector(InstansiSelector.selectAll);
-	const [selectedInstansi, setSelectedInstansi] = useState();
+	const divisi = useSelector(DivisiSelector.selectAll);
+	const [selectedDivisi, setSelectedDivisi] = useState();
 	const disclosureUpdate = useDisclosure();
 	const disclosureDelete = useDisclosure();
 
 	const bgTable = useColorModeValue("white", "gray.800");
 
-	const modalOpen = (type, selectInstansi) => {
-		setSelectedInstansi(selectInstansi);
+	const modalOpen = (type, selectDivisi) => {
+		setSelectedDivisi(selectDivisi);
 		if (type === "update") disclosureUpdate.onOpen();
 		if (type === "delete") disclosureDelete.onOpen();
 	};
@@ -31,10 +33,10 @@ export default function InstansiTable() {
 					<Thead>
 						<Tr>
 							<Th>
-								<Text>Nama Instansi</Text>
+								<Text>Nama Divisi</Text>
 							</Th>
 							<Th>
-								<Text>Alamat Instansi</Text>
+								<Text>Nama Instansi</Text>
 							</Th>
 							<Th>
 								<Text align='center'>Aksi</Text>
@@ -42,10 +44,10 @@ export default function InstansiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{instansi?.map((el) => (
+						{divisi?.map((el) => (
 							<Tr key={el.id}>
 								<Td>{el.nama}</Td>
-								<Td>{el.alamat}</Td>
+								<Td>{instansi?.filter((item) => item.id === el.idInstansi)[0]?.nama}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
 									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
 									<IconButton size='sm' colorScheme='red' icon={<Trash size={18} />} onClick={() => modalOpen("delete", el)} />
@@ -55,8 +57,8 @@ export default function InstansiTable() {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			<InstansiModal type='update' disclosure={disclosureUpdate} instansi={selectedInstansi} />
-			<InstansiDeleteModal disclosure={disclosureDelete} instansi={selectedInstansi} />
+			<DivisiModal type='update' disclosure={disclosureUpdate} divisi={selectedDivisi} />
+			<DivisiDeleteModal disclosure={disclosureDelete} divisi={selectedDivisi} />
 		</>
 	);
 }

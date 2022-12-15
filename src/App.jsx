@@ -1,5 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useAuth from "@/helpers/hooks/useAuth";
+import useInstansi from "@/helpers/hooks/useInstansi";
+import useDivisi from "@/helpers/hooks/useDivisi";
 
 // Page Component
 import BaseLayout from "@/components/layouts/BaseLayout";
@@ -17,6 +19,9 @@ import StatusPegawai from "@/pages/Perusahaan/StatusPegawai";
 
 export default function App() {
 	const { session } = useAuth();
+
+	useInstansi();
+	useDivisi();
 
 	return (
 		<BrowserRouter>

@@ -1,16 +1,27 @@
 // Styles & Icons
-import { Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
+import { Plus } from "lucide-react";
 
 // Components
-import BasePagination from "@/components/layouts/paginations/BasePagination";
+import DivisiTable from "@/components/tables/DivisiTable";
+import DivisiModal from "@/components/modals/divisi/DivisiModal";
 
 export default function Divisi() {
-	const totalPages = 10;
+	const disclosureAdd = useDisclosure();
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
-			<Text>Instansi Perusahaan</Text>
-			<BasePagination totalPages={totalPages} />
+			<Button
+				colorScheme='cyan'
+				w={{ base: "full", md: "fit-content" }}
+				leftIcon={<Plus size={20} />}
+				shadow='md'
+				onClick={disclosureAdd.onOpen}
+			>
+				Tambah Divisi
+			</Button>
+			<DivisiTable />
+			<DivisiModal disclosure={disclosureAdd} />
 		</Flex>
 	);
 }

@@ -1,4 +1,6 @@
-import useInstansi from "@/helpers/hooks/useInstansi";
+import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
+import { useFormContext } from "react-hook-form";
+import { useSelector } from "react-redux";
 
 // Styles & Icons
 import { Flex, Heading, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
@@ -6,9 +8,13 @@ import { Flex, Heading, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 // Components & Constants
 import Input from "@/components/inputs/Input";
 import { StatusPegawai } from "@/constants/InputProps";
+import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 
 export default function IdentitasForm() {
-	const instansi = useInstansi()?.instansi?.map((el) => ({ value: el.id, text: el.nama }));
+	const instansi = useSelector(InstansiSelector.selectAll);
+	const divisi = useSelector(DivisiSelector.selectAll);
+
+	const { watch } = useFormContext();
 
 	const bgSection = useColorModeValue("white", "gray.800");
 
@@ -36,9 +42,25 @@ export default function IdentitasForm() {
 					/>
 				</Flex>
 			</Flex>
-			<Input type='select' name='instansi' label='Instansi' placeholder='Masukan Instansi' options={instansi} shadow='md' rounded='md' />
+			<Input
+				type='select'
+				name='instansi'
+				label='Instansi'
+				placeholder='Masukan Instansi'
+				options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
+				shadow='md'
+				rounded='md'
+			/>
 			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
-				<Input name='divisi' label='Divisi' placeholder='Masukan Divisi' shadow='md' rounded='md' />
+				<Input
+					type='select'
+					name='divisi'
+					label='Divisi'
+					placeholder='Masukan Divisi'
+					options={divisi?.filter((el) => el.idInstansi === parseInt(watch("instansi"), 10)).map((el) => ({ value: el.id, text: el.nama }))}
+					shadow='md'
+					rounded='md'
+				/>
 				<Input name='jabatan' label='Jabatan' placeholder='Masukan Jabatan' shadow='md' rounded='md' />
 			</SimpleGrid>
 		</Flex>
