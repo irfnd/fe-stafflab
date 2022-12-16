@@ -13,7 +13,9 @@ export default function useAuth() {
 		});
 
 		Supabase.auth.onAuthStateChange((_event, currentSession) => {
-			dispatch(AuthActions.setSession(currentSession));
+			if (currentSession?.user?.app_metadata?.role === "ADMIN") {
+				dispatch(AuthActions.setSession(currentSession));
+			}
 		});
 	}, []);
 
