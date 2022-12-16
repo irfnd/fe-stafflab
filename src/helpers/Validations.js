@@ -40,13 +40,19 @@ export const PegawaiSchema = yup.object({
 });
 
 export const InstansiSchema = yup.object({
-	nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi"),
+	nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi!"),
 	alamat: yup.string().trim().max(300, "Alamat instansi harus berisi kurang dari 300 karakter!").required("Alamat instansi wajib diisi!"),
 });
 
 export const DivisiSchema = yup.object({
-	nama: yup.string().trim().max(100, "Nama divisi harus berisi kurang dari 100 karakter!").required("Nama divisi wajib diisi"),
+	nama: yup.string().trim().max(100, "Nama divisi harus berisi kurang dari 100 karakter!").required("Nama divisi wajib diisi!"),
 	idInstansi: yup.string().trim().required("Nama instansi wajib diisi!"),
+});
+
+export const JabatanSchema = yup.object({
+	nama: yup.string().trim().max(100, "Nama jabatan harus berisi kurang dari 100 karakter!").required("Nama jabatan wajib diisi!"),
+	idInstansi: yup.string().trim().required("Nama instansi wajib diisi!"),
+	idDivisi: yup.string().trim().required("Nama divisi wajib diisi!"),
 });
 
 export const StatusPegawaiSchema = yup.object({
@@ -58,6 +64,7 @@ const validations = {
 	PegawaiSchema,
 	InstansiSchema,
 	DivisiSchema,
+	JabatanSchema,
 	StatusPegawaiSchema,
 };
 

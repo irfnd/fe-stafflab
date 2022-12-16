@@ -1,6 +1,7 @@
+import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
-import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -14,6 +15,7 @@ export default function IdentitasForm() {
 	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
+	const jabatan = useSelector(JabatanSelector.selectAll);
 
 	const { watch } = useFormContext();
 
@@ -61,7 +63,17 @@ export default function IdentitasForm() {
 					shadow='md'
 					rounded='md'
 				/>
-				<Input name='jabatan' label='Jabatan' placeholder='Masukan Jabatan' shadow='md' rounded='md' />
+				<Input
+					type='select'
+					name='jabatan'
+					label='Jabatan'
+					placeholder='Pilih Jabatan'
+					options={jabatan
+						?.filter((el) => el.idInstansi === parseInt(watch("instansi"), 10) && el.idDivisi === parseInt(watch("divisi"), 10))
+						.map((el) => ({ value: el.id, text: el.nama }))}
+					shadow='md'
+					rounded='md'
+				/>
 			</SimpleGrid>
 		</Flex>
 	);

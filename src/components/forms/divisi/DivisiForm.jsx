@@ -16,7 +16,7 @@ export default function DivisiForm() {
 				type='select'
 				name='idInstansi'
 				label='Nama Instansi'
-				placeholder='Masukan Nama Instansi'
+				placeholder='Pilih Nama Instansi'
 				options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
 				shadow='md'
 				rounded='md'

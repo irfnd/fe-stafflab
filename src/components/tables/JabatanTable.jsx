@@ -1,5 +1,6 @@
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
+import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -8,20 +9,21 @@ import { IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useC
 import { Edit, Trash } from "lucide-react";
 
 // Components
-import DivisiDeleteModal from "@/components/modals/divisi/DivisiDeleteModal";
-import DivisiModal from "@/components/modals/divisi/DivisiModal";
+import JabatanDeleteModal from "@/components/modals/jabatan/JabatanDeleteModal";
+import JabatanModal from "@/components/modals/jabatan/JabatanModal";
 
-export default function DivisiTable() {
+export default function JabatanTable() {
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
-	const [selectedDivisi, setSelectedDivisi] = useState();
+	const jabatan = useSelector(JabatanSelector.selectAll);
+	const [selectedJabatan, setSelectedJabatan] = useState();
 	const disclosureUpdate = useDisclosure();
 	const disclosureDelete = useDisclosure();
 
 	const bgTable = useColorModeValue("white", "gray.800");
 
-	const modalOpen = (type, selectDivisi) => {
-		setSelectedDivisi(selectDivisi);
+	const modalOpen = (type, selectJabatan) => {
+		setSelectedJabatan(selectJabatan);
 		if (type === "update") disclosureUpdate.onOpen();
 		if (type === "delete") disclosureDelete.onOpen();
 	};
@@ -32,6 +34,9 @@ export default function DivisiTable() {
 				<Table size={{ base: "md", lg: "lg" }} variant='simple'>
 					<Thead>
 						<Tr>
+							<Th>
+								<Text>Nama Jabatan</Text>
+							</Th>
 							<Th>
 								<Text>Nama Divisi</Text>
 							</Th>
@@ -44,9 +49,10 @@ export default function DivisiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{divisi?.map((el) => (
+						{jabatan?.map((el) => (
 							<Tr key={el.id}>
 								<Td>{el.nama}</Td>
+								<Td>{divisi?.filter((item) => item.id === el.idDivisi)[0]?.nama}</Td>
 								<Td>{instansi?.filter((item) => item.id === el.idInstansi)[0]?.nama}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
 									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
@@ -57,8 +63,8 @@ export default function DivisiTable() {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			<DivisiModal type='update' disclosure={disclosureUpdate} divisi={selectedDivisi} />
-			<DivisiDeleteModal disclosure={disclosureDelete} divisi={selectedDivisi} />
+			<JabatanModal type='update' disclosure={disclosureUpdate} jabatan={selectedJabatan} />
+			<JabatanDeleteModal disclosure={disclosureDelete} jabatan={selectedJabatan} />
 		</>
 	);
 }
