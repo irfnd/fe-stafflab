@@ -11,8 +11,6 @@ import BaseBreadcrumbs from "@/components/layouts/breadcrumbs/BaseBreadcrumbs";
 import BaseFooter from "@/components/layouts/footers/BaseFooter";
 
 export default function BaseLayout({ session }) {
-	usePageTitle();
-
 	const disclosure = useDisclosure();
 	const bgContent = useColorModeValue("gray.100", "gray.900");
 	const colorBorder = useColorModeValue("gray.200", "transparent");

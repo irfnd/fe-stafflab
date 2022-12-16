@@ -1,9 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import useAuth from "@/helpers/hooks/useAuth";
-import useInstansi from "@/helpers/hooks/useInstansi";
 import useDivisi from "@/helpers/hooks/useDivisi";
-import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
+import useInstansi from "@/helpers/hooks/useInstansi";
 import useJabatan from "@/helpers/hooks/useJabatan";
+import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Page Component
 import BaseLayout from "@/components/layouts/BaseLayout";
@@ -14,10 +14,11 @@ import Aktif from "@/pages/Pegawai/Aktif";
 import Magang from "@/pages/Pegawai/Magang";
 import Outsourcing from "@/pages/Pegawai/Outsourcing";
 import Tambah from "@/pages/Pegawai/Tambah";
-import Instansi from "@/pages/Perusahaan/Instansi";
 import Divisi from "@/pages/Perusahaan/Divisi";
+import Instansi from "@/pages/Perusahaan/Instansi";
 import Jabatan from "@/pages/Perusahaan/Jabatan";
 import StatusPegawai from "@/pages/Perusahaan/StatusPegawai";
+import ProfilePegawai from "@/pages/Pegawai/ProfilePegawai";
 
 export default function App() {
 	const { session } = useAuth();
@@ -33,9 +34,12 @@ export default function App() {
 			<Routes>
 				<Route path='/' element={<BaseLayout session={session} />}>
 					<Route index element={<Home />} />
-					<Route path='/pegawai'>
+					<Route path='pegawai'>
 						<Route index element={<Aktif />} />
-						<Route path='aktif' element={<Aktif />} />
+						<Route path='aktif'>
+							<Route index element={<Aktif />} />
+							<Route path=':id' element={<ProfilePegawai />} />
+						</Route>
 						<Route path='outsourcing' element={<Outsourcing />} />
 						<Route path='magang' element={<Magang />} />
 						<Route path='tambah' element={<Tambah />} />
@@ -48,7 +52,7 @@ export default function App() {
 						<Route path='status-pegawai' element={<StatusPegawai />} />
 					</Route>
 				</Route>
-				<Route path='/login' element={<Login session={session} />} />
+				<Route path='login' element={<Login session={session} />} />
 			</Routes>
 		</BrowserRouter>
 	);

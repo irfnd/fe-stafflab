@@ -1,3 +1,4 @@
+import usePageTitle from "@/helpers/hooks/usePageTitle";
 import { NavLink } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
 
@@ -10,6 +11,7 @@ import { BREADCRUMBS } from "@/constants/Routes";
 
 export default function BaseBreadcrumbs() {
 	const breadcrumbs = useBreadcrumbs(BREADCRUMBS);
+	usePageTitle(breadcrumbs);
 
 	return (
 		<Breadcrumb spacing={2} separator={<ChevronRight color='#00B5D8' size={18} />}>

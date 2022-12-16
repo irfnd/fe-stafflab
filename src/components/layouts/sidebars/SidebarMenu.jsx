@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Styles & Icons
 import {
@@ -21,6 +21,7 @@ import { SIDEBARS } from "@/constants/Routes";
 export default function SidebarMenu({ onClose }) {
 	const [NestedOpen, setNestedOpen] = useState([]);
 	const location = useLocation();
+	const params = useParams();
 	const navigate = useNavigate();
 	const sidebarMenu = Object.values(SIDEBARS);
 
@@ -78,14 +79,18 @@ export default function SidebarMenu({ onClose }) {
 								<Link as={NavLink} to={child.path} key={j} _hover={{ textDecor: "none" }} w='full' onClick={onClose}>
 									<Flex
 										bg={
-											child.isIndex
-												? (menu.path === location.pathname && activeLink) || (child.path === location.pathname && activeLink)
-												: child.path === location.pathname && activeLink
+											!params?.id
+												? child.isIndex
+													? (menu.path === location.pathname && activeLink) || (child.path === location.pathname && activeLink)
+													: child.path === location.pathname && activeLink
+												: location.pathname.includes(child.path) && activeLink
 										}
 										color={
-											child.isIndex
-												? (menu.path === location.pathname && "gray.800") || (child.path === location.pathname && "gray.800")
-												: child.path === location.pathname && "gray.800"
+											!params?.id
+												? child.isIndex
+													? (menu.path === location.pathname && "gray.800") || (child.path === location.pathname && "gray.800")
+													: child.path === location.pathname && "gray.800"
+												: location.pathname.includes(child.path) && "gray.800"
 										}
 										transition='0.3s ease'
 										align='center'

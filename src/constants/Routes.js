@@ -6,6 +6,7 @@ export const BREADCRUMBS = [
 	// Pegawai
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
 	{ path: "/pegawai/aktif", title: "Pegawai Aktif", breadcrumb: "Aktif", isIndex: true },
+	{ path: "/pegawai/aktif/:id", title: "Pegawai Aktif", breadcrumb: "Aktif", isIndex: true },
 	{ path: "/pegawai/tambah", title: "Tambah Pegawai", breadcrumb: "Tambah" },
 	{ path: "/pegawai/outsourcing", title: "Pegawai Outsourcing", breadcrumb: "Outsourcing" },
 	{ path: "/pegawai/magang", title: "Pegawai Magang", breadcrumb: "Magang" },
