@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 
 // Styles & Icons
-import { Flex, Heading, SimpleGrid, useColorModeValue, IconButton } from "@chakra-ui/react";
+import { Flex, Heading, SimpleGrid, useColorModeValue, Button } from "@chakra-ui/react";
 import { Edit } from "lucide-react";
 
 // Components & Constants
@@ -15,13 +15,7 @@ import Input from "@/components/inputs/Input";
 
 export default function IdentitasSection() {
 	const [formDisabled, setFormDisabled] = useState(true);
-	const mainForm = useForm({
-		mode: "onChange",
-		defaultValues: {
-			nip: "19753027",
-			nama: "Irfandi Iqbal Abimanyu",
-		},
-	});
+	const mainForm = useForm({ mode: "onChange" });
 
 	const bgSection = useColorModeValue("white", "gray.800");
 
@@ -32,7 +26,9 @@ export default function IdentitasSection() {
 					<Heading textAlign={{ base: "center", md: "left" }} fontSize='2xl'>
 						Identitas Pegawai
 					</Heading>
-					<IconButton colorScheme='cyan' size='sm' icon={<Edit size={18} />} />
+					<Button variant='outline' colorScheme='cyan' size='sm' leftIcon={<Edit size={18} />}>
+						Edit
+					</Button>
 				</Flex>
 				<Flex direction={{ base: "column", md: "row" }} gap={6}>
 					<Flex direction='column' w={{ base: "full", md: "50%", xl: "30%" }} gap={2}>

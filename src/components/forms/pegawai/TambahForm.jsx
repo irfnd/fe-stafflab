@@ -6,7 +6,7 @@ import { PegawaiSchema } from "@/helpers/Validations";
 import { Button, Flex } from "@chakra-ui/react";
 
 // Components
-import DataDiriForm from "@/components/forms/pegawai/DataDiriForm";
+import DataPribadiForm from "@/components/forms/pegawai/DataPribadiForm";
 import DokumenLamaranForm from "@/components/forms/pegawai/DokumenLamaranForm";
 import IdentitasForm from "@/components/forms/pegawai/IdentitasForm";
 import KontakForm from "@/components/forms/pegawai/KontakForm";
@@ -22,7 +22,7 @@ export default function TambahForm() {
 			<form onSubmit={mainForm.handleSubmit(onSubmit)}>
 				<Flex direction='column' w='full' gap={8}>
 					<IdentitasForm />
-					<DataDiriForm />
+					<DataPribadiForm />
 					<KontakForm />
 					<DokumenLamaranForm />
 					<Flex justify='flex-end'>

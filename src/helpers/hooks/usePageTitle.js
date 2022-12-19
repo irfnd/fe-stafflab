@@ -11,12 +11,15 @@ export default function usePageTitle(breadcrumbs) {
 	const params = useParams();
 	useTitle(Title);
 
+	const getTitle = (routeParams) => {
+		if (Object.keys(routeParams).length < 0) return BREADCRUMBS.filter((el) => el.path === location.pathname)[0];
+		return breadcrumbs.filter((el) => el.match.pathname === location.pathname)[0].match.route;
+	};
+
 	useEffect(() => {
-		const { title } = params
-			? breadcrumbs.filter((el) => el.match.pathname === location.pathname)[0].match.route
-			: BREADCRUMBS.filter((el) => el.path === location.pathname)[0];
+		const { title } = getTitle(params);
 		setTitle(`StaffLab - ${title}`);
-	}, [location]);
+	}, [location, params]);
 
 	return null;
 }

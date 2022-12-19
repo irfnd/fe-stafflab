@@ -2,12 +2,12 @@
 import { Accordion } from "@chakra-ui/react";
 
 // Components
-import DataDiriAccordionItem from "@/components/accordions/pegawai/profile/DataDiriAccordionItem";
+import DataPribadiAccordionItem from "@/components/accordions/pegawai/profile/DataPribadiAccordionItem";
 
 export default function ProfileAccordion() {
 	return (
 		<Accordion allowToggle>
-			<DataDiriAccordionItem />
+			<DataPribadiAccordionItem />
 		</Accordion>
 	);
 }
