@@ -1,8 +1,7 @@
 import { Outlet, Navigate } from "react-router-dom";
-import usePageTitle from "@/helpers/hooks/usePageTitle";
 
 // Styles
-import { Flex, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import { Flex, useColorModeValue, useDisclosure, Spacer } from "@chakra-ui/react";
 
 // Components & Constants
 import BaseNavbar from "@/components/layouts/navbars/BaseNavbar";
@@ -25,6 +24,7 @@ export default function BaseLayout({ session }) {
 					direction='column'
 					borderLeftWidth={{ base: 0, md: 2 }}
 					borderLeftColor={{ base: "transparent", lg: colorBorder }}
+					grow='full'
 					ml={{ base: 0, lg: 80 }}
 					mt={20}
 					p={10}
@@ -32,6 +32,7 @@ export default function BaseLayout({ session }) {
 				>
 					<BaseBreadcrumbs />
 					<Outlet />
+					<Spacer />
 					<BaseFooter />
 				</Flex>
 			</Flex>

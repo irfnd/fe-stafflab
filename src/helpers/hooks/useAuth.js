@@ -9,11 +9,13 @@ export default function useAuth() {
 
 	useEffect(() => {
 		Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-			dispatch(AuthActions.setSession(currentSession));
+			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
+				dispatch(AuthActions.setSession(currentSession));
+			}
 		});
 
 		Supabase.auth.onAuthStateChange((_event, currentSession) => {
-			if (currentSession?.user?.app_metadata?.role === "ADMIN") {
+			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
 				dispatch(AuthActions.setSession(currentSession));
 			}
 		});

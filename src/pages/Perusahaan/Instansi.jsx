@@ -10,7 +10,7 @@ export default function Instansi() {
 	const disclosureAdd = useDisclosure();
 
 	return (
-		<Flex direction='column' w='full' gap={8}>
+		<Flex direction='column' w='full' h='full' gap={8}>
 			<Button
 				colorScheme='cyan'
 				w={{ base: "full", md: "fit-content" }}
