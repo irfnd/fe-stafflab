@@ -8,7 +8,7 @@ export default function useJabatan() {
 	const dispatch = useDispatch();
 
 	const fetchJabatan = async () => {
-		const { data } = await Supabase.from("jabatan").select("*").order("createdAt");
+		const { data } = await Supabase.from("jabatan").select("*");
 		if (data) dispatch(JabatanActions.set(data));
 	};
 

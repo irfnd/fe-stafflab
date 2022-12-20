@@ -8,7 +8,7 @@ export default function useGolongan() {
 	const dispatch = useDispatch();
 
 	const fetchGolongan = async () => {
-		const { data } = await Supabase.from("golongan").select("*").order("createdAt");
+		const { data } = await Supabase.from("golongan").select("*");
 		if (data) dispatch(GolonganActions.set(data));
 	};
 

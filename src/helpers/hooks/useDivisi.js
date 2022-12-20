@@ -8,7 +8,7 @@ export default function useDivisi() {
 	const dispatch = useDispatch();
 
 	const fetchDivisi = async () => {
-		const { data } = await Supabase.from("divisi").select("*").order("createdAt");
+		const { data } = await Supabase.from("divisi").select("*");
 		if (data) dispatch(DivisiActions.set(data));
 	};
 

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { StatusPegawaiSchema } from "@/helpers/Validations";
+import { GolonganSchema } from "@/helpers/Validations";
 import Supabase from "@/helpers/Supabase";
 
 // Styles & Icons
@@ -14,8 +14,8 @@ export default function GolonganModal({ type = "add", disclosure, golongan = nul
 	const { isOpen, onClose } = disclosure;
 	const [loading, setLoading] = useState(false);
 
-	// const resolver = yupResolver(StatusPegawaiSchema);
-	const mainForm = useForm({ mode: "onChange" });
+	const resolver = yupResolver(GolonganSchema);
+	const mainForm = useForm({ resolver, mode: "onChange" });
 	const toast = useToast();
 
 	useEffect(() => {

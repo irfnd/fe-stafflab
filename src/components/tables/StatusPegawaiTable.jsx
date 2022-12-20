@@ -3,7 +3,20 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 
 // Styles & Icons
-import { IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue, useDisclosure } from "@chakra-ui/react";
+import {
+	ButtonGroup,
+	IconButton,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Text,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue,
+	useDisclosure,
+} from "@chakra-ui/react";
 import { Edit, Trash } from "lucide-react";
 
 // Components
@@ -36,7 +49,7 @@ export default function StatusPegawaiTable() {
 							<Th>
 								<Text>Nama Status Pegawai</Text>
 							</Th>
-							<Th>
+							<Th w={4}>
 								<Text align='center'>Aksi</Text>
 							</Th>
 						</Tr>
@@ -46,9 +59,11 @@ export default function StatusPegawaiTable() {
 							<Tr key={el.id}>
 								<Td w={1}>{i + 1}</Td>
 								<Td>{el.nama}</Td>
-								<Td display='flex' justifyContent='center' gap={2}>
-									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
-									<IconButton size='sm' colorScheme='red' icon={<Trash size={18} />} onClick={() => modalOpen("delete", el)} />
+								<Td w={4}>
+									<ButtonGroup display='flex' justifyContent='center' w='full'>
+										<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
+										<IconButton size='sm' colorScheme='red' icon={<Trash size={18} />} onClick={() => modalOpen("delete", el)} />
+									</ButtonGroup>
 								</Td>
 							</Tr>
 						))}

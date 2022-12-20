@@ -2,6 +2,7 @@ import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
+import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -16,6 +17,7 @@ export default function IdentitasForm() {
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
 	const jabatan = useSelector(JabatanSelector.selectAll);
+	const golongan = useSelector(GolonganSelector.selectAll);
 
 	const { watch } = useFormContext();
 
@@ -44,16 +46,16 @@ export default function IdentitasForm() {
 					/>
 				</Flex>
 			</Flex>
-			<Input
-				type='select'
-				name='instansi'
-				label='Instansi'
-				placeholder='Pilih Instansi'
-				options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
-				shadow='md'
-				rounded='md'
-			/>
 			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+				<Input
+					type='select'
+					name='instansi'
+					label='Instansi'
+					placeholder='Pilih Instansi'
+					options={instansi?.map((el) => ({ value: el.id, text: el.nama }))}
+					shadow='md'
+					rounded='md'
+				/>
 				<Input
 					type='select'
 					name='divisi'
@@ -63,6 +65,8 @@ export default function IdentitasForm() {
 					shadow='md'
 					rounded='md'
 				/>
+			</SimpleGrid>
+			<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
 				<Input
 					type='select'
 					name='jabatan'
@@ -71,6 +75,15 @@ export default function IdentitasForm() {
 					options={jabatan
 						?.filter((el) => el.idInstansi === parseInt(watch("instansi"), 10) && el.idDivisi === parseInt(watch("divisi"), 10))
 						.map((el) => ({ value: el.id, text: el.nama }))}
+					shadow='md'
+					rounded='md'
+				/>
+				<Input
+					type='select'
+					name='golongan'
+					label='Golongan'
+					placeholder='Pilih Golongan'
+					options={golongan?.map((el) => ({ value: el.id, text: el.nama }))}
 					shadow='md'
 					rounded='md'
 				/>

@@ -8,7 +8,7 @@ export default function useStatusPegawai() {
 	const dispatch = useDispatch();
 
 	const fetchStatusPegawai = async () => {
-		const { data } = await Supabase.from("status").select("*").order("createdAt");
+		const { data } = await Supabase.from("status").select("*");
 		if (data) dispatch(StatusPegawaiActions.set(data));
 	};
 

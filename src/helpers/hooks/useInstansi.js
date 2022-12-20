@@ -8,7 +8,7 @@ export default function useInstansi() {
 	const dispatch = useDispatch();
 
 	const fetchInstansi = async () => {
-		const { data } = await Supabase.from("instansi").select("*").order("createdAt");
+		const { data } = await Supabase.from("instansi").select("*");
 		if (data) dispatch(InstansiActions.set(data));
 	};
 

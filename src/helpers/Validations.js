@@ -22,6 +22,7 @@ export const PegawaiSchema = yup.object({
 	divisi: yup.string().trim().required("Divisi wajib diisi!"),
 	email: yup.string().email("Email harus valid!").trim().required("Email wajib diisi!"),
 	foto: yup.string().required("Foto wajib diisi!").typeError("Foto wajib diisi!"),
+	golongan: yup.string().trim().required("Golongan pegawai wajib diisi!"),
 	instansi: yup.string().trim().required("Instansi wajib diisi!"),
 	jabatan: yup.string().trim().required("Jabatan wajib diisi!"),
 	jenisKelamin: yup.mixed().oneOf(JenisKelamin, "Pilih jenis kelamin yang tertera!").required("Jenis kelamin wajib diisi!"),
@@ -57,6 +58,11 @@ export const JabatanSchema = yup.object({
 
 export const StatusPegawaiSchema = yup.object({
 	nama: yup.string().trim().max(100, "Nama status pegawai harus berisi kurang dari 100 karakter!").required("Nama status pegawai wajib diisi"),
+});
+
+export const GolonganSchema = yup.object({
+	nama: yup.string().trim().max(50, "Nama golongan harus berisi kurang dari 50 karakter!").required("Nama golongan wajib diisi"),
+	keterangan: yup.string().trim().max(200, "Keterangan harus berisi kurang dari 200 karakter!").default(""),
 });
 
 const validations = {
