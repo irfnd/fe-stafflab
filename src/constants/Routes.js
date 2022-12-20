@@ -1,4 +1,4 @@
-import { Home, UserCheck, UserCog, UserPlus, Users, Building2, Network, Award, Tags, Factory } from "lucide-react";
+import { Home, UserCheck, UserCog, UserPlus, Users, Building2, Network, Award, Tags, Factory, Pocket } from "lucide-react";
 
 export const BREADCRUMBS = [
 	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard" },
@@ -16,6 +16,7 @@ export const BREADCRUMBS = [
 	{ path: "/perusahaan/divisi", title: "Divisi Perusahaan", breadcrumb: "Divisi" },
 	{ path: "/perusahaan/jabatan", title: "Jabatan Perusahaan", breadcrumb: "Jabatan" },
 	{ path: "/perusahaan/status-pegawai", title: "Status Pegawai Perusahaan", breadcrumb: "Status Pegawai" },
+	{ path: "/perusahaan/golongan", title: "Golongan Pegawai Perusahaan", breadcrumb: "Golongan" },
 ];
 
 export const SIDEBARS = {
@@ -40,6 +41,7 @@ export const SIDEBARS = {
 			{ path: "/perusahaan/divisi", name: "Divisi", icon: Network },
 			{ path: "/perusahaan/jabatan", name: "Jabatan", icon: Award },
 			{ path: "/perusahaan/status-pegawai", name: "Status Pegawai", icon: Tags },
+			{ path: "/perusahaan/golongan", name: "Golongan", icon: Pocket },
 		],
 	},
 };

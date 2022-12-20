@@ -30,6 +30,9 @@ export default function InstansiTable() {
 				<Table size={{ base: "md", lg: "lg" }} variant='simple'>
 					<Thead>
 						<Tr>
+							<Th w={1}>
+								<Text>#</Text>
+							</Th>
 							<Th>
 								<Text>Nama Instansi</Text>
 							</Th>
@@ -42,8 +45,9 @@ export default function InstansiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{instansi?.map((el) => (
+						{instansi?.map((el, i) => (
 							<Tr key={el.id}>
+								<Td w={1}>{i + 1}</Td>
 								<Td>{el.nama}</Td>
 								<Td>{el.alamat}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>

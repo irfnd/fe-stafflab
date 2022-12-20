@@ -30,6 +30,9 @@ export default function StatusPegawaiTable() {
 				<Table size={{ base: "md", lg: "lg" }} variant='simple'>
 					<Thead>
 						<Tr>
+							<Th w={1}>
+								<Text>#</Text>
+							</Th>
 							<Th>
 								<Text>Nama Status Pegawai</Text>
 							</Th>
@@ -39,8 +42,9 @@ export default function StatusPegawaiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{statusPegawai?.map((el) => (
+						{statusPegawai?.map((el, i) => (
 							<Tr key={el.id}>
+								<Td w={1}>{i + 1}</Td>
 								<Td>{el.nama}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
 									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />

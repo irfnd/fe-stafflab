@@ -3,6 +3,7 @@ import useDivisi from "@/helpers/hooks/useDivisi";
 import useInstansi from "@/helpers/hooks/useInstansi";
 import useJabatan from "@/helpers/hooks/useJabatan";
 import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
+import useGolongan from "@/helpers/hooks/useGolongan";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Page Component
@@ -18,6 +19,7 @@ import Divisi from "@/pages/Perusahaan/Divisi";
 import Instansi from "@/pages/Perusahaan/Instansi";
 import Jabatan from "@/pages/Perusahaan/Jabatan";
 import StatusPegawai from "@/pages/Perusahaan/StatusPegawai";
+import Golongan from "@/pages/Perusahaan/Golongan";
 import ProfilePegawai from "@/pages/Pegawai/ProfilePegawai";
 
 export default function App() {
@@ -27,6 +29,7 @@ export default function App() {
 	useDivisi();
 	useJabatan();
 	useStatusPegawai();
+	useGolongan();
 
 	return (
 		<BrowserRouter>
@@ -50,6 +53,7 @@ export default function App() {
 						<Route path='divisi' element={<Divisi />} />
 						<Route path='jabatan' element={<Jabatan />} />
 						<Route path='status-pegawai' element={<StatusPegawai />} />
+						<Route path='golongan' element={<Golongan />} />
 					</Route>
 				</Route>
 				<Route path='login' element={<Login session={session} />} />

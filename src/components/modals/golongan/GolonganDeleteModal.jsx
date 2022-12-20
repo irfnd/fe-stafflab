@@ -16,11 +16,11 @@ import {
 	Text,
 	useToast,
 } from "@chakra-ui/react";
-import { Tags } from "lucide-react";
+import { Pocket, ClipboardList } from "lucide-react";
 
 // Components
 
-export default function StatusPegawaiDeleteModal({ disclosure, statusPegawai }) {
+export default function GolonganDeleteModal({ disclosure, golongan }) {
 	const { isOpen, onClose } = disclosure;
 	const [loading, setLoading] = useState(false);
 
@@ -29,11 +29,11 @@ export default function StatusPegawaiDeleteModal({ disclosure, statusPegawai }) 
 	const onDelete = async () => {
 		clearTimeout();
 		setLoading(true);
-		const { error } = await Supabase.from("status").delete().eq("id", statusPegawai?.id);
+		const { error } = await Supabase.from("golongan").delete().eq("id", golongan?.id);
 		if (error) {
 			setLoading(false);
 			toast({
-				title: "Gagal Menghapus Status Pegawai.",
+				title: "Gagal Menghapus Golongan.",
 				description: error.message,
 				status: "error",
 				position: "top",
@@ -43,8 +43,8 @@ export default function StatusPegawaiDeleteModal({ disclosure, statusPegawai }) 
 		} else {
 			setLoading(false);
 			toast({
-				title: "Berhasil Menghapus Status Pegawai.",
-				description: "Status pegawai berhasil dihapus!",
+				title: "Berhasil Menghapus Golongan.",
+				description: "Golongan berhasil dihapus!",
 				status: "success",
 				position: "top",
 				duration: 2000,
@@ -57,15 +57,19 @@ export default function StatusPegawaiDeleteModal({ disclosure, statusPegawai }) 
 		<Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
 			<ModalOverlay />
 			<ModalContent p={4} mx={4}>
-				<ModalHeader>Hapus Status Pegawai</ModalHeader>
+				<ModalHeader>Hapus Golongan</ModalHeader>
 				<ModalCloseButton size='lg' mt={4} mr={4} />
 				<ModalBody display='flex' flexDirection='column' gap={2}>
-					<Text mb={4}>Apakah Anda yakin ingin menghapus status pegawai ini?</Text>
+					<Text mb={4}>Apakah Anda yakin ingin menghapus golongan ini?</Text>
 					<Flex align='center' gap={2}>
-						<Icon as={Tags} fontSize={20} color='cyan.500' />
+						<Icon as={Pocket} fontSize={20} color='cyan.500' />
 						<Text fontWeight='bold' fontSize='lg'>
-							{statusPegawai?.nama}
+							{golongan?.nama}
 						</Text>
+					</Flex>
+					<Flex align='center' gap={2}>
+						<Icon as={ClipboardList} fontSize={20} color='cyan.500' />
+						<Text>{golongan?.keterangan}</Text>
 					</Flex>
 				</ModalBody>
 

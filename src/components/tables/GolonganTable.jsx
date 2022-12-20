@@ -1,6 +1,4 @@
-import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
-import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
-import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
+import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -9,21 +7,19 @@ import { IconButton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useC
 import { Edit, Trash } from "lucide-react";
 
 // Components
-import JabatanDeleteModal from "@/components/modals/jabatan/JabatanDeleteModal";
-import JabatanModal from "@/components/modals/jabatan/JabatanModal";
+import GolonganDeleteModal from "@/components/modals/golongan/GolonganDeleteModal";
+import GolonganModal from "@/components/modals/golongan/GolonganModal";
 
-export default function JabatanTable() {
-	const instansi = useSelector(InstansiSelector.selectAll);
-	const divisi = useSelector(DivisiSelector.selectAll);
-	const jabatan = useSelector(JabatanSelector.selectAll);
-	const [selectedJabatan, setSelectedJabatan] = useState();
+export default function GolonganTable() {
+	const golongan = useSelector(GolonganSelector.selectAll);
+	const [selectedGolongan, setSelectedGolongan] = useState();
 	const disclosureUpdate = useDisclosure();
 	const disclosureDelete = useDisclosure();
 
 	const bgTable = useColorModeValue("white", "gray.800");
 
-	const modalOpen = (type, selectJabatan) => {
-		setSelectedJabatan(selectJabatan);
+	const modalOpen = (type, selectGolongan) => {
+		setSelectedGolongan(selectGolongan);
 		if (type === "update") disclosureUpdate.onOpen();
 		if (type === "delete") disclosureDelete.onOpen();
 	};
@@ -38,13 +34,10 @@ export default function JabatanTable() {
 								<Text>#</Text>
 							</Th>
 							<Th>
-								<Text>Nama Jabatan</Text>
+								<Text>Nama Golongan</Text>
 							</Th>
 							<Th>
-								<Text>Nama Divisi</Text>
-							</Th>
-							<Th>
-								<Text>Nama Instansi</Text>
+								<Text>Keterangan</Text>
 							</Th>
 							<Th>
 								<Text align='center'>Aksi</Text>
@@ -52,12 +45,11 @@ export default function JabatanTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{jabatan?.map((el, i) => (
+						{golongan?.map((el, i) => (
 							<Tr key={el.id}>
 								<Td w={1}>{i + 1}</Td>
 								<Td>{el.nama}</Td>
-								<Td>{divisi?.filter((item) => item.id === el.idDivisi)[0]?.nama}</Td>
-								<Td>{instansi?.filter((item) => item.id === el.idInstansi)[0]?.nama}</Td>
+								<Td>{el.keterangan}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
 									<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
 									<IconButton size='sm' colorScheme='red' icon={<Trash size={18} />} onClick={() => modalOpen("delete", el)} />
@@ -67,8 +59,8 @@ export default function JabatanTable() {
 					</Tbody>
 				</Table>
 			</TableContainer>
-			<JabatanModal type='update' disclosure={disclosureUpdate} jabatan={selectedJabatan} />
-			<JabatanDeleteModal disclosure={disclosureDelete} jabatan={selectedJabatan} />
+			<GolonganModal type='update' disclosure={disclosureUpdate} golongan={selectedGolongan} />
+			<GolonganDeleteModal disclosure={disclosureDelete} golongan={selectedGolongan} />
 		</>
 	);
 }

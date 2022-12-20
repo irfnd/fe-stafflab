@@ -32,6 +32,9 @@ export default function DivisiTable() {
 				<Table size={{ base: "md", lg: "lg" }} variant='simple'>
 					<Thead>
 						<Tr>
+							<Th w={1}>
+								<Text>#</Text>
+							</Th>
 							<Th>
 								<Text>Nama Divisi</Text>
 							</Th>
@@ -44,8 +47,9 @@ export default function DivisiTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{divisi?.map((el) => (
+						{divisi?.map((el, i) => (
 							<Tr key={el.id}>
+								<Td w={1}>{i + 1}</Td>
 								<Td>{el.nama}</Td>
 								<Td>{instansi?.filter((item) => item.id === el.idInstansi)[0]?.nama}</Td>
 								<Td display='flex' justifyContent='center' gap={2}>
