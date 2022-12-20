@@ -19,12 +19,11 @@ export default function BaseLayout({ session }) {
 		<Flex direction='column' jusfity='space-between' minH='100vh' w='full'>
 			<BaseSidebar disclosure={disclosure} />
 			<BaseNavbar disclosure={disclosure} />
-			<Flex direction='column' bg={bgContent} minH='100vh'>
+			<Flex direction='column' bg={bgContent} minH='100vh' w='full'>
 				<Flex
 					direction='column'
 					borderLeftWidth={{ base: 0, md: 2 }}
 					borderLeftColor={{ base: "transparent", lg: colorBorder }}
-					grow='full'
 					ml={{ base: 0, lg: 80 }}
 					mt={20}
 					p={10}
@@ -32,9 +31,9 @@ export default function BaseLayout({ session }) {
 				>
 					<BaseBreadcrumbs />
 					<Outlet />
-					<Spacer />
-					<BaseFooter />
 				</Flex>
+				<Spacer />
+				<BaseFooter />
 			</Flex>
 		</Flex>
 	);

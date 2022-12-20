@@ -7,7 +7,7 @@ export default function BaseFooter() {
 	const navigate = useNavigate();
 
 	return (
-		<Flex justify='center'>
+		<Flex justify='center' ml={{ base: 0, lg: 80 }} pb={10}>
 			<Text fontSize={{ base: 12, sm: 14, md: 16 }}>
 				&copy; {new Date().getFullYear()}{" "}
 				<Text
