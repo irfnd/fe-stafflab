@@ -1,3 +1,8 @@
+import useDivisi from "@/helpers/hooks/useDivisi";
+import useGolongan from "@/helpers/hooks/useGolongan";
+import useInstansi from "@/helpers/hooks/useInstansi";
+import useJabatan from "@/helpers/hooks/useJabatan";
+import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
 import { Outlet, Navigate } from "react-router-dom";
 
 // Styles
@@ -13,6 +18,12 @@ export default function BaseLayout({ session }) {
 	const disclosure = useDisclosure();
 	const bgContent = useColorModeValue("gray.100", "gray.900");
 	const colorBorder = useColorModeValue("gray.200", "transparent");
+
+	useInstansi();
+	useDivisi();
+	useJabatan();
+	useStatusPegawai();
+	useGolongan();
 
 	if (!session) return <Navigate to='/login' />;
 	return (

@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { AuthActions } from "@/helpers/redux/slices/AuthSlice";
-import { useSelector, useDispatch } from "react-redux";
 import Supabase from "@/helpers/Supabase";
+import { AuthActions } from "@/helpers/redux/slices/AuthSlice";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function useAuth() {
 	const { session } = useSelector((state) => state.auth);

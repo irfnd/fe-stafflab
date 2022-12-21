@@ -1,9 +1,4 @@
 import useAuth from "@/helpers/hooks/useAuth";
-import useDivisi from "@/helpers/hooks/useDivisi";
-import useGolongan from "@/helpers/hooks/useGolongan";
-import useInstansi from "@/helpers/hooks/useInstansi";
-import useJabatan from "@/helpers/hooks/useJabatan";
-import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // Page Component
@@ -23,12 +18,6 @@ import Jabatan from "@/pages/Perusahaan/Jabatan";
 
 export default function App() {
 	const { session } = useAuth();
-
-	useInstansi();
-	useDivisi();
-	useJabatan();
-	useStatusPegawai();
-	useGolongan();
 
 	return (
 		<BrowserRouter>
