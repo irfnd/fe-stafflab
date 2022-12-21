@@ -12,11 +12,6 @@ export const StatusPernikahan = [
 	{ value: "true", text: "Sudah Menikah" },
 ];
 
-export const StatusPegawai = [
-	{ value: "magang", text: "Magang" },
-	{ value: "outsourcing", text: "Outsourcing" },
-];
-
 export const JenisKelamin = [
 	{ value: "l", text: "Laki-laki" },
 	{ value: "p", text: "Perempuan" },
@@ -24,7 +19,6 @@ export const JenisKelamin = [
 
 const InputProps = {
 	Agama,
-	StatusPegawai,
 	StatusPernikahan,
 	JenisKelamin,
 };

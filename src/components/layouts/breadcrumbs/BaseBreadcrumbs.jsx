@@ -1,16 +1,19 @@
 import usePageTitle from "@/helpers/hooks/usePageTitle";
 import { NavLink } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
+import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 
 // Styles & Icons
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { ChevronRight } from "lucide-react";
 
 // Components & Constants
+import DynamicBreadcrumbs from "@/components/layouts/breadcrumbs/DynamicBreadcrumbs";
 import { BREADCRUMBS } from "@/constants/Routes";
 
 export default function BaseBreadcrumbs() {
-	const breadcrumbs = useBreadcrumbs(BREADCRUMBS);
+	const dynamicTitle = useDynamicPageTitle();
+	const breadcrumbs = useBreadcrumbs(BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle));
 	usePageTitle(breadcrumbs);
 
 	return (

@@ -3,7 +3,7 @@ import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-
 
 export const corsHeaders = {
 	"Access-Control-Allow-Origin": "*",
-	"Access-Control-Allow-Headers": "authorization, x-client-info, apikey",
+	"Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
 interface users {

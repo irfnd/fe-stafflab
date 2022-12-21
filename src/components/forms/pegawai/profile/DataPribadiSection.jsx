@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
+import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 // Styles & Icons
 import { Flex, SimpleGrid, Heading } from "@chakra-ui/react";
@@ -11,12 +14,27 @@ import { Agama, JenisKelamin, StatusPernikahan } from "@/constants/InputProps";
 
 export default function DataPribadiSection() {
 	const [formDisabled, setFormDisabled] = useState(true);
+
+	const params = useParams();
+	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
 	const mainForm = useForm({ mode: "onChange" });
+
+	useEffect(() => {
+		mainForm.reset({
+			nik: pegawai?.dataPribadi?.nik,
+			tempatLahir: pegawai?.dataPribadi?.tempatLahir,
+			tanggalLahir: pegawai?.dataPribadi?.tanggalLahir,
+			jenisKelamin: pegawai?.dataPribadi?.jenisKelamin,
+			agama: pegawai?.dataPribadi?.agama,
+			kawin: pegawai?.dataPribadi?.kawin,
+			alamat: pegawai?.dataPribadi?.alamat,
+		});
+	}, [pegawai]);
 
 	return (
 		<FormProvider {...mainForm}>
-			<Flex align='center' justify='space-between' w='full'>
-				<Heading fontSize='xl'>Data Berkaitan</Heading>
+			<Flex direction={{ base: "column", md: "row" }} align={{ base: "flex-start", md: "center" }} justify={{ md: "space-between" }} gap={6}>
+				<Heading fontSize={{ base: "lg", md: "xl" }}>Data Berkaitan</Heading>
 				<EditButtonSection formHandler={{ formDisabled, setFormDisabled }} />
 			</Flex>
 			<SimpleGrid columns={{ base: 1, md: 2 }} w='full' spacing={6}>

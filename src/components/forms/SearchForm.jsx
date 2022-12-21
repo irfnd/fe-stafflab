@@ -1,3 +1,6 @@
+import { createSearchParams } from "react-router-dom";
+import useQueryParams from "@/helpers/hooks/useQueryParams";
+
 // Styles & Icons
 import {
 	Flex,
@@ -16,7 +19,14 @@ import {
 import { Filter, Search } from "lucide-react";
 
 export default function SearchForm() {
+	const { queryParams, setQueryParams } = useQueryParams();
+
 	const bgSearch = useColorModeValue("white", "gray.800");
+
+	const onChangeSearch = (e) => {
+		setQueryParams(createSearchParams({ ...queryParams, search: e.target.value }));
+	};
+	const onChangeMenu = (value, key) => setQueryParams(createSearchParams({ ...queryParams, [key]: value }));
 
 	return (
 		<Flex w='full' gap={{ base: 2, md: 4 }}>
@@ -24,24 +34,41 @@ export default function SearchForm() {
 				<InputLeftElement>
 					<Search />
 				</InputLeftElement>
-				<Input type='text' placeholder='Cari Pegawai' focusBorderColor='cyan.500' />
+				<Input
+					type='text'
+					placeholder={`Cari ${queryParams.filter === "nip" ? "NIP" : "Nama"} Pegawai`}
+					defaultValue={queryParams.search}
+					onChange={(e) => onChangeSearch(e)}
+					focusBorderColor='cyan.500'
+				/>
 			</InputGroup>
 			<Menu>
 				<MenuButton as={IconButton} icon={<Filter />} size='lg' colorScheme='cyan' shadow='md' />
 				<MenuList shadow='lg'>
-					<MenuOptionGroup title='Filter Pegawai' type='radio' defaultValue='name'>
-						<MenuItemOption value='name'>Nama</MenuItemOption>
+					<MenuOptionGroup
+						title='Filter Pegawai'
+						type='radio'
+						defaultValue={queryParams.filter}
+						onChange={(value) => onChangeMenu(value, "filter")}
+					>
 						<MenuItemOption value='nip'>NIP</MenuItemOption>
+						<MenuItemOption value='nama'>Nama</MenuItemOption>
 					</MenuOptionGroup>
 					<MenuDivider />
-					<MenuOptionGroup title='Urutkan Pegawai' type='radio' defaultValue='status'>
-						<MenuItemOption value='status'>Status</MenuItemOption>
-						<MenuItemOption value='position'>Posisi</MenuItemOption>
-						<MenuItemOption value='division'>Divisi</MenuItemOption>
-						<MenuItemOption value='updatedAt'>Diubah</MenuItemOption>
+					<MenuOptionGroup
+						title='Urutkan Pegawai'
+						type='radio'
+						defaultValue={queryParams.order}
+						onChange={(value) => onChangeMenu(value, "order")}
+					>
+						<MenuItemOption value='nama'>Nama</MenuItemOption>
+						<MenuItemOption value='idInstansi'>Instansi</MenuItemOption>
+						<MenuItemOption value='idDivisi'>Divisi</MenuItemOption>
+						<MenuItemOption value='idGolongan'>Golongan</MenuItemOption>
+						<MenuItemOption value='createdAt'>Diubah</MenuItemOption>
 					</MenuOptionGroup>
 					<MenuDivider />
-					<MenuOptionGroup title='Urutan Pegawai' type='radio' defaultValue='asc'>
+					<MenuOptionGroup title='Urutan Pegawai' type='radio' defaultValue={queryParams.sort} onChange={(value) => onChangeMenu(value, "sort")}>
 						<MenuItemOption value='asc'>Naik (A-Z)</MenuItemOption>
 						<MenuItemOption value='desc'>Menurun (Z-A)</MenuItemOption>
 					</MenuOptionGroup>

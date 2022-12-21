@@ -6,6 +6,7 @@ import DivisiSlice from "@/helpers/redux/slices/DivisiSlice";
 import JabatanSlice from "@/helpers/redux/slices/JabatanSlice";
 import StatusPegawaiSlice from "@/helpers/redux/slices/StatusPegawaiSlice";
 import GolonganSlice from "@/helpers/redux/slices/GolonganSlice";
+import PegawaiSlice from "@/helpers/redux/slices/PegawaiSlice";
 
 const rootReducers = combineReducers({
 	[AuthSlice.name]: AuthSlice.reducer,
@@ -14,6 +15,7 @@ const rootReducers = combineReducers({
 	[JabatanSlice.name]: JabatanSlice.reducer,
 	[StatusPegawaiSlice.name]: StatusPegawaiSlice.reducer,
 	[GolonganSlice.name]: GolonganSlice.reducer,
+	[PegawaiSlice.name]: PegawaiSlice.reducer,
 });
 
 export default rootReducers;

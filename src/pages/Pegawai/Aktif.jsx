@@ -1,3 +1,6 @@
+import useQueryParams from "@/helpers/hooks/useQueryParams";
+import usePegawai from "@/helpers/hooks/usePegawai";
+
 // Styles & Icons
 import { Flex } from "@chakra-ui/react";
 
@@ -7,13 +10,14 @@ import BasePagination from "@/components/layouts/paginations/BasePagination";
 import PegawaiAktifList from "@/components/lists/PegawaiAktifList";
 
 export default function Aktif() {
-	const totalPages = 10;
+	const { queryParams } = useQueryParams();
+	const { totalPages } = usePegawai({ ...queryParams, status: 3 });
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<SearchForm />
 			<PegawaiAktifList />
-			<BasePagination totalPages={totalPages} />
+			<BasePagination page={queryParams.page} totalPages={totalPages} />
 		</Flex>
 	);
 }

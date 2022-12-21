@@ -7,13 +7,20 @@ export default function EditButtonSection({ formHandler }) {
 
 	if (formDisabled)
 		return (
-			<Button size='sm' colorScheme='cyan' variant='outline' leftIcon={<Edit size={18} />} onClick={() => setFormDisabled(false)}>
+			<Button
+				size='sm'
+				colorScheme='cyan'
+				variant='outline'
+				leftIcon={<Edit size={18} />}
+				w={{ base: "full", md: "fit-content" }}
+				onClick={() => setFormDisabled(false)}
+			>
 				Edit
 			</Button>
 		);
 	return (
-		<Flex justify='flex-end' gap={2}>
-			<Button size='sm' colorScheme='cyan' leftIcon={<Save size={18} />}>
+		<Flex w={{ base: "full", md: "fit-content" }} justify='flex-end' gap={2}>
+			<Button size='sm' colorScheme='cyan' leftIcon={<Save size={18} />} w={{ base: "full", md: "fit-content" }}>
 				Simpan
 			</Button>
 			<IconButton size='sm' colorScheme='red' icon={<X size={24} />} onClick={() => setFormDisabled(true)} />

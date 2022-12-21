@@ -1,38 +1,58 @@
-import { useState } from "react";
+import { createSearchParams } from "react-router-dom";
+import useQueryParams from "@/helpers/hooks/useQueryParams";
 
 // Styles & Icons
-import { Flex, IconButton, Button, Text, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, IconButton, Button, Text, useBreakpointValue, Skeleton } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function BasePagination({ totalPages }) {
-	const [Page, setPage] = useState(1);
+export default function BasePagination({ page, totalPages }) {
+	const { queryParams, setQueryParams } = useQueryParams();
+
 	const leftIcon = <ChevronLeft />;
 	const rightIcon = <ChevronRight />;
 
-	const clickPrev = (prev) => (prev > 1 ? prev - 1 : prev);
-	const clickNext = (prev) => (prev <= Page && prev < totalPages ? prev + 1 : prev);
+	const clickPrev = () => {
+		const prevPage = page > 1 ? page - 1 : page;
+		setQueryParams(createSearchParams({ ...queryParams, page: prevPage }));
+	};
+
+	const clickNext = () => {
+		const nextPage = page >= totalPages ? page : page + 1;
+		setQueryParams(createSearchParams({ ...queryParams, page: nextPage }));
+	};
+
 	const btn = (dir) =>
 		useBreakpointValue({
 			base:
 				dir === "left" ? (
-					<BtnIcon icon={leftIcon} onClick={() => setPage(clickPrev)} disabled={Page <= 1} />
+					<Skeleton isLoaded={page && totalPages} rounded='md'>
+						<BtnIcon icon={leftIcon} onClick={clickPrev} disabled={page <= 1} />
+					</Skeleton>
 				) : (
-					<BtnIcon icon={rightIcon} onClick={() => setPage(clickNext)} disabled={Page >= totalPages} />
+					<Skeleton isLoaded={page && totalPages} rounded='md'>
+						<BtnIcon icon={rightIcon} onClick={clickNext} disabled={page >= totalPages} />
+					</Skeleton>
 				),
 			md:
 				dir === "left" ? (
-					<BtnText leftIcon={leftIcon} text='Sebelumnya' onClick={() => setPage(clickPrev)} disabled={Page <= 1} />
+					<Skeleton isLoaded={page && totalPages} rounded='md'>
+						<BtnText leftIcon={leftIcon} text='Sebelumnya' onClick={clickPrev} disabled={page <= 1} />
+					</Skeleton>
 				) : (
-					<BtnText rightIcon={rightIcon} text='Selanjutnya' onClick={() => setPage(clickNext)} disabled={Page >= totalPages} />
+					<Skeleton isLoaded={page && totalPages} rounded='md'>
+						<BtnText rightIcon={rightIcon} text='Selanjutnya' onClick={clickNext} disabled={page >= totalPages} />
+					</Skeleton>
 				),
 		});
 
 	return (
 		<Flex align='center' justify='space-between' w='full'>
 			{btn("left")}
-			<Text fontSize={{ base: 16, md: 18 }} fontWeight='semibold'>
-				{Page} / {totalPages}
-			</Text>
+			<Skeleton isLoaded={page && totalPages} w={page && totalPages ? "auto" : 10} rounded='md'>
+				<Text fontSize={{ base: 16, md: 18 }} fontWeight='semibold'>
+					{page} / {totalPages}
+				</Text>
+			</Skeleton>
 			{btn("right")}
 		</Flex>
 	);

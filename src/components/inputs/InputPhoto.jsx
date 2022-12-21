@@ -13,7 +13,7 @@ export default function InputPhoto({ name, label, file, h }) {
 	const fileExtensions = allowedFile[file].extensions.map((el) => el).join(", ");
 	const fileMaxSize = allowedFile[file].maxSize;
 
-	const { register, formState, setValue, getValues, clearErrors } = useFormContext();
+	const { register, formState, setValue, clearErrors } = useFormContext();
 	const { formName } = register(name);
 	const { errors } = formState;
 
@@ -32,7 +32,7 @@ export default function InputPhoto({ name, label, file, h }) {
 		} else {
 			if (SelectedFile?.preview) URL.revokeObjectURL(SelectedFile.preview);
 			setSelectedFile({ ...accepted[0], preview: URL.createObjectURL(accepted[0]) });
-			setValue(name, accepted);
+			setValue(name, accepted[0]);
 			clearErrors(name);
 			setMessages(null);
 		}

@@ -8,9 +8,9 @@ import FileCard from "@/components/cards/FileCard";
 export default function FilesList({ files }) {
 	return (
 		<Flex direction='column' gap={6}>
-			<Flex align='center' justify='space-between'>
-				<Heading fontSize='xl'>Dokumen Berkaitan</Heading>
-				<Button variant='outline' colorScheme='cyan' size='sm' leftIcon={<Plus size={18} />}>
+			<Flex direction={{ base: "column", md: "row" }} align={{ base: "flex-start", md: "center" }} justify={{ md: "space-between" }} gap={6}>
+				<Heading fontSize={{ base: "lg", md: "xl" }}>Dokumen Berkaitan</Heading>
+				<Button variant='outline' colorScheme='cyan' size='sm' leftIcon={<Plus size={18} />} w={{ base: "full", md: "fit-content" }}>
 					Tambah
 				</Button>
 			</Flex>
