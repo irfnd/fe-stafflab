@@ -40,7 +40,9 @@ export default function BaseBreadcrumbs() {
 				<BreadcrumbItem>
 					<BreadcrumbLink
 						as={NavLink}
-						to={BREADCRUMBS.filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0].path}
+						to={
+							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0].path
+						}
 						fontSize={{ base: 14, md: 16 }}
 						fontWeight='semibold'
 						_hover={{
@@ -49,7 +51,10 @@ export default function BaseBreadcrumbs() {
 							textDecorationThickness: 2,
 						}}
 					>
-						{BREADCRUMBS.filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0].breadcrumb}
+						{
+							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]
+								.breadcrumb
+						}
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 			)}
