@@ -41,7 +41,7 @@ export default function PegawaiCard({ pegawai }) {
 			</Skeleton>
 			<Flex direction='column' justify='center' p={6} gap={4} h='full'>
 				<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
-					<Heading fontSize='2xl' noOfLines={1}>
+					<Heading fontSize={{ base: "xl", md: "2xl" }} noOfLines={1}>
 						{pegawai?.nama}
 					</Heading>
 				</Skeleton>
@@ -49,7 +49,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Hash} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{pegawai?.nip}
 							</Text>
 						</Flex>
@@ -58,7 +58,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Tags} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{statusPegawai?.nama}
 							</Text>
 						</Flex>
@@ -67,7 +67,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Award} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{jabatan?.nama}
 							</Text>
 						</Flex>
@@ -76,7 +76,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Pocket} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{golongan?.nama}
 							</Text>
 						</Flex>
@@ -85,7 +85,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Network} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{divisi?.nama}
 							</Text>
 						</Flex>
@@ -94,7 +94,7 @@ export default function PegawaiCard({ pegawai }) {
 					<Skeleton isLoaded={statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Building2} fontSize={18} color={iconColor} />
-							<Text fontSize='sm' noOfLines={1}>
+							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
 								{instansi?.nama}
 							</Text>
 						</Flex>

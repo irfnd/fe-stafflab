@@ -17,7 +17,7 @@ export default function BaseBreadcrumbs() {
 	usePageTitle(breadcrumbs);
 
 	return (
-		<Breadcrumb spacing={2} separator={<ChevronRight color='#00B5D8' size={18} />}>
+		<Breadcrumb display={{ base: "none", lg: "inherit" }} spacing={2} separator={<ChevronRight color='#00B5D8' size={18} />}>
 			{breadcrumbs.map(({ match, breadcrumb }) => (
 				<BreadcrumbItem key={match.pathname}>
 					<BreadcrumbLink
