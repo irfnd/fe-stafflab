@@ -42,17 +42,17 @@ export default function PegawaiCard({ pegawai }) {
 			cursor='pointer'
 			onClick={() => navigate(`/pegawai/${statusPegawai?.nama?.toLowerCase()}/${pegawai?.nip}`)}
 		>
-			<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} roundedTop='md'>
-				<Flex
-					h={{ base: "250px", md: "280px" }}
-					backgroundImage={profilePhoto}
-					backgroundRepeat='no-repeat'
-					backgroundPosition='top'
-					backgroundSize='cover'
-					objectFit='center'
-					roundedTop='md'
-				/>
-			</Skeleton>
+			<Flex pt={6} justify='center'>
+				<Skeleton
+					isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan}
+					rounded='full'
+					display='flex'
+					justifyContent='center'
+					boxSize='200px'
+				>
+					<Image src={profilePhoto} alt='Foto Profil' rounded='full' />
+				</Skeleton>
+			</Flex>
 			<Flex direction='column' justify='center' p={6} gap={4} h='full'>
 				<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 					<Heading fontSize={{ base: "xl", md: "2xl" }} noOfLines={1}>

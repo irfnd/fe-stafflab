@@ -3,7 +3,7 @@ import { Button, Flex, IconButton } from "@chakra-ui/react";
 import { Edit, Save, X } from "lucide-react";
 
 export default function EditButtonSection({ formHandler }) {
-	const { formDisabled, setFormDisabled } = formHandler;
+	const { formDisabled, setFormDisabled, loading } = formHandler;
 
 	if (formDisabled)
 		return (
@@ -20,10 +20,17 @@ export default function EditButtonSection({ formHandler }) {
 		);
 	return (
 		<Flex w={{ base: "full", md: "fit-content" }} justify='flex-end' gap={2}>
-			<Button size='sm' colorScheme='cyan' leftIcon={<Save size={18} />} w={{ base: "full", md: "fit-content" }}>
+			<Button
+				isLoading={loading}
+				type='submit'
+				size='sm'
+				colorScheme='cyan'
+				leftIcon={<Save size={18} />}
+				w={{ base: "full", md: "fit-content" }}
+			>
 				Simpan
 			</Button>
-			<IconButton size='sm' colorScheme='red' icon={<X size={24} />} onClick={() => setFormDisabled(true)} />
+			<IconButton isLoading={loading} size='sm' colorScheme='red' icon={<X size={24} />} onClick={() => setFormDisabled(true)} />
 		</Flex>
 	);
 }

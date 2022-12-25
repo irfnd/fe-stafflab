@@ -4,14 +4,13 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 let pegawaiSubs = null;
-// let dataPribadiSubs = null;
 
 export default function usePegawaiById(nipPegawai) {
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, nipPegawai));
 	const dispatch = useDispatch();
 
 	const fetchPegawai = async () => {
-		const { data } = await Supabase.from("pegawai").select(`*, dataPribadi:data_pribadi (*), dokumen (*)`).eq("nip", nipPegawai);
+		const { data } = await Supabase.from("pegawai").select("*").eq("nip", nipPegawai);
 		if (data) dispatch(PegawaiActions.set(data));
 	};
 

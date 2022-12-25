@@ -11,12 +11,14 @@ export default function DataPribadiAccordionItem() {
 	return (
 		<AccordionItem border='none' bg={bgSection} px={8} py={10} shadow='md' rounded='md'>
 			<AccordionButton display='flex' justifyContent='space-between' p={0} _hover={{ bg: "inherit" }}>
-				<Heading fontSize={{ base: "xl", md: "2xl" }}>Data Pribadi Pegawai</Heading>
+				<Heading align='left' fontSize={{ base: "xl", md: "2xl" }}>
+					Data Pribadi Pegawai
+				</Heading>
 				<AccordionIcon />
 			</AccordionButton>
 			<AccordionPanel display='flex' flexDirection='column' pt={6} pb={0} px={0} gap={6}>
 				<DataPribadiSection />
-				<FilesList />
+				<FilesList category='pribadi' />
 			</AccordionPanel>
 		</AccordionItem>
 	);

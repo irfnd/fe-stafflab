@@ -1,13 +1,13 @@
 import dropzone, { allowedFile } from "@/helpers/Dropzone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
 // Styles & Icons
-import { Button, Flex, IconButton, Icon, Text, Image, useColorModeValue } from "@chakra-ui/react";
-import { Upload, X, ImagePlus } from "lucide-react";
+import { Button, Flex, Icon, IconButton, Image, Text, useColorModeValue } from "@chakra-ui/react";
+import { ImagePlus, Upload, X } from "lucide-react";
 
-export default function InputPhoto({ name, label, file, h }) {
+export default function InputPhoto({ name, label, file, value, h, disabled }) {
 	const [SelectedFile, setSelectedFile] = useState(null);
 	const [messages, setMessages] = useState(null);
 	const fileExtensions = allowedFile[file].extensions.map((el) => el).join(", ");
@@ -16,6 +16,10 @@ export default function InputPhoto({ name, label, file, h }) {
 	const { register, formState, setValue, clearErrors } = useFormContext();
 	const { formName } = register(name);
 	const { errors } = formState;
+
+	useEffect(() => {
+		setSelectedFile(value);
+	}, [value, disabled]);
 
 	const onDrop = (accepted, rejected) => {
 		if (rejected.length > 0) {
@@ -74,16 +78,18 @@ export default function InputPhoto({ name, label, file, h }) {
 				{SelectedFile && (
 					<>
 						<Image src={SelectedFile?.preview || SelectedFile} alt='Foto Profil' boxSize='full' objectFit='cover' rounded='md' />
-						<IconButton
-							position='absolute'
-							top={2}
-							right={2}
-							colorScheme='red'
-							w='fit-content'
-							size='sm'
-							icon={<X size={18} />}
-							onClick={onClear}
-						/>
+						{!disabled && (
+							<IconButton
+								position='absolute'
+								top={2}
+								right={2}
+								colorScheme='red'
+								w='fit-content'
+								size='sm'
+								icon={<X size={18} />}
+								onClick={onClear}
+							/>
+						)}
 					</>
 				)}
 				{!SelectedFile && (

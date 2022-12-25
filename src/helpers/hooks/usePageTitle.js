@@ -22,7 +22,7 @@ export default function usePageTitle(breadcrumbs = null) {
 			const { title } = breadcrumbs.filter((el) => el.match.pathname === location.pathname)[0].match.route;
 			setTitle(`StaffLab - ${title}`);
 		}
-	}, [location, params]);
+	}, [location, params, dynamicTitle]);
 
 	return null;
 }

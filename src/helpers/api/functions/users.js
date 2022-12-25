@@ -5,13 +5,11 @@ const contentType = "application/json";
 
 export const createUser = async (newData) => {
 	const { email, noTelepon } = newData;
-
 	const { data, error } = await Supabase.functions.invoke("users", {
 		headers: { authorization, "content-type": contentType },
 		method: "POST",
 		body: { email, phone: `+62${noTelepon}`, email_confirm: true, phone_confirm: true },
 	});
-
 	if (error) throw error;
 	return data;
 };
