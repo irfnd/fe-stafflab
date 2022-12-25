@@ -11,7 +11,7 @@ export default function usePegawaiById(nipPegawai) {
 	const dispatch = useDispatch();
 
 	const fetchPegawai = async () => {
-		const { data } = await Supabase.from("pegawai").select(`*, dataPribadi:data_pribadi (*)`).eq("nip", nipPegawai);
+		const { data } = await Supabase.from("pegawai").select(`*, dataPribadi:data_pribadi (*), dokumen (*)`).eq("nip", nipPegawai);
 		if (data) dispatch(PegawaiActions.set(data));
 	};
 

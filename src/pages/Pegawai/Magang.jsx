@@ -1,5 +1,5 @@
-import useQueryParams from "@/helpers/hooks/useQueryParams";
 import usePegawai from "@/helpers/hooks/usePegawai";
+import useQueryParams from "@/helpers/hooks/useQueryParams";
 
 // Styles & Icons
 import { Flex } from "@chakra-ui/react";
@@ -11,7 +11,7 @@ import PegawaiMagangList from "@/components/lists/PegawaiMagangList";
 
 export default function Magang() {
 	const { queryParams } = useQueryParams();
-	const { totalPages } = usePegawai({ ...queryParams, status: 1 });
+	const { totalPages } = usePegawai({ ...queryParams, status: 2 });
 
 	return (
 		<Flex direction='column' w='full' gap={8}>

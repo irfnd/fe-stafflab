@@ -21,7 +21,7 @@ export const PegawaiSchema = yup.object({
 	cv: yup.mixed().required("CV wajib diisi!"),
 	divisi: yup.string().trim().required("Divisi wajib diisi!"),
 	email: yup.string().email("Email harus valid!").trim().required("Email wajib diisi!"),
-	foto: yup.string().required("Foto wajib diisi!").typeError("Foto wajib diisi!"),
+	foto: yup.mixed().required("Foto wajib diisi!").typeError("Foto wajib diisi!"),
 	golongan: yup.string().trim().required("Golongan pegawai wajib diisi!"),
 	instansi: yup.string().trim().required("Instansi wajib diisi!"),
 	jabatan: yup.string().trim().required("Jabatan wajib diisi!"),

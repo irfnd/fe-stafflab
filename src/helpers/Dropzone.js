@@ -2,11 +2,8 @@ import parseFileSize from "filesize-parser";
 
 export const allowedFile = {
 	images: {
-		mimeType: {
-			"image/jpg": [".jpg"],
-			"image/png": [".png"],
-		},
-		extensions: [".jpg", ".png"],
+		mimeType: { "image/jpeg": [".jpg", ".jpeg"], "image/png": [".png"] },
+		extensions: [".jpg", ".jpeg", ".png"],
 		maxSize: "100KB",
 	},
 	docs: {
@@ -20,7 +17,7 @@ export const allowedFile = {
 	},
 };
 
-export const dropzoneOptions = (onDrop, type) => ({
+export const options = (onDrop, type) => ({
 	onDrop,
 	multiple: false,
 	maxFiles: 1,
@@ -32,7 +29,7 @@ export const dropzoneOptions = (onDrop, type) => ({
 
 const dropzone = {
 	allowedFile,
-	options: dropzoneOptions,
+	options,
 };
 
 export default dropzone;

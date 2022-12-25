@@ -1,10 +1,15 @@
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { PegawaiSchema } from "@/helpers/Validations";
+import { createDataPribadi } from "@/helpers/api/databases/dataPribadi";
+import { createDokumen } from "@/helpers/api/databases/dokumen";
+import { createPegawai } from "@/helpers/api/databases/pegawai";
+import { createUser } from "@/helpers/api/functions/users";
+import { uploadDocument } from "@/helpers/api/storages/dokumen";
+import { getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
-import { useSelector } from "react-redux";
-import Supabase from "@/helpers/Supabase";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
@@ -29,52 +34,106 @@ export default function TambahForm() {
 		setLoading(true);
 		try {
 			const status = statusPegawai?.filter((el) => el.id === parseInt(data.status, 10))[0]?.nama?.toLowerCase();
-			// Table pegawai
-			const { error: errPegawai } = await Supabase.from("pegawai")
-				.insert({
-					nip: data.nip,
-					nama: data.nama,
-					email: data.email,
-					noTelepon: `+62${data.noTelepon}`,
-					idStatus: data.status,
-					idInstansi: data.instansi,
-					idDivisi: data.divisi,
-					idJabatan: data.jabatan,
-					idGolongan: data.golongan,
-				})
-				.single();
-			if (errPegawai) throw errPegawai;
 
-			// Table data_pegawai
-			const { error: errDataPribadi } = await Supabase.from("data_pribadi")
-				.insert({
-					nik: data.nik,
-					tempatLahir: data.tempatLahir,
-					tanggalLahir: data.tanggalLahir,
-					jenisKelamin: data.jenisKelamin,
-					agama: data.agama,
-					kawin: data.kawin,
-					alamat: data.alamat,
-					nipPegawai: data.nip,
-				})
-				.single();
-			if (errPegawai) throw errDataPribadi;
+			// Create Data
+			const pegawai = await createPegawai(data);
+			await createDataPribadi({ ...data, nipPegawai: pegawai.nip });
+			await createUser(data);
 
-			// Invoke users
-			const { error: errKontak } = await Supabase.functions.invoke("users", {
-				headers: {
-					authorization: `Bearer ${import.meta.env.VITE_SUPABASE_ANON}`,
-					"content-type": "application/json",
-				},
-				method: "POST",
-				body: {
-					email: data.email,
-					phone: `+62${data.noTelepon}`,
-					email_confirm: true,
-					phone_confirm: true,
-				},
+			// Upload File
+			const foto = await uploadPhoto({
+				folder: pegawai.nip,
+				kategori: "profil",
+				file: data.foto,
+				namaFile: "Foto Profil",
+				pegawai: pegawai.nama,
 			});
-			if (errKontak) throw errKontak;
+			const akta = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "pribadi",
+				namaFile: "Akta Kelahiran",
+				file: data.akta,
+				pegawai: pegawai.nama,
+			});
+			const suratLamaran = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "lamaran",
+				namaFile: "Surat Lamaran",
+				file: data.suratLamaran,
+				pegawai: pegawai.nama,
+			});
+			const cv = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "lamaran",
+				namaFile: "CV",
+				file: data.cv,
+				pegawai: pegawai.nama,
+			});
+			const suratSehat = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "lamaran",
+				namaFile: "Surat Keterangan Sehat",
+				file: data.suratSehat,
+				pegawai: pegawai.nama,
+			});
+			const skck = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "lamaran",
+				namaFile: "Surat Keterangan Catatan Kriminal",
+				file: data.skck,
+				pegawai: pegawai.nama,
+			});
+			const suratKerja = await uploadDocument({
+				folder: pegawai.nip,
+				kategori: "lamaran",
+				namaFile: "Surat Persetujuan Kerja",
+				file: data.suratKerja,
+				pegawai: pegawai.nama,
+			});
+
+			// Create File Data
+			await createDokumen({
+				nama: `Foto Profile - ${pegawai.nama}`,
+				detail: { ...foto, ...getUrlPhoto(foto.path) },
+				kategori: "profil",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `Akta Kelahiran - ${pegawai.nama}`,
+				detail: akta,
+				kategori: "pribadi",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `Surat Lamaran - ${pegawai.nama}`,
+				detail: suratLamaran,
+				kategori: "lamaran",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `CV - ${pegawai.nama}`,
+				detail: cv,
+				kategori: "lamaran",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `Surat Keterangan Sehat - ${pegawai.nama}`,
+				detail: suratSehat,
+				kategori: "lamaran",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `Surat Keterangan Catatan Kriminal - ${pegawai.nama}`,
+				detail: skck,
+				kategori: "lamaran",
+				nipPegawai: pegawai.nip,
+			});
+			await createDokumen({
+				nama: `Surat Persetujuan Kerja - ${pegawai.nama}`,
+				detail: suratKerja,
+				kategori: "lamaran",
+				nipPegawai: pegawai.nip,
+			});
 
 			toast({
 				title: "Berhasil Menambahkan Pegawai.",
