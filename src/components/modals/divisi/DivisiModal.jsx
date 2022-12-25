@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DivisiSchema } from "@/helpers/Validations";
-import { createDivisi, updateDivisi } from "@/helpers/api/databases/DivisiTable";
+import { createDivisi, updateDivisi } from "@/helpers/api/databases/divisiTable";
 
 // Styles & Icons
 import {
