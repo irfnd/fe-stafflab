@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 
 // Components
-import InstansiForm from "@/components/forms/instansi/InstansiForm";
+import InstansiForm from "@/components/forms/InstansiForm";
 
 export default function InstansiModal({ type = "add", disclosure, instansi = null }) {
 	const { isOpen, onClose } = disclosure;

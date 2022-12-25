@@ -13,7 +13,14 @@ export const updateDokumen = async (newData, id) => {
 	return data[0];
 };
 
+export const deleteDokumen = async (id) => {
+	const { data, error } = await Supabase.from("dokumen").delete().eq("id", id).select();
+	if (error) throw error;
+	return data[0];
+};
+
 export default {
 	createDokumen,
 	updateDokumen,
+	deleteDokumen,
 };

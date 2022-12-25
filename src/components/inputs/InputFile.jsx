@@ -1,5 +1,5 @@
 import dropzone, { allowedFile } from "@/helpers/Dropzone";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
@@ -7,15 +7,19 @@ import { useFormContext } from "react-hook-form";
 import { Flex, IconButton, Text, useColorModeValue } from "@chakra-ui/react";
 import { Upload, X } from "lucide-react";
 
-export default function InputFile({ name, label, order, file }) {
+export default function InputFile({ name, label, order, file, value }) {
 	const [SelectedFile, setSelectedFile] = useState(null);
 	const [messages, setMessages] = useState(null);
 	const fileExtensions = allowedFile[file].extensions.map((el) => el).join(", ");
 	const fileMaxSize = allowedFile[file].maxSize;
 
-	const { register, formState, setValue, getValues } = useFormContext();
+	const { register, formState, setValue } = useFormContext();
 	const { formName } = register(name);
 	const { errors } = formState;
+
+	useEffect(() => {
+		setSelectedFile(value);
+	}, [value]);
 
 	const onDrop = (accepted, rejected) => {
 		if (rejected.length > 0) {
@@ -76,7 +80,7 @@ export default function InputFile({ name, label, order, file }) {
 					)}
 					{SelectedFile && (
 						<Text noOfLines={1} maxW='60%'>
-							{SelectedFile.path}
+							{SelectedFile.path?.split("/").pop()}
 						</Text>
 					)}
 					{SelectedFile && <IconButton colorScheme='red' w='fit-content' size='sm' icon={<X size={18} />} onClick={onClear} />}

@@ -66,7 +66,8 @@ export default function IdentitasSection() {
 				description: err.message,
 				status: "error",
 				position: "top",
-				duration: 2000,
+				duration: 3000,
+				isClosable: true,
 			});
 			setLoading(false);
 			setFormDisabled(true);

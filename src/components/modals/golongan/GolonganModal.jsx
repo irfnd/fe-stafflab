@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 
 // Components
-import GolonganForm from "@/components/forms/golongan/GolonganForm";
+import GolonganForm from "@/components/forms/GolonganForm";
 
 export default function GolonganModal({ type = "add", disclosure, golongan = null }) {
 	const { isOpen, onClose } = disclosure;

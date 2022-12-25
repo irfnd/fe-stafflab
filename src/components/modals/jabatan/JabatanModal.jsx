@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 
 // Components
-import JabatanForm from "@/components/forms/jabatan/JabatanForm";
+import JabatanForm from "@/components/forms/JabatanForm";
 
 export default function JabatanModal({ type = "add", disclosure, jabatan = null }) {
 	const { isOpen, onClose } = disclosure;

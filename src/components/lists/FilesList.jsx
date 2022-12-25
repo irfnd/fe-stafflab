@@ -2,15 +2,18 @@ import { useSelector } from "react-redux";
 import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 
 // Styles & Icons
-import { Flex, Heading, Button, SimpleGrid } from "@chakra-ui/react";
+import { Flex, Heading, Button, SimpleGrid, useDisclosure } from "@chakra-ui/react";
 import { Plus } from "lucide-react";
 
 // Components
 import FileCard from "@/components/cards/FileCard";
+import DokumenModal from "@/components/modals/dokumen/DokumenModal";
 
 export default function FilesList({ category }) {
 	const dokumen = useSelector(DokumenSelector.selectAll);
 	const dokumenPribadi = dokumen?.filter((el) => el.kategori === category);
+
+	const disclosureAdd = useDisclosure();
 
 	return (
 		<Flex direction='column' gap={6}>
@@ -21,13 +24,21 @@ export default function FilesList({ category }) {
 				gap={6}
 			>
 				<Heading fontSize={{ base: "lg", md: "xl" }}>Dokumen Berkaitan</Heading>
-				<Button variant='outline' colorScheme='cyan' size='sm' leftIcon={<Plus size={18} />} w={{ base: "full", md: "fit-content" }}>
+				<Button
+					variant='outline'
+					colorScheme='cyan'
+					size='sm'
+					leftIcon={<Plus size={18} />}
+					w={{ base: "full", md: "fit-content" }}
+					onClick={disclosureAdd.onOpen}
+				>
 					Tambah
 				</Button>
 			</Flex>
-			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={4}>
+			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
 				{dokumen && dokumenPribadi.map((file, i) => <FileCard key={i} file={file} />)}
 			</SimpleGrid>
+			<DokumenModal disclosure={disclosureAdd} category={category} />
 		</Flex>
 	);
 }

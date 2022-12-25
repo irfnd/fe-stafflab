@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 
 // Components
-import DivisiForm from "@/components/forms/divisi/DivisiForm";
+import DivisiForm from "@/components/forms/DivisiForm";
 
 export default function DivisiModal({ type = "add", disclosure, divisi = null }) {
 	const { isOpen, onClose } = disclosure;
@@ -61,28 +61,6 @@ export default function DivisiModal({ type = "add", disclosure, divisi = null })
 				isClosable: true,
 			});
 		}
-		// if (error) {
-		// 	setLoading(false);
-		// 	toast({
-		// 		title: type === "add" ? "Gagal Menambahkan Divisi." : "Gagal Memperbarui Divisi.",
-		// 		description: error.message,
-		// 		status: "error",
-		// 		position: "top",
-		// 		duration: 3000,
-		// 		isClosable: true,
-		// 	});
-		// } else {
-		// 	setLoading(false);
-		// 	toast({
-		// 		title: type === "add" ? "Berhasil Menambahkan Divisi." : "Berhasil Memperbarui Divisi.",
-		// 		description: type === "add" ? "Divisi baru telah ditambahkan!" : "Divisi telah diperbarui!",
-		// 		status: "success",
-		// 		position: "top",
-		// 		duration: 2000,
-		// 	});
-		// 	mainForm.reset();
-		// 	onClose();
-		// }
 	};
 
 	const onCancel = () => {
