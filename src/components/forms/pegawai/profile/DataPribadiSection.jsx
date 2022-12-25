@@ -11,7 +11,7 @@ import { Flex, SimpleGrid, Heading, useToast } from "@chakra-ui/react";
 import EditButtonSection from "@/components/forms/pegawai/profile/EditButtonSection";
 import Input from "@/components/inputs/Input";
 import { Agama, JenisKelamin, StatusPernikahan } from "@/constants/InputProps";
-import { updateDataPribadi } from "@/helpers/api/databases/dataPribadi";
+import { updateDataPribadi } from "@/helpers/api/databases/dataPribadiTable";
 
 export default function DataPribadiSection() {
 	const [formDisabled, setFormDisabled] = useState(true);

@@ -1,5 +1,5 @@
-import Supabase from "@/helpers/Supabase";
 import { useState } from "react";
+import { deleteInstansi } from "@/helpers/api/databases/instansiTable";
 
 // Styles & Icons
 import {
@@ -27,20 +27,9 @@ export default function InstansiDeleteModal({ disclosure, instansi }) {
 	const toast = useToast();
 
 	const onDelete = async () => {
-		clearTimeout();
 		setLoading(true);
-		const { error } = await Supabase.from("instansi").delete().eq("id", instansi?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: "Gagal Menghapus Instansi.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			await deleteInstansi(instansi?.id);
 			setLoading(false);
 			toast({
 				title: "Berhasil Menghapus Instansi.",
@@ -50,6 +39,16 @@ export default function InstansiDeleteModal({ disclosure, instansi }) {
 				duration: 2000,
 			});
 			onClose();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: "Gagal Menghapus Instansi.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

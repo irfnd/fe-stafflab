@@ -1,11 +1,21 @@
-import { useState, useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { JabatanSchema } from "@/helpers/Validations";
-import Supabase from "@/helpers/Supabase";
+import { createJabatan, updateJabatan } from "@/helpers/api/databases/jabatanTable";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 // Styles & Icons
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useToast } from "@chakra-ui/react";
+import {
+	Button,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	useToast,
+} from "@chakra-ui/react";
 
 // Components
 import JabatanForm from "@/components/forms/jabatan/JabatanForm";
@@ -23,21 +33,13 @@ export default function JabatanModal({ type = "add", disclosure, jabatan = null 
 	}, [jabatan]);
 
 	const onSubmit = async (data) => {
-		clearTimeout();
 		setLoading(true);
-		const { error } =
-			type === "add" ? await Supabase.from("jabatan").insert(data).single() : await Supabase.from("jabatan").update(data).eq("id", jabatan?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: type === "add" ? "Gagal Menambahkan Jabatan." : "Gagal Memperbarui Jabatan.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			if (type === "add") {
+				await createJabatan(data);
+			} else {
+				await updateJabatan(data, jabatan?.id);
+			}
 			setLoading(false);
 			toast({
 				title: type === "add" ? "Berhasil Menambahkan Jabatan." : "Berhasil Memperbarui Jabatan.",
@@ -46,8 +48,18 @@ export default function JabatanModal({ type = "add", disclosure, jabatan = null 
 				position: "top",
 				duration: 2000,
 			});
-			mainForm.reset();
 			onClose();
+			mainForm.reset();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: type === "add" ? "Gagal Menambahkan Jabatan." : "Gagal Memperbarui Jabatan.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

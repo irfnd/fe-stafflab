@@ -1,5 +1,5 @@
-import Supabase from "@/helpers/Supabase";
 import { useState } from "react";
+import { deleteGolongan } from "@/helpers/api/databases/golonganTable";
 
 // Styles & Icons
 import {
@@ -27,20 +27,9 @@ export default function GolonganDeleteModal({ disclosure, golongan }) {
 	const toast = useToast();
 
 	const onDelete = async () => {
-		clearTimeout();
 		setLoading(true);
-		const { error } = await Supabase.from("golongan").delete().eq("id", golongan?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: "Gagal Menghapus Golongan.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			await deleteGolongan(golongan?.id);
 			setLoading(false);
 			toast({
 				title: "Berhasil Menghapus Golongan.",
@@ -50,6 +39,16 @@ export default function GolonganDeleteModal({ disclosure, golongan }) {
 				duration: 2000,
 			});
 			onClose();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: "Gagal Menghapus Golongan.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

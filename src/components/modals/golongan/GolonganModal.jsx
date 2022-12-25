@@ -2,10 +2,20 @@ import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { GolonganSchema } from "@/helpers/Validations";
-import Supabase from "@/helpers/Supabase";
+import { createGolongan, updateGolongan } from "@/helpers/api/databases/golonganTable";
 
 // Styles & Icons
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useToast } from "@chakra-ui/react";
+import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	Button,
+	useToast,
+} from "@chakra-ui/react";
 
 // Components
 import GolonganForm from "@/components/forms/golongan/GolonganForm";
@@ -23,23 +33,13 @@ export default function GolonganModal({ type = "add", disclosure, golongan = nul
 	}, [golongan]);
 
 	const onSubmit = async (data) => {
-		clearTimeout();
 		setLoading(true);
-		const { error } =
-			type === "add"
-				? await Supabase.from("golongan").insert(data).single()
-				: await Supabase.from("golongan").update(data).eq("id", golongan?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: type === "add" ? "Gagal Menambahkan Golongan." : "Gagal Memperbarui Golongan.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			if (type === "add") {
+				await createGolongan(data);
+			} else {
+				await updateGolongan(data, golongan?.id);
+			}
 			setLoading(false);
 			toast({
 				title: type === "add" ? "Berhasil Menambahkan Golongan." : "Berhasil Memperbarui Golongan.",
@@ -48,8 +48,18 @@ export default function GolonganModal({ type = "add", disclosure, golongan = nul
 				position: "top",
 				duration: 2000,
 			});
-			mainForm.reset();
 			onClose();
+			mainForm.reset();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: type === "add" ? "Gagal Menambahkan Golongan." : "Gagal Memperbarui Golongan.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

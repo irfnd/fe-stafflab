@@ -1,7 +1,7 @@
 import { PegawaiSchema } from "@/helpers/Validations";
-import { createDataPribadi } from "@/helpers/api/databases/dataPribadi";
-import { createDokumen } from "@/helpers/api/databases/dokumen";
-import { createPegawai } from "@/helpers/api/databases/pegawai";
+import { createDataPribadi } from "@/helpers/api/databases/dataPribadiTable";
+import { createDokumen } from "@/helpers/api/databases/dokumenTable";
+import { createPegawai } from "@/helpers/api/databases/pegawaiTable";
 import { createUser } from "@/helpers/api/functions/users";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";

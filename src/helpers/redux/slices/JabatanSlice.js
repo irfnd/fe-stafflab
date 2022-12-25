@@ -1,7 +1,7 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const JabatanAdaptor = createEntityAdapter({
-	sortComparer: (a, b) => a.createdAt.localeCompare(b.createAt),
+	sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const JabatanSlice = createSlice({

@@ -31,7 +31,9 @@ export default function useInstansi() {
 
 	useEffect(() => {
 		fetchInstansi();
-		Supabase.channel("public:instansi").on("postgres_changes", { event: "*", schema: "public", table: "instansi" }, changeInstansi).subscribe();
+		Supabase.channel("public:instansi")
+			.on("postgres_changes", { event: "*", schema: "public", table: "instansi" }, changeInstansi)
+			.subscribe();
 	}, []);
 
 	return { instansi };

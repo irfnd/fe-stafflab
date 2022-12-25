@@ -1,11 +1,21 @@
-import { useState, useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { InstansiSchema } from "@/helpers/Validations";
-import Supabase from "@/helpers/Supabase";
+import { createInstansi, updateInstansi } from "@/helpers/api/databases/instansiTable";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 // Styles & Icons
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useToast } from "@chakra-ui/react";
+import {
+	Button,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
+	useToast,
+} from "@chakra-ui/react";
 
 // Components
 import InstansiForm from "@/components/forms/instansi/InstansiForm";
@@ -23,23 +33,13 @@ export default function InstansiModal({ type = "add", disclosure, instansi = nul
 	}, [instansi]);
 
 	const onSubmit = async (data) => {
-		clearTimeout();
 		setLoading(true);
-		const { error } =
-			type === "add"
-				? await Supabase.from("instansi").insert(data).single()
-				: await Supabase.from("instansi").update(data).eq("id", instansi?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: type === "add" ? "Gagal Menambahkan Instansi." : "Gagal Memperbarui Instansi.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			if (type === "add") {
+				await createInstansi(data);
+			} else {
+				await updateInstansi(data, instansi?.id);
+			}
 			setLoading(false);
 			toast({
 				title: type === "add" ? "Berhasil Menambahkan Instansi." : "Berhasil Memperbarui Instansi.",
@@ -48,8 +48,18 @@ export default function InstansiModal({ type = "add", disclosure, instansi = nul
 				position: "top",
 				duration: 2000,
 			});
-			mainForm.reset();
 			onClose();
+			mainForm.reset();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: type === "add" ? "Gagal Menambahkan Instansi." : "Gagal Memperbarui Instansi.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

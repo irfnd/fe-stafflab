@@ -1,7 +1,7 @@
 import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 const InstansiAdapter = createEntityAdapter({
-	sortComparer: (a, b) => a.createdAt.localeCompare(b.createAt),
+	sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const InstansiSlice = createSlice({

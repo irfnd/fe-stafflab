@@ -1,5 +1,6 @@
 // Styles & Icons
 import { Avatar, Flex, Menu, MenuButton, MenuDivider, MenuItem, MenuList, Text } from "@chakra-ui/react";
+import { LogOut } from "lucide-react";
 
 export default function UserAvatar() {
 	return (
@@ -9,7 +10,7 @@ export default function UserAvatar() {
 					<Flex align='center'>
 						<Avatar size='sm' />
 						<Flex direction='column' display={{ base: "none", md: "flex" }} alignItems='flex-start' ml='2'>
-							<Text fontSize='sm'>Justina Clark</Text>
+							<Text fontSize='sm'>Administrator</Text>
 							<Text fontSize='xs' color='gray.600'>
 								Admin
 							</Text>
@@ -17,11 +18,7 @@ export default function UserAvatar() {
 					</Flex>
 				</MenuButton>
 				<MenuList>
-					<MenuItem>Profile</MenuItem>
-					<MenuItem>Settings</MenuItem>
-					<MenuItem>Billing</MenuItem>
-					<MenuDivider />
-					<MenuItem>Sign out</MenuItem>
+					<MenuItem icon={<LogOut size={18} />}>Log Out</MenuItem>
 				</MenuList>
 			</Menu>
 		</Flex>

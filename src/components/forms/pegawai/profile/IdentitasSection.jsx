@@ -1,5 +1,5 @@
-import { updateDokumen } from "@/helpers/api/databases/dokumen";
-import { updatePegawai } from "@/helpers/api/databases/pegawai";
+import { updateDokumen } from "@/helpers/api/databases/dokumenTable";
+import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 import { deletePhoto, getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";

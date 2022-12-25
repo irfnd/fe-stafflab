@@ -1,7 +1,7 @@
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
-import Supabase from "@/helpers/Supabase";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { deleteDivisi } from "@/helpers/api/databases/DivisiTable";
 
 // Styles & Icons
 import {
@@ -30,20 +30,9 @@ export default function DivisiDeleteModal({ disclosure, divisi }) {
 	const toast = useToast();
 
 	const onDelete = async () => {
-		clearTimeout();
 		setLoading(true);
-		const { error } = await Supabase.from("divisi").delete().eq("id", divisi?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: "Gagal Menghapus Divisi.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			await deleteDivisi(divisi?.id);
 			setLoading(false);
 			toast({
 				title: "Berhasil Menghapus Divisi.",
@@ -53,6 +42,16 @@ export default function DivisiDeleteModal({ disclosure, divisi }) {
 				duration: 2000,
 			});
 			onClose();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: "Gagal Menghapus Divisi.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

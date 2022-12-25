@@ -1,4 +1,4 @@
-import Supabase from "@/helpers/Supabase";
+import { deleteJabatan } from "@/helpers/api/databases/jabatanTable";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { useState } from "react";
@@ -32,20 +32,9 @@ export default function JabatanDeleteModal({ disclosure, jabatan }) {
 	const toast = useToast();
 
 	const onDelete = async () => {
-		clearTimeout();
 		setLoading(true);
-		const { error } = await Supabase.from("jabatan").delete().eq("id", jabatan?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: "Gagal Menghapus Jabatan.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			await deleteJabatan(jabatan?.id);
 			setLoading(false);
 			toast({
 				title: "Berhasil Menghapus Jabatan.",
@@ -55,6 +44,16 @@ export default function JabatanDeleteModal({ disclosure, jabatan }) {
 				duration: 2000,
 			});
 			onClose();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: "Gagal Menghapus Jabatan.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
 	};
 

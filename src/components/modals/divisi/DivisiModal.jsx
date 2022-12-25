@@ -2,10 +2,20 @@ import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { DivisiSchema } from "@/helpers/Validations";
-import Supabase from "@/helpers/Supabase";
+import { createDivisi, updateDivisi } from "@/helpers/api/databases/DivisiTable";
 
 // Styles & Icons
-import { Modal, ModalOverlay, ModalContent, ModalHeader, ModalFooter, ModalBody, ModalCloseButton, Button, useToast } from "@chakra-ui/react";
+import {
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	Button,
+	useToast,
+} from "@chakra-ui/react";
 
 // Components
 import DivisiForm from "@/components/forms/divisi/DivisiForm";
@@ -23,21 +33,13 @@ export default function DivisiModal({ type = "add", disclosure, divisi = null })
 	}, [divisi]);
 
 	const onSubmit = async (data) => {
-		clearTimeout();
 		setLoading(true);
-		const { error } =
-			type === "add" ? await Supabase.from("divisi").insert(data).single() : await Supabase.from("divisi").update(data).eq("id", divisi?.id);
-		if (error) {
-			setLoading(false);
-			toast({
-				title: type === "add" ? "Gagal Menambahkan Divisi." : "Gagal Memperbarui Divisi.",
-				description: error.message,
-				status: "error",
-				position: "top",
-				duration: 3000,
-				isClosable: true,
-			});
-		} else {
+		try {
+			if (type === "add") {
+				await createDivisi(data);
+			} else {
+				await updateDivisi(data, divisi?.id);
+			}
 			setLoading(false);
 			toast({
 				title: type === "add" ? "Berhasil Menambahkan Divisi." : "Berhasil Memperbarui Divisi.",
@@ -46,9 +48,41 @@ export default function DivisiModal({ type = "add", disclosure, divisi = null })
 				position: "top",
 				duration: 2000,
 			});
-			mainForm.reset();
 			onClose();
+			mainForm.reset();
+		} catch (err) {
+			setLoading(false);
+			toast({
+				title: type === "add" ? "Gagal Menambahkan Divisi." : "Gagal Memperbarui Divisi.",
+				description: err.message,
+				status: "error",
+				position: "top",
+				duration: 3000,
+				isClosable: true,
+			});
 		}
+		// if (error) {
+		// 	setLoading(false);
+		// 	toast({
+		// 		title: type === "add" ? "Gagal Menambahkan Divisi." : "Gagal Memperbarui Divisi.",
+		// 		description: error.message,
+		// 		status: "error",
+		// 		position: "top",
+		// 		duration: 3000,
+		// 		isClosable: true,
+		// 	});
+		// } else {
+		// 	setLoading(false);
+		// 	toast({
+		// 		title: type === "add" ? "Berhasil Menambahkan Divisi." : "Berhasil Memperbarui Divisi.",
+		// 		description: type === "add" ? "Divisi baru telah ditambahkan!" : "Divisi telah diperbarui!",
+		// 		status: "success",
+		// 		position: "top",
+		// 		duration: 2000,
+		// 	});
+		// 	mainForm.reset();
+		// 	onClose();
+		// }
 	};
 
 	const onCancel = () => {
