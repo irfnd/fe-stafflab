@@ -1,21 +1,21 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const divisiAdaptor = createEntityAdapter({
+const DivisiAdaptor = createEntityAdapter({
 	sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const DivisiSlice = createSlice({
 	name: "divisi",
-	initialState: divisiAdaptor.getInitialState(),
+	initialState: DivisiAdaptor.getInitialState(),
 	reducers: {
-		set: (state, action) => divisiAdaptor.setAll(state, action.payload),
-		add: divisiAdaptor.addOne,
-		update: divisiAdaptor.updateOne,
-		delete: divisiAdaptor.removeOne,
+		set: (state, action) => DivisiAdaptor.setAll(state, action.payload),
+		add: DivisiAdaptor.addOne,
+		update: DivisiAdaptor.updateOne,
+		delete: DivisiAdaptor.removeOne,
 	},
 });
 
-export const DivisiSelector = divisiAdaptor.getSelectors((state) => state.divisi);
+export const DivisiSelector = DivisiAdaptor.getSelectors((state) => state.divisi);
 export const DivisiActions = DivisiSlice.actions;
 
 export default DivisiSlice;

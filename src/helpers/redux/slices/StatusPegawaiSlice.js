@@ -1,21 +1,21 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const statusPegawaiAdaptor = createEntityAdapter({
+const StatusPegawaiAdaptor = createEntityAdapter({
 	sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const StatusPegawaiSlice = createSlice({
 	name: "statusPegawai",
-	initialState: statusPegawaiAdaptor.getInitialState(),
+	initialState: StatusPegawaiAdaptor.getInitialState(),
 	reducers: {
-		set: (state, action) => statusPegawaiAdaptor.setAll(state, action.payload),
-		add: statusPegawaiAdaptor.addOne,
-		update: statusPegawaiAdaptor.updateOne,
-		delete: statusPegawaiAdaptor.removeOne,
+		set: (state, action) => StatusPegawaiAdaptor.setAll(state, action.payload),
+		add: StatusPegawaiAdaptor.addOne,
+		update: StatusPegawaiAdaptor.updateOne,
+		delete: StatusPegawaiAdaptor.removeOne,
 	},
 });
 
-export const StatusPegawaiSelector = statusPegawaiAdaptor.getSelectors((state) => state.statusPegawai);
+export const StatusPegawaiSelector = StatusPegawaiAdaptor.getSelectors((state) => state.statusPegawai);
 export const StatusPegawaiActions = StatusPegawaiSlice.actions;
 
 export default StatusPegawaiSlice;
