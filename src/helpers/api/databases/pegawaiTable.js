@@ -6,6 +6,7 @@ export const createPegawai = async (newData) => {
 		nama,
 		email,
 		noTelepon,
+		tipe: idTipe,
 		status: idStatus,
 		instansi: idInstansi,
 		divisi: idDivisi,
@@ -14,7 +15,7 @@ export const createPegawai = async (newData) => {
 		uuidUser,
 	} = newData;
 	const { data, error } = await Supabase.from("pegawai")
-		.insert({ nip, nama, email, noTelepon: `+62${noTelepon}`, idStatus, idInstansi, idDivisi, idJabatan, idGolongan, uuidUser })
+		.insert({ nip, nama, email, noTelepon: `+62${noTelepon}`, idTipe, idStatus, idInstansi, idDivisi, idJabatan, idGolongan, uuidUser })
 		.select();
 	if (error) throw error;
 	return data[0];

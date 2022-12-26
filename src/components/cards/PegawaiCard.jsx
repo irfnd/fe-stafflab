@@ -4,17 +4,19 @@ import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, Heading, Icon, Image, Skeleton, Text, useColorModeValue } from "@chakra-ui/react";
-import { Award, Building2, Hash, Network, Pocket, Tags } from "lucide-react";
+import { Flex, Heading, Icon, Image, Skeleton, Text, useColorModeValue, Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
+import { Award, Building2, Hash, Network, Pocket, Tags, CheckCircle, Home, Backpack, XCircle } from "lucide-react";
 
 export default function PegawaiCard({ pegawai }) {
 	const statusPegawai = useSelector((state) => StatusPegawaiSelector.selectById(state, pegawai?.idStatus));
+	const tipePegawai = useSelector((state) => TipePegawaiSelector.selectById(state, pegawai?.idTipe));
 	const instansi = useSelector((state) => InstansiSelector.selectById(state, pegawai?.idInstansi));
 	const jabatan = useSelector((state) => JabatanSelector.selectById(state, pegawai?.idJabatan));
 	const divisi = useSelector((state) => DivisiSelector.selectById(state, pegawai?.idDivisi));
@@ -26,6 +28,19 @@ export default function PegawaiCard({ pegawai }) {
 	const bgCard = useColorModeValue("white", "gray.800");
 	const iconColor = useColorModeValue("cyan.600", "cyan.200");
 
+	const tagDynamic = (status) => {
+		switch (status) {
+			case "Cuti":
+				return { icon: Home, color: "yellow" };
+			case "Pensiun":
+				return { icon: Backpack, color: "gray" };
+			case "PHK":
+				return { icon: XCircle, color: "red" };
+			default:
+				return { icon: CheckCircle, color: "cyan" };
+		}
+	};
+
 	useDokumen(pegawai.nip);
 
 	useEffect(() => {
@@ -34,16 +49,24 @@ export default function PegawaiCard({ pegawai }) {
 
 	return (
 		<Flex
+			position='relative'
 			bg={bgCard}
 			direction='column'
 			shadow='md'
 			rounded='md'
 			cursor='pointer'
-			onClick={() => navigate(`/pegawai/${statusPegawai?.nama?.toLowerCase()}/${pegawai?.nip}`)}
+			onClick={() => navigate(`/pegawai/${tipePegawai?.nama?.toLowerCase()}/${pegawai?.nip}`)}
 		>
+			<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+				<Tag position='absolute' top={2} right={2} w='fit-content' size='lg' colorScheme={tagDynamic(statusPegawai?.nama).color}>
+					<TagLeftIcon as={tagDynamic(statusPegawai?.nama).icon} />
+					<TagLabel>{statusPegawai?.nama}</TagLabel>
+				</Tag>
+			</Skeleton>
+
 			<Flex pt={6} justify='center'>
 				<Skeleton
-					isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan}
+					isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan}
 					rounded='full'
 					display='flex'
 					justifyContent='center'
@@ -52,14 +75,16 @@ export default function PegawaiCard({ pegawai }) {
 					<Image src={profilePhoto} alt='Foto Profil' rounded='full' />
 				</Skeleton>
 			</Flex>
+
 			<Flex direction='column' justify='center' p={6} gap={4} h='full'>
-				<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+				<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 					<Heading fontSize={{ base: "xl", md: "2xl" }} noOfLines={1}>
 						{pegawai?.nama}
 					</Heading>
 				</Skeleton>
+
 				<Flex direction='column' gap={2}>
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Hash} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
@@ -68,16 +93,16 @@ export default function PegawaiCard({ pegawai }) {
 						</Flex>
 					</Skeleton>
 
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Tags} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
-								{statusPegawai?.nama}
+								{tipePegawai?.nama}
 							</Text>
 						</Flex>
 					</Skeleton>
 
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Award} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
@@ -86,7 +111,7 @@ export default function PegawaiCard({ pegawai }) {
 						</Flex>
 					</Skeleton>
 
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Pocket} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
@@ -95,7 +120,7 @@ export default function PegawaiCard({ pegawai }) {
 						</Flex>
 					</Skeleton>
 
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Network} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>
@@ -104,7 +129,7 @@ export default function PegawaiCard({ pegawai }) {
 						</Flex>
 					</Skeleton>
 
-					<Skeleton isLoaded={profilePhoto && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
+					<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 						<Flex align='center' gap={2}>
 							<Icon as={Building2} fontSize={18} color={iconColor} />
 							<Text fontSize={{ base: "xs", sm: "sm" }} noOfLines={1}>

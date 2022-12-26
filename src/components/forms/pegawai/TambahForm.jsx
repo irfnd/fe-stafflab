@@ -5,7 +5,7 @@ import { createPegawai } from "@/helpers/api/databases/pegawaiTable";
 import { createUser } from "@/helpers/api/functions/users";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
-import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ import KontakForm from "@/components/forms/pegawai/KontakForm";
 
 export default function TambahForm() {
 	const [loading, setLoading] = useState(false);
-	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
+	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
 
 	const resolver = yupResolver(PegawaiSchema);
 	const mainForm = useForm({ resolver, mode: "onChange" });
@@ -33,11 +33,11 @@ export default function TambahForm() {
 	const onSubmit = async (data) => {
 		setLoading(true);
 		try {
-			const status = statusPegawai?.filter((el) => el.id === parseInt(data.status, 10))[0]?.nama?.toLowerCase();
+			const tipe = tipePegawai?.filter((el) => el.id === parseInt(data.tipe, 10))[0]?.nama?.toLowerCase();
 
 			// Create Data
 			const akun = await createUser(data);
-			const pegawai = await createPegawai({ ...data, uuidUser: akun?.user?.id });
+			const pegawai = await createPegawai({ ...data, uuidUser: akun?.id });
 			await createDataPribadi({ ...data, nipPegawai: pegawai.nip });
 
 			// Upload File
@@ -145,7 +145,7 @@ export default function TambahForm() {
 			setTimeout(() => {
 				setLoading(false);
 				mainForm.reset();
-				navigate(`/pegawai/${status}`);
+				navigate(`/pegawai/${tipe}`);
 			}, 2000);
 		} catch (err) {
 			console.log(err);

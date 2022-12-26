@@ -32,12 +32,13 @@ export const PegawaiSchema = yup.object({
 	nip: yup.number().required("NIP wajib diisi!").typeError("NIP wajib diisi!"),
 	noTelepon: yup.number().required("Nomor telepon wajib diisi!").typeError("Nomor telepon wajib diisi!"),
 	skck: yup.mixed().required("Surat keterangan catatan kriminal wajib diisi!"),
-	status: yup.string().trim().required("Status pegawai wajib diisi!"),
+	status: yup.string().default("1"),
 	suratKerja: yup.mixed().required("Surat persetujuan kerja wajib diisi!"),
 	suratLamaran: yup.mixed().required("Surat Lamaran wajib diisi!"),
 	suratSehat: yup.mixed().required("Surat keterangan sehat wajib diisi!"),
 	tanggalLahir: yup.string().trim().required("Tanggal lahir wajib diisi!"),
 	tempatLahir: yup.string().trim().max(20, "Tempat lahir harus berisi kurang dari 20 karakter!").required("Tempat lahir wajib diisi!"),
+	tipe: yup.string().trim().required("Tipe pegawai wajib diisi!"),
 });
 
 export const InstansiSchema = yup.object({

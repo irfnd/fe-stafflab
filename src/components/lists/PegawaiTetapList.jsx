@@ -7,7 +7,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 // Components
 import PegawaiCard from "@/components/cards/PegawaiCard";
 
-export default function PegawaiAktifList() {
+export default function PegawaiTetapList() {
 	const pegawai = useSelector(PegawaiSelector.selectAll);
 
 	return (

@@ -3,6 +3,7 @@ import useGolongan from "@/helpers/hooks/useGolongan";
 import useInstansi from "@/helpers/hooks/useInstansi";
 import useJabatan from "@/helpers/hooks/useJabatan";
 import useStatusPegawai from "@/helpers/hooks/useStatusPegawai";
+import useTipePegawai from "@/helpers/hooks/useTipePegawai";
 import { Navigate, Outlet } from "react-router-dom";
 
 // Styles
@@ -20,6 +21,7 @@ export default function BaseLayout({ session }) {
 	const colorBorder = useColorModeValue("gray.200", "transparent");
 
 	useStatusPegawai();
+	useTipePegawai();
 	useInstansi();
 	useDivisi();
 	useJabatan();

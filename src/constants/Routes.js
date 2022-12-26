@@ -6,8 +6,8 @@ export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
 
 	// Pegawai
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
-	{ path: "/pegawai/aktif", title: "Pegawai Aktif", breadcrumb: "Aktif", isIndex: true },
-	{ path: "/pegawai/aktif/:id", title, breadcrumb: dynamicBreadcrumb, isIndex: true },
+	{ path: "/pegawai/tetap", title: "Pegawai Tetap", breadcrumb: "Tetap", isIndex: true },
+	{ path: "/pegawai/tetap/:id", title, breadcrumb: dynamicBreadcrumb, isIndex: true },
 	{ path: "/pegawai/tambah", title: "Tambah Pegawai", breadcrumb: "Tambah" },
 	{ path: "/pegawai/outsourcing", title: "Pegawai Outsourcing", breadcrumb: "Outsourcing" },
 	{ path: "/pegawai/magang", title: "Pegawai Magang", breadcrumb: "Magang" },
@@ -31,7 +31,7 @@ export const SIDEBARS = {
 		icon: Users,
 		children: [
 			{ path: "/pegawai/tambah", name: "Tambah", icon: UserPlus },
-			{ path: "/pegawai/aktif", name: "Aktif", icon: Users, isIndex: true },
+			{ path: "/pegawai/tetap", name: "Tetap", icon: Users, isIndex: true },
 			{ path: "/pegawai/outsourcing", name: "Outsourcing", icon: UserCog },
 			{ path: "/pegawai/magang", name: "Magang", icon: UserCheck },
 		],

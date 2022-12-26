@@ -7,16 +7,16 @@ import { Flex } from "@chakra-ui/react";
 // Components
 import SearchForm from "@/components/forms/SearchForm";
 import BasePagination from "@/components/layouts/paginations/BasePagination";
-import PegawaiAktifList from "@/components/lists/PegawaiAktifList";
+import PegawaiTetapList from "@/components/lists/PegawaiTetapList";
 
-export default function Aktif() {
+export default function Tetap() {
 	const { queryParams } = useQueryParams();
-	const { totalPages } = usePegawai({ ...queryParams, status: 3 });
+	const { totalPages } = usePegawai({ ...queryParams, type: 1 });
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<SearchForm />
-			<PegawaiAktifList />
+			<PegawaiTetapList />
 			<BasePagination page={queryParams.page} totalPages={totalPages} />
 		</Flex>
 	);

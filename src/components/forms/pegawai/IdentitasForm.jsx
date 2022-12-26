@@ -2,7 +2,7 @@ import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
-import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
@@ -13,7 +13,7 @@ import { Flex, Heading, SimpleGrid, useColorModeValue } from "@chakra-ui/react";
 import Input from "@/components/inputs/Input";
 
 export default function IdentitasForm() {
-	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
+	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
 	const jabatan = useSelector(JabatanSelector.selectAll);
@@ -37,10 +37,10 @@ export default function IdentitasForm() {
 					<Input name='nama' label='Nama' placeholder='Masukan Nama' shadow='md' rounded='md' />
 					<Input
 						type='select'
-						name='status'
-						label='Status'
-						placeholder='Pilih Status'
-						options={statusPegawai?.filter((el) => el.nama !== "Aktif").map((el) => ({ value: el.id, text: el.nama }))}
+						name='tipe'
+						label='Tipe Pegawai'
+						placeholder='Pilih Tipe Pegawai'
+						options={tipePegawai?.filter((el) => el.nama !== "Tetap").map((el) => ({ value: el.id, text: el.nama }))}
 						shadow='md'
 						rounded='md'
 					/>

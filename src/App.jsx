@@ -6,11 +6,11 @@ import BaseLayout from "@/components/layouts/BaseLayout";
 import ScrollToTop from "@/components/others/ScrollToTop";
 import Login from "@/pages/Auth/Login";
 import Home from "@/pages/Home/Home";
-import Aktif from "@/pages/Pegawai/Aktif";
 import Magang from "@/pages/Pegawai/Magang";
 import Outsourcing from "@/pages/Pegawai/Outsourcing";
 import ProfilePegawai from "@/pages/Pegawai/ProfilePegawai";
 import Tambah from "@/pages/Pegawai/Tambah";
+import Tetap from "@/pages/Pegawai/Tetap";
 import Divisi from "@/pages/Perusahaan/Divisi";
 import Golongan from "@/pages/Perusahaan/Golongan";
 import Instansi from "@/pages/Perusahaan/Instansi";
@@ -26,9 +26,9 @@ export default function App() {
 				<Route path='/' element={<BaseLayout session={session} />}>
 					<Route index element={<Home />} />
 					<Route path='pegawai'>
-						<Route index element={<Aktif />} />
-						<Route path='aktif'>
-							<Route index element={<Aktif />} />
+						<Route index element={<Tetap />} />
+						<Route path='tetap'>
+							<Route index element={<Tetap />} />
 							<Route path=':id' element={<ProfilePegawai />} />
 						</Route>
 						<Route path='outsourcing' element={<Outsourcing />} />

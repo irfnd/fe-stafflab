@@ -8,7 +8,7 @@ import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
-import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -23,7 +23,7 @@ import EditButtonSection from "@/components/forms/pegawai/profile/EditButtonSect
 import Input from "@/components/inputs/Input";
 
 export default function IdentitasSection() {
-	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
+	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
 	const instansi = useSelector(InstansiSelector.selectAll);
 	const divisi = useSelector(DivisiSelector.selectAll);
 	const jabatan = useSelector(JabatanSelector.selectAll);
@@ -81,13 +81,13 @@ export default function IdentitasSection() {
 		mainForm.reset({
 			nip: pegawai?.nip,
 			nama: pegawai?.nama,
-			status: pegawai?.idStatus,
+			tipe: pegawai?.idTipe,
 			instansi: pegawai?.idInstansi,
 			divisi: pegawai?.idDivisi,
 			jabatan: pegawai?.idJabatan,
 			golongan: pegawai?.idGolongan,
 		});
-	}, [pegawai, statusPegawai, instansi, divisi, jabatan, golongan, formDisabled]);
+	}, [pegawai, tipePegawai, instansi, divisi, jabatan, golongan, formDisabled]);
 
 	const bgSection = useColorModeValue("white", "gray.800");
 
@@ -107,7 +107,7 @@ export default function IdentitasSection() {
 					<Flex direction={{ base: "column", md: "row" }} gap={6}>
 						<Flex direction='column' w={{ base: "full", md: "50%", xl: "30%" }}>
 							<Skeleton
-								isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
+								isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
 								display='flex'
 								flexDirection='column'
 								rounded='md'
@@ -126,27 +126,27 @@ export default function IdentitasSection() {
 						</Flex>
 						<Flex w={{ base: "full", md: "50%", xl: "70%" }} direction='column' gap={6}>
 							<Skeleton
-								isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
+								isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
 								rounded='md'
 							>
 								<Input name='nip' type='number' label='NIP' placeholder='Masukan NIP' shadow='md' rounded='md' disabled />
 							</Skeleton>
 							<Skeleton
-								isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
+								isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
 								rounded='md'
 							>
 								<Input name='nama' label='Nama' placeholder='Masukan Nama' shadow='md' rounded='md' disabled={formDisabled} />
 							</Skeleton>
 							<Skeleton
-								isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
+								isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
 								rounded='md'
 							>
 								<Input
 									type='select'
-									name='status'
-									label='Status'
-									placeholder='Pilih Status'
-									options={statusPegawai?.filter((el) => el.nama !== "Aktif").map((el) => ({ value: el.id, text: el.nama }))}
+									name='tipe'
+									label='Tipe Pegawai'
+									placeholder='Pilih Tipe Pegawai'
+									options={tipePegawai?.filter((el) => el.nama !== "Aktif").map((el) => ({ value: el.id, text: el.nama }))}
 									shadow='md'
 									rounded='md'
 									disabled
@@ -155,10 +155,7 @@ export default function IdentitasSection() {
 						</Flex>
 					</Flex>
 					<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
-						<Skeleton
-							isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
-							rounded='md'
-						>
+						<Skeleton isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil} rounded='md'>
 							<Input
 								type='select'
 								name='instansi'
@@ -170,10 +167,7 @@ export default function IdentitasSection() {
 								disabled
 							/>
 						</Skeleton>
-						<Skeleton
-							isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
-							rounded='md'
-						>
+						<Skeleton isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil} rounded='md'>
 							<Input
 								type='select'
 								name='divisi'
@@ -189,10 +183,7 @@ export default function IdentitasSection() {
 						</Skeleton>
 					</SimpleGrid>
 					<SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
-						<Skeleton
-							isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
-							rounded='md'
-						>
+						<Skeleton isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil} rounded='md'>
 							<Input
 								type='select'
 								name='jabatan'
@@ -209,10 +200,7 @@ export default function IdentitasSection() {
 								disabled
 							/>
 						</Skeleton>
-						<Skeleton
-							isLoaded={statusPegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil}
-							rounded='md'
-						>
+						<Skeleton isLoaded={tipePegawai && instansi && divisi && jabatan && golongan && pegawai && dokumen && fotoProfil} rounded='md'>
 							<Input
 								type='select'
 								name='golongan'

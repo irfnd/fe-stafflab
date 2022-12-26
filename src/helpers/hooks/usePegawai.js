@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 let pegawaiSubscription = null;
 
 export default function usePegawai(query) {
-	const { status, search, filter, order, sort, page, limit } = query;
+	const { type, search, filter, order, sort, page, limit } = query;
 	const { from, to } = usePagination(page, limit);
 	const [totalPages, setTotalPages] = useState(null);
 	const pegawai = useSelector(PegawaiSelector.selectAll);
@@ -20,21 +20,21 @@ export default function usePegawai(query) {
 				results = await Supabase.from("pegawai")
 					.select("*", { count: "exact" })
 					.ilike(filter, `%${search}%`)
-					.eq("idStatus", status)
+					.eq("idTipe", type)
 					.order(order, { ascending: sort === "asc" })
 					.range(from, to);
 			} else {
 				results = await Supabase.from("pegawai")
 					.select("*", { count: "exact" })
 					.eq(filter, parseInt(search, 10))
-					.eq("idStatus", status)
+					.eq("idTipe", type)
 					.order(order, { ascending: sort === "asc" })
 					.range(from, to);
 			}
 		} else {
 			results = await Supabase.from("pegawai")
 				.select("*", { count: "exact" })
-				.eq("idStatus", status)
+				.eq("idTipe", type)
 				.order(order, { ascending: sort === "asc" })
 				.range(from, to);
 		}
@@ -65,7 +65,7 @@ export default function usePegawai(query) {
 		pegawaiSubscription = Supabase.channel("public:pegawai")
 			.on("postgres_changes", { event: "*", schema: "public", table: "pegawai" }, changePegawai)
 			.subscribe();
-	}, [status, search, filter, order, sort, page, limit]);
+	}, [type, search, filter, order, sort, page, limit]);
 
 	useEffect(() => {
 		return () => {
