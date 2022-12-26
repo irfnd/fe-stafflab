@@ -8,6 +8,7 @@ YupPassword(yup);
 const JenisKelamin = InputProps.JenisKelamin.map((el) => el.value);
 const Agama = InputProps.Agama.map((el) => el.value);
 const StatusPernikahan = InputProps.StatusPernikahan.map((el) => el.value);
+const JenjangPendidikan = InputProps.JenjangPendidikan.map((el) => el.value);
 
 export const LoginSchema = yup.object({
 	email: yup.string().email("Email harus valid!").trim().required("Email wajib diisi!"),
@@ -57,14 +58,6 @@ export const JabatanSchema = yup.object({
 	idDivisi: yup.string().trim().required("Nama divisi wajib diisi!"),
 });
 
-export const StatusPegawaiSchema = yup.object({
-	nama: yup
-		.string()
-		.trim()
-		.max(100, "Nama status pegawai harus berisi kurang dari 100 karakter!")
-		.required("Nama status pegawai wajib diisi"),
-});
-
 export const GolonganSchema = yup.object({
 	nama: yup.string().trim().max(50, "Nama golongan harus berisi kurang dari 50 karakter!").required("Nama golongan wajib diisi"),
 	keterangan: yup.string().trim().max(200, "Keterangan harus berisi kurang dari 200 karakter!").default(""),
@@ -85,10 +78,16 @@ export const DataPribadiSchema = yup.object({
 	alamat: yup.string().trim().max(200, "Alamat harus berisi kurang dari 200 karakter!").required("Alamat wajib diisi!"),
 });
 
-export const DokumenSchema = yup.object({
-	nama: yup.string().trim().max(50, "Nama file dokumen harus berisi kurang dari 50 karakter!").required("Nama file Dokumen wajib diisi"),
-	dokumen: yup.mixed().required("Dokumen wajib diisi!"),
-});
+export const DokumenSchema = {
+	add: yup.object({
+		nama: yup.string().trim().max(50, "Nama file dokumen harus berisi kurang dari 50 karakter!").required("Nama file Dokumen wajib diisi"),
+		dokumen: yup.mixed().required("Dokumen wajib diisi!"),
+	}),
+	update: yup.object({
+		nama: yup.string().trim().max(50, "Nama file dokumen harus berisi kurang dari 50 karakter!").required("Nama file Dokumen wajib diisi"),
+		dokumen: yup.mixed(),
+	}),
+};
 
 export const KontakSchema = yup.object({
 	email: yup.string().email("Email harus valid!").trim().required("Email wajib diisi!"),
@@ -112,6 +111,49 @@ export const AkunResetPassword = yup.object({
 		.oneOf([yup.ref("password"), null], "Konfirmasi password tidak cocok!"),
 });
 
+export const PendidikanSchema = {
+	add: yup.object({
+		nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi!"),
+		jenjang: yup.mixed().oneOf(JenjangPendidikan, "Pilih jenjang yang tertera!").required("Jenjang wajib diisi!"),
+		jurusan: yup.string().trim().max(150, "Jurusan harus berisi kurang dari 150 karakter!").required("Jurusan wajib diisi!"),
+		tanggalMasuk: yup
+			.number()
+			.min(1000, "Masukan tahun masuk dengan benar!")
+			.max(9999, "Masukan tahun masuk dengan benar!")
+			.required("Tahun masuk wajib diisi!")
+			.typeError("Tahun masuk wajib diisi!"),
+		tanggalLulus: yup
+			.number()
+			.min(1000, "Masukan tahun lulus dengan benar!")
+			.max(9999, "Masukan tahun lulus dengan benar!")
+			.required("Tahun lulus wajib diisi!")
+			.typeError("Tahun lulus wajib diisi!"),
+		gelar: yup.string(),
+		ijazah: yup.mixed().required("Ijazah wajib diisi!"),
+		transkrip: yup.mixed().required("Transkrip wajib diisi!"),
+	}),
+	update: yup.object({
+		nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi!"),
+		jenjang: yup.mixed().oneOf(JenjangPendidikan, "Pilih jenjang yang tertera!").required("Jenjang wajib diisi!"),
+		jurusan: yup.string().trim().max(150, "Jurusan harus berisi kurang dari 150 karakter!").required("Jurusan wajib diisi!"),
+		tanggalMasuk: yup
+			.number()
+			.min(1000, "Masukan tahun masuk dengan benar!")
+			.max(9999, "Masukan tahun masuk dengan benar!")
+			.required("Tahun masuk wajib diisi!")
+			.typeError("Tahun masuk wajib diisi!"),
+		tanggalLulus: yup
+			.number()
+			.min(1000, "Masukan tahun lulus dengan benar!")
+			.max(9999, "Masukan tahun lulus dengan benar!")
+			.required("Tahun lulus wajib diisi!")
+			.typeError("Tahun lulus wajib diisi!"),
+		gelar: yup.string(),
+		ijazah: yup.mixed(),
+		transkrip: yup.mixed(),
+	}),
+};
+
 export default {
 	LoginSchema,
 	PegawaiSchema,
@@ -119,8 +161,8 @@ export default {
 	DivisiSchema,
 	JabatanSchema,
 	DataPribadiSchema,
-	StatusPegawaiSchema,
 	DokumenSchema,
 	KontakSchema,
 	AkunResetPassword,
+	PendidikanSchema,
 };

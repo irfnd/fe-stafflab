@@ -30,8 +30,9 @@ export default function DokumenModal({ type = "add", disclosure, category, dokum
 
 	const params = useParams();
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
-	const resolver = yupResolver(DokumenSchema);
-	const mainForm = useForm({ resolver: type === "add" && resolver, mode: "onChange" });
+	const resolverAdd = yupResolver(DokumenSchema.add);
+	const resolverUpdate = yupResolver(DokumenSchema.update);
+	const mainForm = useForm({ resolver: type === "add" ? resolverAdd : resolverUpdate, mode: "onChange" });
 	const toast = useToast();
 
 	useEffect(() => {

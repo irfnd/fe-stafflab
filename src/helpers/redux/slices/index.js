@@ -8,6 +8,7 @@ import GolonganSlice from "@/helpers/redux/slices/GolonganSlice";
 import InstansiSlice from "@/helpers/redux/slices/InstansiSlice";
 import JabatanSlice from "@/helpers/redux/slices/JabatanSlice";
 import PegawaiSlice from "@/helpers/redux/slices/PegawaiSlice";
+import PendidikanSlice from "@/helpers/redux/slices/PendidikanSlice";
 import StatusPegawaiSlice from "@/helpers/redux/slices/StatusPegawaiSlice";
 import TipePegawaiSlice from "@/helpers/redux/slices/TipePegawaiSlice";
 
@@ -20,6 +21,7 @@ const rootReducers = combineReducers({
 	[InstansiSlice.name]: InstansiSlice.reducer,
 	[JabatanSlice.name]: JabatanSlice.reducer,
 	[PegawaiSlice.name]: PegawaiSlice.reducer,
+	[PendidikanSlice.name]: PendidikanSlice.reducer,
 	[StatusPegawaiSlice.name]: StatusPegawaiSlice.reducer,
 	[TipePegawaiSlice.name]: TipePegawaiSlice.reducer,
 });

@@ -17,10 +17,17 @@ export const JenisKelamin = [
 	{ value: "p", text: "Perempuan" },
 ];
 
-const InputProps = {
+export const JenjangPendidikan = [
+	{ value: "SMK/SMA/MA", text: "SMK/SMA/MA" },
+	{ value: "D3", text: "D3" },
+	{ value: "S1", text: "S1" },
+	{ value: "S2", text: "S2" },
+	{ value: "S3", text: "S3" },
+];
+
+export default {
 	Agama,
 	StatusPernikahan,
 	JenisKelamin,
+	JenjangPendidikan,
 };
-
-export default InputProps;
