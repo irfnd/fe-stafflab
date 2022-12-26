@@ -94,7 +94,7 @@ export default function PendidikanDeleteModal({ disclosure, pendidikan }) {
 					</Flex>
 					<Flex gap={2}>
 						<Icon as={GraduationCap} fontSize={20} color='cyan.500' />
-						<Text>{pendidikan?.gelar}</Text>
+						<Text>{pendidikan?.gelar || "-"}</Text>
 					</Flex>
 					<Flex gap={2}>
 						<Icon as={FileClock} fontSize={20} color='cyan.500' />
