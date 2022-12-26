@@ -1,6 +1,6 @@
+import InputProps from "@/constants/InputProps";
 import * as yup from "yup";
 import YupPassword from "yup-password";
-import InputProps from "@/constants/InputProps";
 
 YupPassword(yup);
 

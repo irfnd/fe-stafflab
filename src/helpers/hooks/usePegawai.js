@@ -1,8 +1,8 @@
-import { PegawaiActions, PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import Supabase from "@/helpers/Supabase";
+import usePagination from "@/helpers/hooks/usePagination";
+import { PegawaiActions, PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import usePagination from "@/helpers/hooks/usePagination";
 
 let pegawaiSubscription = null;
 

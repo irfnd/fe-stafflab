@@ -1,8 +1,8 @@
-import { createSearchParams } from "react-router-dom";
 import useQueryParams from "@/helpers/hooks/useQueryParams";
+import { createSearchParams } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, IconButton, Button, Text, useBreakpointValue, Skeleton } from "@chakra-ui/react";
+import { Button, Flex, IconButton, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 export default function BasePagination({ page, totalPages }) {

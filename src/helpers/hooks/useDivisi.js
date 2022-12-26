@@ -1,5 +1,5 @@
-import { DivisiActions, DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import Supabase from "@/helpers/Supabase";
+import { DivisiActions, DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

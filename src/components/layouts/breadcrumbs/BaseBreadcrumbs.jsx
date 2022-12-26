@@ -1,7 +1,7 @@
+import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 import usePageTitle from "@/helpers/hooks/usePageTitle";
 import { NavLink } from "react-router-dom";
 import useBreadcrumbs from "use-react-router-breadcrumbs";
-import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 
 // Styles & Icons
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";

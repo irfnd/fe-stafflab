@@ -1,7 +1,7 @@
+import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useTitle } from "react-use";
-import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 
 // Constants
 import DynamicBreadcrumbs from "@/components/layouts/breadcrumbs/DynamicBreadcrumbs";

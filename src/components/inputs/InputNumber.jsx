@@ -4,13 +4,13 @@ import { NumericFormat } from "react-number-format";
 // Styles & Icons
 import {
 	FormControl,
-	FormLabel,
 	FormErrorMessage,
+	FormLabel,
 	Input,
 	InputGroup,
 	InputLeftAddon,
-	InputRightAddon,
 	InputLeftElement,
+	InputRightAddon,
 	InputRightElement,
 	useColorModeValue,
 } from "@chakra-ui/react";

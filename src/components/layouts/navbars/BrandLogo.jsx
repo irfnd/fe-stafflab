@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
-import { Text, Flex } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 
 export default function BrandLogo({ type = "navbar", onClose = null }) {
 	const navigate = useNavigate();

@@ -1,9 +1,11 @@
-import { useState } from "react";
 import { deleteInstansi } from "@/helpers/api/databases/instansiTable";
+import { useState } from "react";
 
 // Styles & Icons
 import {
 	Button,
+	Flex,
+	Icon,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -13,8 +15,6 @@ import {
 	ModalOverlay,
 	Text,
 	useToast,
-	Flex,
-	Icon,
 } from "@chakra-ui/react";
 import { Building2, MapPin } from "lucide-react";
 

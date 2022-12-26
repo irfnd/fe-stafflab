@@ -18,7 +18,7 @@ import {
 	Text,
 	useToast,
 } from "@chakra-ui/react";
-import { FileType2, FileBadge, FileClock } from "lucide-react";
+import { FileBadge, FileClock, FileType2 } from "lucide-react";
 
 // Components
 

@@ -1,5 +1,5 @@
-import { JabatanActions, JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import Supabase from "@/helpers/Supabase";
+import { JabatanActions, JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

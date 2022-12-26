@@ -1,5 +1,5 @@
-import { useState } from "react";
 import { deleteGolongan } from "@/helpers/api/databases/golonganTable";
+import { useState } from "react";
 
 // Styles & Icons
 import {
@@ -16,7 +16,7 @@ import {
 	Text,
 	useToast,
 } from "@chakra-ui/react";
-import { Pocket, ClipboardList } from "lucide-react";
+import { ClipboardList, Pocket } from "lucide-react";
 
 // Components
 

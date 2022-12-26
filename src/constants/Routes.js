@@ -1,8 +1,9 @@
-import { Home, UserCheck, UserCog, UserPlus, Users, Building2, Network, Award, Factory, Pocket } from "lucide-react";
+import { Award, Building2, Factory, Home, Network, Pocket, UserCheck, UserCog, UserPlus, Users } from "lucide-react";
 
 export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
 	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard" },
 	{ path: "/login", title: "Login" },
+
 	// Pegawai
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
 	{ path: "/pegawai/aktif", title: "Pegawai Aktif", breadcrumb: "Aktif", isIndex: true },
@@ -11,6 +12,7 @@ export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
 	{ path: "/pegawai/outsourcing", title: "Pegawai Outsourcing", breadcrumb: "Outsourcing" },
 	{ path: "/pegawai/magang", title: "Pegawai Magang", breadcrumb: "Magang" },
 	{ path: "/pegawai/magang/:id", title, breadcrumb: dynamicBreadcrumb },
+
 	// Perusahaan
 	{ path: "/perusahaan", title: "Instansi Perusahaan", breadcrumb: "Perusahaan" },
 	{ path: "/perusahaan/instansi", title: "Instansi Perusahaan", breadcrumb: "Instansi", isIndex: true },
@@ -21,6 +23,8 @@ export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
 
 export const SIDEBARS = {
 	dashboard: { path: "/", name: "Dashboard", icon: Home },
+
+	// Pegawai
 	pegawai: {
 		path: "/pegawai",
 		name: "Pegawai",
@@ -32,6 +36,8 @@ export const SIDEBARS = {
 			{ path: "/pegawai/magang", name: "Magang", icon: UserCheck },
 		],
 	},
+
+	// Perusahaan
 	perusahaan: {
 		path: "/perusahaan",
 		name: "Perusahaan",

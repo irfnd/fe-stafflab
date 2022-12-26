@@ -1,13 +1,13 @@
+import { DataPribadiSchema } from "@/helpers/Validations";
 import { DataPribadiSelector } from "@/helpers/redux/slices/DataPribadiSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { DataPribadiSchema } from "@/helpers/Validations";
 
 // Styles & Icons
-import { Flex, SimpleGrid, Heading, useToast } from "@chakra-ui/react";
+import { Flex, Heading, SimpleGrid, useToast } from "@chakra-ui/react";
 
 // Components & Constants
 import EditButtonSection from "@/components/forms/pegawai/profile/EditButtonSection";

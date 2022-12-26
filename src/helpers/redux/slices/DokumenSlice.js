@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
 const DokumenAdapter = createEntityAdapter({
 	sortComparer: (a, b) => a.uploadedAt.localeCompare(b.uploadedAt),

@@ -1,5 +1,5 @@
-import { StatusPegawaiActions, StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import Supabase from "@/helpers/Supabase";
+import { StatusPegawaiActions, StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -8,7 +8,7 @@ export default function useStatusPegawai() {
 	const dispatch = useDispatch();
 
 	const fetchStatusPegawai = async () => {
-		const { data } = await Supabase.from("status").select("*");
+		const { data } = await Supabase.from("status_pegawai").select("*");
 		if (data) dispatch(StatusPegawaiActions.set(data));
 	};
 
@@ -31,8 +31,8 @@ export default function useStatusPegawai() {
 
 	useEffect(() => {
 		fetchStatusPegawai();
-		Supabase.channel("public:status")
-			.on("postgres_changes", { event: "*", schema: "public", table: "status" }, changeStatusPegawai)
+		Supabase.channel("public:status_pegawai")
+			.on("postgres_changes", { event: "*", schema: "public", table: "status_pegawai" }, changeStatusPegawai)
 			.subscribe();
 	}, []);
 

@@ -11,12 +11,16 @@ export default function useAuth() {
 		Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
 			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
 				dispatch(AuthActions.setSession(currentSession));
+			} else {
+				dispatch(AuthActions.setSession(null));
 			}
 		});
 
 		Supabase.auth.onAuthStateChange((_event, currentSession) => {
 			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
 				dispatch(AuthActions.setSession(currentSession));
+			} else {
+				dispatch(AuthActions.setSession(null));
 			}
 		});
 	}, []);

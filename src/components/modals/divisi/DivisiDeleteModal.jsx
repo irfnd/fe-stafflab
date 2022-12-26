@@ -1,7 +1,7 @@
+import { deleteDivisi } from "@/helpers/api/databases/divisiTable";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import { deleteDivisi } from "@/helpers/api/databases/divisiTable";
 
 // Styles & Icons
 import {

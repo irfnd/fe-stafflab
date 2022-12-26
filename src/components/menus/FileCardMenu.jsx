@@ -5,8 +5,8 @@ import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 // Components
-import DokumenModal from "@/components/modals/dokumen/DokumenModal";
 import DokumenDeleteModal from "@/components/modals/dokumen/DokumenDeleteModal";
+import DokumenModal from "@/components/modals/dokumen/DokumenModal";
 
 export default function FileCardMenu({ category, file }) {
 	const [selectedDokumen, setSelectedDokumen] = useState();

@@ -1,12 +1,12 @@
+import Supabase from "@/helpers/Supabase";
+import { LoginSchema } from "@/helpers/Validations";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { LoginSchema } from "@/helpers/Validations";
 import { useNavigate } from "react-router-dom";
-import Supabase from "@/helpers/Supabase";
 
 // Styles & Icons
-import { Flex, Button, useToast } from "@chakra-ui/react";
+import { Button, Flex, useToast } from "@chakra-ui/react";
 
 // Components
 import Input from "@/components/inputs/Input";

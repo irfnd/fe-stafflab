@@ -1,4 +1,4 @@
-import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
 const DataPribadiAdapter = createEntityAdapter({
 	selectId: (dataPribadi) => dataPribadi.nipPegawai,

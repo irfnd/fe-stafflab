@@ -1,5 +1,5 @@
-import { DataPribadiActions, DataPribadiSelector } from "@/helpers/redux/slices/DataPribadiSlice";
 import Supabase from "@/helpers/Supabase";
+import { DataPribadiActions, DataPribadiSelector } from "@/helpers/redux/slices/DataPribadiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

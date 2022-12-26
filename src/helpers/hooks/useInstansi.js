@@ -1,5 +1,5 @@
-import { InstansiActions, InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import Supabase from "@/helpers/Supabase";
+import { InstansiActions, InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

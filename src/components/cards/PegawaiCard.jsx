@@ -1,13 +1,13 @@
+import useDokumen from "@/helpers/hooks/useDokumen";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
+import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import useDokumen from "@/helpers/hooks/useDokumen";
-import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
-import { useEffect, useState } from "react";
 
 // Styles & Icons
 import { Flex, Heading, Icon, Image, Skeleton, Text, useColorModeValue } from "@chakra-ui/react";

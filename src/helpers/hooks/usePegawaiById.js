@@ -1,5 +1,5 @@
-import { PegawaiActions, PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import Supabase from "@/helpers/Supabase";
+import { PegawaiActions, PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 

@@ -1,15 +1,15 @@
-import { useFormContext } from "react-hook-form";
 import { useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 // Styles & Icons
 import {
 	FormControl,
-	FormLabel,
 	FormErrorMessage,
-	InputGroup,
-	Input,
-	InputRightElement,
+	FormLabel,
 	IconButton,
+	Input,
+	InputGroup,
+	InputRightElement,
 	useColorModeValue,
 } from "@chakra-ui/react";
 import { Eye, EyeOff } from "lucide-react";

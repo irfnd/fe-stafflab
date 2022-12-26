@@ -1,19 +1,19 @@
-import { useState, useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { GolonganSchema } from "@/helpers/Validations";
 import { createGolongan, updateGolongan } from "@/helpers/api/databases/golonganTable";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 // Styles & Icons
 import {
+	Button,
 	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalFooter,
 	ModalBody,
 	ModalCloseButton,
-	Button,
+	ModalContent,
+	ModalFooter,
+	ModalHeader,
+	ModalOverlay,
 	useToast,
 } from "@chakra-ui/react";
 

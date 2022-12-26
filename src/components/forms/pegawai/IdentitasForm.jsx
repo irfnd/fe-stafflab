@@ -1,8 +1,8 @@
-import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
+import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
-import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
+import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useFormContext } from "react-hook-form";
 import { useSelector } from "react-redux";
 
