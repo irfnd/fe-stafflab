@@ -24,7 +24,14 @@ export default function BaseNavbar({ disclosure }) {
 			h={20}
 			w='full'
 		>
-			<IconButton size='lg' display={{ base: "flex", lg: "none" }} onClick={onOpen} variant='ghost' rounded='full' icon={<Menu size={28} />} />
+			<IconButton
+				size='lg'
+				display={{ base: "flex", lg: "none" }}
+				onClick={onOpen}
+				variant='ghost'
+				rounded='full'
+				icon={<Menu size={28} />}
+			/>
 			<Flex gap={{ base: 2, md: 4 }}>
 				<ToggleTheme />
 				<UserAvatar />

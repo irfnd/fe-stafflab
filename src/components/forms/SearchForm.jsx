@@ -68,7 +68,12 @@ export default function SearchForm() {
 						<MenuItemOption value='createdAt'>Diubah</MenuItemOption>
 					</MenuOptionGroup>
 					<MenuDivider />
-					<MenuOptionGroup title='Urutan Pegawai' type='radio' defaultValue={queryParams.sort} onChange={(value) => onChangeMenu(value, "sort")}>
+					<MenuOptionGroup
+						title='Urutan Pegawai'
+						type='radio'
+						defaultValue={queryParams.sort}
+						onChange={(value) => onChangeMenu(value, "sort")}
+					>
 						<MenuItemOption value='asc'>Naik (A-Z)</MenuItemOption>
 						<MenuItemOption value='desc'>Menurun (Z-A)</MenuItemOption>
 					</MenuOptionGroup>

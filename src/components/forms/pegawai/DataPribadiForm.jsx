@@ -15,7 +15,14 @@ export default function DataPribadiForm() {
 			</Heading>
 			<SimpleGrid columns={{ base: 1, md: 2 }} spacing={6}>
 				<Input name='nik' type='number' label='NIK' placeholder='Masukan NIK' shadow='md' rounded='md' order={1} />
-				<Input name='tempatLahir' label='Tempat Lahir' placeholder='Masukan Tempat Lahir' shadow='md' rounded='md' order={{ base: 2, md: 3 }} />
+				<Input
+					name='tempatLahir'
+					label='Tempat Lahir'
+					placeholder='Masukan Tempat Lahir'
+					shadow='md'
+					rounded='md'
+					order={{ base: 2, md: 3 }}
+				/>
 				<Input
 					name='tanggalLahir'
 					type='date'

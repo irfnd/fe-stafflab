@@ -41,7 +41,8 @@ export default function BaseBreadcrumbs() {
 					<BreadcrumbLink
 						as={NavLink}
 						to={
-							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0].path
+							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]
+								.path
 						}
 						fontSize={{ base: 14, md: 16 }}
 						fontWeight='semibold'

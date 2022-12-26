@@ -57,7 +57,9 @@ export default function SidebarMenu({ onClose }) {
 						py={4}
 						px={6}
 						bg={location.pathname === menu.path || (menu.children && location.pathname.includes(menu.path)) ? activeLink : "transparent"}
-						color={(location.pathname === menu.path && "gray.800") || (menu.children && location.pathname.includes(menu.path) && "gray.800")}
+						color={
+							(location.pathname === menu.path && "gray.800") || (menu.children && location.pathname.includes(menu.path) && "gray.800")
+						}
 						_hover={{ bg: activeLink, color: "gray.800" }}
 						_expanded={{ bg: menu.children && activeNestedLink, color: expandTextLink }}
 						onClick={() => {

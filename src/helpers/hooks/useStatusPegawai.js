@@ -31,7 +31,9 @@ export default function useStatusPegawai() {
 
 	useEffect(() => {
 		fetchStatusPegawai();
-		Supabase.channel("public:status").on("postgres_changes", { event: "*", schema: "public", table: "status" }, changeStatusPegawai).subscribe();
+		Supabase.channel("public:status")
+			.on("postgres_changes", { event: "*", schema: "public", table: "status" }, changeStatusPegawai)
+			.subscribe();
 	}, []);
 
 	return { statusPegawai };

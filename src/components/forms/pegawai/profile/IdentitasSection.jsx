@@ -1,3 +1,4 @@
+import { IdentitasSchema } from "@/helpers/Validations";
 import { updateDokumen } from "@/helpers/api/databases/dokumenTable";
 import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 import { deletePhoto, getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
@@ -8,13 +9,14 @@ import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, Heading, SimpleGrid, useColorModeValue, Skeleton, useToast } from "@chakra-ui/react";
+import { Flex, Heading, SimpleGrid, Skeleton, useColorModeValue, useToast } from "@chakra-ui/react";
 
 // Components & Constants
 import EditButtonSection from "@/components/forms/pegawai/profile/EditButtonSection";
@@ -32,8 +34,9 @@ export default function IdentitasSection() {
 	const params = useParams();
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
 	const dokumen = useSelector(DokumenSelector.selectAll);
+	const resolver = yupResolver(IdentitasSchema);
 	const fotoProfil = dokumen?.filter((el) => el.kategori === "profil")[0];
-	const mainForm = useForm({ mode: "onChange" });
+	const mainForm = useForm({ resolver, mode: "onChange" });
 	const toast = useToast();
 
 	const onSubmit = async (data) => {

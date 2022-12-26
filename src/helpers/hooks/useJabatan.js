@@ -31,7 +31,9 @@ export default function useJabatan() {
 
 	useEffect(() => {
 		fetchJabatan();
-		Supabase.channel("public:jabatan").on("postgres_changes", { event: "*", schema: "public", table: "jabatan" }, changeJabatan).subscribe();
+		Supabase.channel("public:jabatan")
+			.on("postgres_changes", { event: "*", schema: "public", table: "jabatan" }, changeJabatan)
+			.subscribe();
 	}, []);
 
 	return { jabatan };

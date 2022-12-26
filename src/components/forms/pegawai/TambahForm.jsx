@@ -36,9 +36,9 @@ export default function TambahForm() {
 			const status = statusPegawai?.filter((el) => el.id === parseInt(data.status, 10))[0]?.nama?.toLowerCase();
 
 			// Create Data
-			const pegawai = await createPegawai(data);
+			const akun = await createUser(data);
+			const pegawai = await createPegawai({ ...data, uuidUser: akun?.user?.id });
 			await createDataPribadi({ ...data, nipPegawai: pegawai.nip });
-			await createUser(data);
 
 			// Upload File
 			const foto = await uploadPhoto({
@@ -166,8 +166,8 @@ export default function TambahForm() {
 			<form onSubmit={mainForm.handleSubmit(onSubmit)}>
 				<Flex direction='column' w='full' gap={8}>
 					<IdentitasForm />
-					<DataPribadiForm />
 					<KontakForm />
+					<DataPribadiForm />
 					<DokumenLamaranForm />
 					<Flex justify='flex-end'>
 						<Button isLoading={loading} type='submit' colorScheme='cyan' size='lg' w={{ base: "full", md: "fit-content" }}>

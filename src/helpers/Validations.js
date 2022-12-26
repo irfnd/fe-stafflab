@@ -57,7 +57,11 @@ export const JabatanSchema = yup.object({
 });
 
 export const StatusPegawaiSchema = yup.object({
-	nama: yup.string().trim().max(100, "Nama status pegawai harus berisi kurang dari 100 karakter!").required("Nama status pegawai wajib diisi"),
+	nama: yup
+		.string()
+		.trim()
+		.max(100, "Nama status pegawai harus berisi kurang dari 100 karakter!")
+		.required("Nama status pegawai wajib diisi"),
 });
 
 export const GolonganSchema = yup.object({
@@ -65,13 +69,57 @@ export const GolonganSchema = yup.object({
 	keterangan: yup.string().trim().max(200, "Keterangan harus berisi kurang dari 200 karakter!").default(""),
 });
 
-const validations = {
+export const IdentitasSchema = yup.object({
+	nama: yup.string().trim().max(150, "Nama harus berisi kurang dari 150 karakter!").required("Nama wajib diisi!"),
+	foto: yup.mixed(),
+});
+
+export const DataPribadiSchema = yup.object({
+	nik: yup.number().required("NIK wajib diisi!").typeError("NIK wajib diisi!"),
+	jenisKelamin: yup.mixed().oneOf(JenisKelamin, "Pilih jenis kelamin yang tertera!").required("Jenis kelamin wajib diisi!"),
+	tanggalLahir: yup.string().trim().required("Tanggal lahir wajib diisi!"),
+	tempatLahir: yup.string().trim().max(20, "Tempat lahir harus berisi kurang dari 20 karakter!").required("Tempat lahir wajib diisi!"),
+	agama: yup.mixed().oneOf(Agama, "Pilih agama yang tertera!").required("Agama wajib diisi!"),
+	kawin: yup.mixed().oneOf(StatusPernikahan, "Pilih status pernikahan yang tertera!").required("Status pernikahan wajib diisi!"),
+	alamat: yup.string().trim().max(200, "Alamat harus berisi kurang dari 200 karakter!").required("Alamat wajib diisi!"),
+});
+
+export const DokumenSchema = yup.object({
+	nama: yup.string().trim().max(50, "Nama file dokumen harus berisi kurang dari 50 karakter!").required("Nama file Dokumen wajib diisi"),
+	dokumen: yup.mixed().required("Dokumen wajib diisi!"),
+});
+
+export const KontakSchema = yup.object({
+	email: yup.string().email("Email harus valid!").trim().required("Email wajib diisi!"),
+	noTelepon: yup.number().required("Nomor telepon wajib diisi!").typeError("Nomor telepon wajib diisi!"),
+});
+
+export const AkunResetPassword = yup.object({
+	password: yup
+		.string()
+		.trim()
+		.required("Password wajib diisi!")
+		.min(8, "Password harus berisi minimal 8 karakter!")
+		.minLowercase(1, "Password harus berisi minimal 1 huruf kecil!")
+		.minUppercase(1, "Password harus berisi minimal 1 huruf kapital!")
+		.minNumbers(1, "Password harus berisi minimal 1 nomor!")
+		.minSymbols(1, "Password harus berisi minimal 1 simbol!"),
+	confirm: yup
+		.string()
+		.trim()
+		.required("Konfirmasi password wajib diisi!")
+		.oneOf([yup.ref("password"), null], "Konfirmasi password tidak cocok!"),
+});
+
+export default {
 	LoginSchema,
 	PegawaiSchema,
 	InstansiSchema,
 	DivisiSchema,
 	JabatanSchema,
+	DataPribadiSchema,
 	StatusPegawaiSchema,
+	DokumenSchema,
+	KontakSchema,
+	AkunResetPassword,
 };
-
-export default validations;

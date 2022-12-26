@@ -5,8 +5,9 @@ import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import Supabase from "@/helpers/Supabase";
+import useDokumen from "@/helpers/hooks/useDokumen";
+import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
+import { useEffect, useState } from "react";
 
 // Styles & Icons
 import { Flex, Heading, Icon, Image, Skeleton, Text, useColorModeValue } from "@chakra-ui/react";
@@ -18,20 +19,18 @@ export default function PegawaiCard({ pegawai }) {
 	const jabatan = useSelector((state) => JabatanSelector.selectById(state, pegawai?.idJabatan));
 	const divisi = useSelector((state) => DivisiSelector.selectById(state, pegawai?.idDivisi));
 	const golongan = useSelector((state) => GolonganSelector.selectById(state, pegawai?.idGolongan));
-	const [profilePhoto, setProfilePhoto] = useState();
+	const dokumen = useSelector(DokumenSelector.selectAll);
+	const [profilePhoto, setProfilePhoto] = useState(null);
 
 	const navigate = useNavigate();
 	const bgCard = useColorModeValue("white", "gray.800");
 	const iconColor = useColorModeValue("cyan.600", "cyan.200");
 
-	const getProfilePhoto = async () => {
-		const { data } = await Supabase.from("dokumen").select("detail->publicUrl").match({ nipPegawai: pegawai.nip, kategori: "profil" });
-		if (data) setProfilePhoto(data[0].publicUrl);
-	};
+	useDokumen(pegawai.nip);
 
 	useEffect(() => {
-		getProfilePhoto();
-	}, []);
+		setProfilePhoto(dokumen?.filter((el) => el.kategori === "profil")[0]?.detail?.publicUrl);
+	}, [dokumen]);
 
 	return (
 		<Flex

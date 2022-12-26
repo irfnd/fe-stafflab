@@ -31,7 +31,9 @@ export default function useGolongan() {
 
 	useEffect(() => {
 		fetchGolongan();
-		Supabase.channel("public:golongan").on("postgres_changes", { event: "*", schema: "public", table: "golongan" }, changeGolongan).subscribe();
+		Supabase.channel("public:golongan")
+			.on("postgres_changes", { event: "*", schema: "public", table: "golongan" }, changeGolongan)
+			.subscribe();
 	}, []);
 
 	return { golongan };

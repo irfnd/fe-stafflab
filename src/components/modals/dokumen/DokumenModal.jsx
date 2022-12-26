@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { DivisiSchema } from "@/helpers/Validations";
+import { DokumenSchema } from "@/helpers/Validations";
 import { uploadDocument, deleteDokumen, renameDokumen } from "@/helpers/api/storages/dokumen";
 import { createDokumen, updateDokumen } from "@/helpers/api/databases/dokumenTable";
 import { useParams } from "react-router-dom";
@@ -30,8 +30,8 @@ export default function DokumenModal({ type = "add", disclosure, category, dokum
 
 	const params = useParams();
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
-	const resolver = yupResolver(DivisiSchema);
-	const mainForm = useForm({ mode: "onChange" });
+	const resolver = yupResolver(DokumenSchema);
+	const mainForm = useForm({ resolver: type === "add" && resolver, mode: "onChange" });
 	const toast = useToast();
 
 	useEffect(() => {

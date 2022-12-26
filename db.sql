@@ -60,8 +60,9 @@ create table pegawai (
   "idDivisi" bigint not null references public.divisi on delete cascade,
   "idJabatan" bigint not null references public.jabatan on delete cascade,
   "idGolongan" bigint not null references public.golongan,
+  "uuidUser" uuid not null references auth.users on delete cascade,
   "createdAt" timestamp with time zone null default(now()),
-  unique("nama", "email", "noTelepon")
+  unique("nama", "email", "noTelepon", "uuidUser")
 );
 
 -- Data Pribadi

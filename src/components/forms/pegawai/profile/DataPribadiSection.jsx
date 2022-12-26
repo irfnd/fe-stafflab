@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { DataPribadiSchema } from "@/helpers/Validations";
 
 // Styles & Icons
 import { Flex, SimpleGrid, Heading, useToast } from "@chakra-ui/react";
@@ -19,7 +21,8 @@ export default function DataPribadiSection() {
 
 	const params = useParams();
 	const dataPribadi = useSelector((state) => DataPribadiSelector.selectById(state, params?.id));
-	const mainForm = useForm({ mode: "onChange" });
+	const resolver = yupResolver(DataPribadiSchema);
+	const mainForm = useForm({ resolver, mode: "onChange" });
 	const toast = useToast();
 
 	const onSubmit = async (data) => {

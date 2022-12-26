@@ -4,6 +4,7 @@ import { createClient, SupabaseClient } from "https://esm.sh/@supabase/supabase-
 export const corsHeaders = {
 	"Access-Control-Allow-Origin": "*",
 	"Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+	"Access-Control-Allow-Methods": "*",
 };
 
 interface users {
@@ -16,6 +17,7 @@ interface users {
 
 async function createUser(supabaseService: SupabaseClient, userData: users) {
 	const { data: user, error } = await supabaseService.auth.admin.createUser(userData);
+	if (error) throw error;
 
 	return new Response(JSON.stringify(user), {
 		headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -78,7 +80,7 @@ serve(async (req) => {
 		const id = matchingPath ? matchingPath.pathname.groups.id : null;
 
 		let userData = null;
-		if (method === "POST" || method === "PATCH") {
+		if (method === "POST" || method === "PUT") {
 			const body = await req.json();
 			userData = { ...body };
 		}
@@ -86,7 +88,7 @@ serve(async (req) => {
 		switch (true) {
 			case id && method === "GET":
 				return getUser(supabaseService, id as string);
-			case id && method === "PATCH":
+			case id && method === "PUT":
 				return updateUser(supabaseService, id as string, userData);
 			case id && method === "DELETE":
 				return deleteUser(supabaseService, id as string);
