@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 let pegawaiSubscription = null;
 
 export default function usePegawai(query) {
-	const { type, search, filter, order, sort, page, limit } = query;
+	const { search, status, filter, order, sort, page, limit } = query;
 	const { from, to } = usePagination(page, limit);
 	const [totalPages, setTotalPages] = useState(null);
 	const pegawai = useSelector(PegawaiSelector.selectAll);
@@ -15,29 +15,51 @@ export default function usePegawai(query) {
 
 	const fetchPegawai = async () => {
 		let results;
-		if (search) {
+		if (search && status) {
 			if (filter === "nama") {
 				results = await Supabase.from("pegawai")
 					.select("*", { count: "exact" })
 					.ilike(filter, `%${search}%`)
-					.eq("idTipe", type)
-					.order(order, { ascending: sort === "asc" })
-					.range(from, to);
-			} else {
-				results = await Supabase.from("pegawai")
-					.select("*", { count: "exact" })
-					.eq(filter, parseInt(search, 10))
-					.eq("idTipe", type)
+					.eq("idStatus", status)
 					.order(order, { ascending: sort === "asc" })
 					.range(from, to);
 			}
+			if (filter === "nip") {
+				results = await Supabase.from("pegawai")
+					.select("*", { count: "exact" })
+					.eq(filter, parseInt(search, 10))
+					.eq("idStatus", status)
+					.order(order, { ascending: sort === "asc" })
+					.range(from, to);
+			}
+		} else if (search) {
+			if (filter === "nama") {
+				results = await Supabase.from("pegawai")
+					.select("*", { count: "exact" })
+					.ilike(filter, `%${search}%`)
+					.order(order, { ascending: sort === "asc" })
+					.range(from, to);
+			}
+			if (filter === "nip") {
+				results = await Supabase.from("pegawai")
+					.select("*", { count: "exact" })
+					.eq(filter, parseInt(search, 10))
+					.order(order, { ascending: sort === "asc" })
+					.range(from, to);
+			}
+		} else if (status) {
+			results = await Supabase.from("pegawai")
+				.select("*", { count: "exact" })
+				.eq("idStatus", status)
+				.order(order, { ascending: sort === "asc" })
+				.range(from, to);
 		} else {
 			results = await Supabase.from("pegawai")
 				.select("*", { count: "exact" })
-				.eq("idTipe", type)
 				.order(order, { ascending: sort === "asc" })
 				.range(from, to);
 		}
+
 		if (results.data) {
 			setTotalPages(Math.ceil(results.count / limit));
 			dispatch(PegawaiActions.set(results.data));
@@ -65,7 +87,7 @@ export default function usePegawai(query) {
 		pegawaiSubscription = Supabase.channel("public:pegawai")
 			.on("postgres_changes", { event: "*", schema: "public", table: "pegawai" }, changePegawai)
 			.subscribe();
-	}, [type, search, filter, order, sort, page, limit]);
+	}, [search, status, filter, order, sort, page, limit]);
 
 	useEffect(() => {
 		return () => {

@@ -11,7 +11,7 @@ import PegawaiMagangList from "@/components/lists/PegawaiMagangList";
 
 export default function Magang() {
 	const { queryParams } = useQueryParams();
-	const { totalPages } = usePegawai({ ...queryParams, type: 2 });
+	const { totalPages } = usePegawai(queryParams);
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
