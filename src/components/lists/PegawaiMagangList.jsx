@@ -6,13 +6,17 @@ import { SimpleGrid } from "@chakra-ui/react";
 
 // Components
 import PegawaiCard from "@/components/cards/PegawaiCard";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 
 export default function PegawaiMagangList() {
 	const pegawai = useSelector(PegawaiSelector.selectAll);
+	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
+	const magang = tipePegawai?.filter((el) => el.nama === "Magang")[0];
+	const pegawaiMagang = pegawai?.filter((el) => el.idTipe === magang?.id);
 
 	return (
 		<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
-			{pegawai?.map((el) => (
+			{pegawaiMagang?.map((el) => (
 				<PegawaiCard key={el.nip} pegawai={el} />
 			))}
 		</SimpleGrid>

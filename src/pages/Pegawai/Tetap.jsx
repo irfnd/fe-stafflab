@@ -11,7 +11,7 @@ import PegawaiTetapList from "@/components/lists/PegawaiTetapList";
 
 export default function Tetap() {
 	const { queryParams } = useQueryParams();
-	const { totalPages } = usePegawai({ ...queryParams, type: 1 });
+	const { totalPages } = usePegawai(queryParams);
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
