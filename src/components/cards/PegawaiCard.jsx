@@ -4,17 +4,17 @@ import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
-import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, Heading, Icon, Image, Skeleton, Text, useColorModeValue, Tag, TagLabel, TagLeftIcon } from "@chakra-ui/react";
-import { Award, Building2, Hash, Network, Pocket, Tags, CheckCircle, Home, Backpack, XCircle } from "lucide-react";
+import { Flex, Heading, Icon, Image, Skeleton, Tag, TagLabel, TagLeftIcon, Text, useColorModeValue } from "@chakra-ui/react";
+import { Award, Backpack, Building2, CheckCircle, Hash, Home, Network, Pocket, Tags, XCircle } from "lucide-react";
 
-export default function PegawaiCard({ pegawai }) {
+export default function PegawaiCard({ pegawai, page }) {
 	const statusPegawai = useSelector((state) => StatusPegawaiSelector.selectById(state, pegawai?.idStatus));
 	const tipePegawai = useSelector((state) => TipePegawaiSelector.selectById(state, pegawai?.idTipe));
 	const instansi = useSelector((state) => InstansiSelector.selectById(state, pegawai?.idInstansi));
@@ -55,7 +55,13 @@ export default function PegawaiCard({ pegawai }) {
 			shadow='md'
 			rounded='md'
 			cursor='pointer'
-			onClick={() => navigate(`/pegawai/${tipePegawai?.nama?.toLowerCase()}/${pegawai?.nip}`)}
+			onClick={() =>
+				navigate(
+					["mutasi", "cuti"].includes(page)
+						? `/${page}/tambah/${pegawai?.nip}`
+						: `/pegawai/${tipePegawai?.nama?.toLowerCase()}/${pegawai?.nip}`
+				)
+			}
 		>
 			<Skeleton isLoaded={profilePhoto && tipePegawai && statusPegawai && instansi && jabatan && divisi && golongan} rounded='md'>
 				<Tag position='absolute' top={2} right={2} w='fit-content' size='lg' colorScheme={tagDynamic(statusPegawai?.nama).color}>

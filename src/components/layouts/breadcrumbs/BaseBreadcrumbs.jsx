@@ -8,12 +8,12 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from "@chakra-ui/react";
 import { ChevronRight } from "lucide-react";
 
 // Components & Constants
-import DynamicBreadcrumbs from "@/components/layouts/breadcrumbs/DynamicBreadcrumbs";
 import { BREADCRUMBS } from "@/constants/Routes";
 
 export default function BaseBreadcrumbs() {
 	const dynamicTitle = useDynamicPageTitle();
-	const breadcrumbs = useBreadcrumbs(BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle));
+	const breadcrumbs = useBreadcrumbs(BREADCRUMBS(dynamicTitle));
+
 	usePageTitle(breadcrumbs);
 
 	return (
@@ -25,37 +25,23 @@ export default function BaseBreadcrumbs() {
 						to={match.pathname}
 						fontSize={{ base: 14, md: 16 }}
 						fontWeight='semibold'
-						_hover={{
-							textDecoration: "underline",
-							textDecorationColor: "cyan.500",
-							textDecorationThickness: 2,
-						}}
+						_hover={{ textDecoration: "underline", textDecorationColor: "cyan.500", textDecorationThickness: 2 }}
 					>
 						{breadcrumb}
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 			))}
 
-			{breadcrumbs.length === 2 && (
+			{breadcrumbs.length === 2 && breadcrumbs.some((el) => ["/pegawai", "/mutasi"].includes(el.key)) && (
 				<BreadcrumbItem>
 					<BreadcrumbLink
 						as={NavLink}
-						to={
-							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]
-								.path
-						}
+						to={BREADCRUMBS(dynamicTitle)?.filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]?.path}
 						fontSize={{ base: 14, md: 16 }}
 						fontWeight='semibold'
-						_hover={{
-							textDecoration: "underline",
-							textDecorationColor: "cyan.500",
-							textDecorationThickness: 2,
-						}}
+						_hover={{ textDecoration: "underline", textDecorationColor: "cyan.500", textDecorationThickness: 2 }}
 					>
-						{
-							BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]
-								.breadcrumb
-						}
+						{BREADCRUMBS(dynamicTitle)?.filter((el) => el.path.includes(breadcrumbs[1].match.pathname) && el.isIndex)[0]?.breadcrumb}
 					</BreadcrumbLink>
 				</BreadcrumbItem>
 			)}

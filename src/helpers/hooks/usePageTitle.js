@@ -4,7 +4,6 @@ import { useLocation, useParams } from "react-router-dom";
 import { useTitle } from "react-use";
 
 // Constants
-import DynamicBreadcrumbs from "@/components/layouts/breadcrumbs/DynamicBreadcrumbs";
 import { BREADCRUMBS } from "@/constants/Routes";
 
 export default function usePageTitle(breadcrumbs = null) {
@@ -14,14 +13,18 @@ export default function usePageTitle(breadcrumbs = null) {
 	const dynamicTitle = useDynamicPageTitle();
 	useTitle(Title);
 
-	useEffect(() => {
-		if (Object.keys(params).length === 0) {
-			const { title } = BREADCRUMBS(DynamicBreadcrumbs, dynamicTitle).filter((el) => el.path === location.pathname)[0];
+	const checkTitle = (paramsId) => {
+		if (Object.keys(paramsId).length === 0) {
+			const title = BREADCRUMBS(dynamicTitle)?.filter((el) => el.path === location.pathname)[0]?.title;
 			setTitle(`StaffLab - ${title}`);
 		} else {
-			const { title } = breadcrumbs.filter((el) => el.match.pathname === location.pathname)[0].match.route;
+			const title = breadcrumbs?.filter((el) => el.match.pathname === location.pathname)[0]?.match?.route?.title;
 			setTitle(`StaffLab - ${title}`);
 		}
+	};
+
+	useEffect(() => {
+		checkTitle(params);
 	}, [location, params, dynamicTitle]);
 
 	return null;

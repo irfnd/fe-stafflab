@@ -1,13 +1,20 @@
-import { Award, Building2, Factory, Home, Network, Pocket, UserCheck, UserCog, UserPlus, Users, Cog } from "lucide-react";
+import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
+import { useSelector } from "react-redux";
+import { Award, Building2, Factory, Home, Network, Pocket, UserCheck, UserCog, UserPlus, Users, Cog, FilePlus, List } from "lucide-react";
 
-export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
+const dynamicBreadcrumb = ({ match }) => {
+	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, match.params.id));
+	return pegawai?.nama;
+};
+
+export const BREADCRUMBS = (title) => [
 	{ path: "/", title: "Dashboard", breadcrumb: "Dashboard" },
 	{ path: "/login", title: "Login" },
 
 	// Pegawai
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
 	{ path: "/pegawai/tetap", title: "Pegawai Tetap", breadcrumb: "Tetap", isIndex: true },
-	{ path: "/pegawai/tetap/:id", title, breadcrumb: dynamicBreadcrumb, isIndex: true },
+	{ path: "/pegawai/tetap/:id", title, breadcrumb: dynamicBreadcrumb },
 	{ path: "/pegawai/tambah", title: "Tambah Pegawai", breadcrumb: "Tambah" },
 	{ path: "/pegawai/outsourcing", title: "Pegawai Outsourcing", breadcrumb: "Outsourcing" },
 	{ path: "/pegawai/magang", title: "Pegawai Magang", breadcrumb: "Magang" },
@@ -15,6 +22,9 @@ export const BREADCRUMBS = (dynamicBreadcrumb, title) => [
 
 	// Mutasi
 	{ path: "/mutasi", title: "Mutasi Pegawai", breadcrumb: "Mutasi" },
+	{ path: "/mutasi/tambah", title: "Tambah Mutasi", breadcrumb: "Tambah", isIndex: true },
+	{ path: "/mutasi/tambah/:id", title, breadcrumb: dynamicBreadcrumb },
+	{ path: "/mutasi/list", title: "Riwayat Mutasi", breadcrumb: "Riwayat" },
 
 	// Perusahaan
 	{ path: "/perusahaan", title: "Instansi Perusahaan", breadcrumb: "Perusahaan" },
@@ -41,7 +51,15 @@ export const SIDEBARS = {
 	},
 
 	// Mutasi
-	mutasi: { path: "/mutasi", name: "Mutasi", icon: Cog },
+	mutasi: {
+		path: "/mutasi",
+		name: "Mutasi",
+		icon: Cog,
+		children: [
+			{ path: "/mutasi/tambah", name: "Tambah", icon: FilePlus, isIndex: true },
+			{ path: "/mutasi/list", name: "Riwayat Mutasi", icon: List },
+		],
+	},
 
 	// Perusahaan
 	perusahaan: {

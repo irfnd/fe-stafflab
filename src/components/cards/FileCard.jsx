@@ -10,7 +10,7 @@ import { DownloadCloud, FileBadge, FileClock } from "lucide-react";
 // Components
 import FileCardMenu from "@/components/menus/FileCardMenu";
 
-export default function FileCard({ file }) {
+export default function FileCard({ file, cardBtn }) {
 	const [loading, setLoading] = useState(false);
 
 	const toast = useToast();
@@ -52,7 +52,7 @@ export default function FileCard({ file }) {
 				<Text fontSize='lg' fontWeight='semibold' noOfLines={1}>
 					{file.nama}
 				</Text>
-				<FileCardMenu category={file?.kategori} file={file} />
+				{cardBtn && <FileCardMenu category={file?.kategori} file={file} />}
 			</CardHeader>
 			<CardBody display='flex' flexDir='column' p={0} gap={2}>
 				<Flex align='center' gap={2}>

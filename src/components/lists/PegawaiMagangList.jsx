@@ -1,4 +1,5 @@
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
+import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useSelector } from "react-redux";
 
 // Styles & Icons
@@ -6,7 +7,6 @@ import { SimpleGrid } from "@chakra-ui/react";
 
 // Components
 import PegawaiCard from "@/components/cards/PegawaiCard";
-import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 
 export default function PegawaiMagangList() {
 	const pegawai = useSelector(PegawaiSelector.selectAll);
@@ -17,7 +17,7 @@ export default function PegawaiMagangList() {
 	return (
 		<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
 			{pegawaiMagang?.map((el) => (
-				<PegawaiCard key={el.nip} pegawai={el} />
+				<PegawaiCard key={el.nip} pegawai={el} page='magang' />
 			))}
 		</SimpleGrid>
 	);
