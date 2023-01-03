@@ -148,7 +148,6 @@ export default function TambahForm() {
 				navigate(`/pegawai/${tipe}`);
 			}, 2000);
 		} catch (err) {
-			console.log(err);
 			setLoading(false);
 			toast({
 				title: "Gagal Menambahkan Pegawai.",

@@ -17,29 +17,28 @@ export default function FilesList({ category, withTitle = true, withAddBtn = tru
 
 	return (
 		<Flex direction='column' w='full' gap={6}>
-			{withTitle ||
-				(withAddBtn && (
-					<Flex
-						direction={{ base: "column", md: "row" }}
-						align={{ base: "flex-start", md: "center" }}
-						justify={{ md: "space-between" }}
-						gap={6}
-					>
-						{withTitle && <Heading fontSize={{ base: "lg", md: "xl" }}>Dokumen Berkaitan</Heading>}
-						{withAddBtn && (
-							<Button
-								variant='outline'
-								colorScheme='cyan'
-								size='sm'
-								leftIcon={<Plus size={18} />}
-								w={{ base: "full", md: "fit-content" }}
-								onClick={disclosureAdd.onOpen}
-							>
-								Tambah
-							</Button>
-						)}
-					</Flex>
-				))}
+			{withTitle && withAddBtn && (
+				<Flex
+					direction={{ base: "column", md: "row" }}
+					align={{ base: "flex-start", md: "center" }}
+					justify={{ md: "space-between" }}
+					gap={6}
+				>
+					{withTitle && <Heading fontSize={{ base: "lg", md: "xl" }}>Dokumen Berkaitan</Heading>}
+					{withAddBtn && (
+						<Button
+							variant='outline'
+							colorScheme='cyan'
+							size='sm'
+							leftIcon={<Plus size={18} />}
+							w={{ base: "full", md: "fit-content" }}
+							onClick={disclosureAdd.onOpen}
+						>
+							Tambah
+						</Button>
+					)}
+				</Flex>
+			)}
 			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
 				{dokumen && dokumenPribadi.map((file, i) => <FileCard key={i} file={file} cardBtn={fileCardBtn} />)}
 			</SimpleGrid>
