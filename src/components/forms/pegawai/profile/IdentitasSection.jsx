@@ -34,8 +34,8 @@ export default function IdentitasSection() {
 	const params = useParams();
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
 	const dokumen = useSelector(DokumenSelector.selectAll);
-	const resolver = yupResolver(IdentitasSchema);
 	const fotoProfil = dokumen?.filter((el) => el.kategori === "profil")[0];
+	const resolver = yupResolver(IdentitasSchema);
 	const mainForm = useForm({ resolver, mode: "onChange" });
 	const toast = useToast();
 

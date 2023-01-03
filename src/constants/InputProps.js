@@ -25,9 +25,20 @@ export const JenjangPendidikan = [
 	{ value: "S3", text: "S3" },
 ];
 
+export const JenisMutasi = [
+	{ value: "Jabatan", text: "Jabatan" },
+	{ value: "Divisi", text: "Divisi" },
+	{ value: "Instansi", text: "Instansi" },
+	{ value: "Golongan", text: "Golongan" },
+	{ value: "Pengangkatan", text: "Pengangkatan" },
+	{ value: "Pensiun", text: "Pensiun" },
+	{ value: "PHK", text: "PHK" },
+];
+
 export default {
 	Agama,
 	StatusPernikahan,
 	JenisKelamin,
 	JenjangPendidikan,
+	JenisMutasi,
 };
