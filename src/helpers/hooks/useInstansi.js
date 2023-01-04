@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getInstansi } from "@/helpers/api/databases/instansiTable";
 import { InstansiActions, InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ export default function useInstansi() {
 	const dispatch = useDispatch();
 
 	const fetchInstansi = async () => {
-		const { data } = await Supabase.from("instansi").select("*");
+		const { data } = await getInstansi();
 		if (data) dispatch(InstansiActions.set(data));
 	};
 

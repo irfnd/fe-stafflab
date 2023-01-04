@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getGolongan } from "@/helpers/api/databases/golonganTable";
 import { GolonganActions, GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ export default function useGolongan() {
 	const dispatch = useDispatch();
 
 	const fetchGolongan = async () => {
-		const { data } = await Supabase.from("golongan").select("*");
+		const { data } = await getGolongan();
 		if (data) dispatch(GolonganActions.set(data));
 	};
 

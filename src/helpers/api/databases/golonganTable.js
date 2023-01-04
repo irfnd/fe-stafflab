@@ -1,5 +1,10 @@
 import Supabase from "@/helpers/Supabase";
 
+export const getGolongan = async () => {
+	const results = await Supabase.from("golongan").select("*");
+	return results;
+};
+
 export const createGolongan = async (newData) => {
 	const { data, error } = await Supabase.from("golongan").insert(newData).select();
 	if (error) throw error;
@@ -19,6 +24,7 @@ export const deleteGolongan = async (id) => {
 };
 
 export default {
+	getGolongan,
 	createGolongan,
 	updateGolongan,
 	deleteGolongan,

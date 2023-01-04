@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getDivisi } from "@/helpers/api/databases/divisiTable";
 import { DivisiActions, DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ export default function useDivisi() {
 	const dispatch = useDispatch();
 
 	const fetchDivisi = async () => {
-		const { data } = await Supabase.from("divisi").select("*");
+		const { data } = await getDivisi();
 		if (data) dispatch(DivisiActions.set(data));
 	};
 

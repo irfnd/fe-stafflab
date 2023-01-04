@@ -1,5 +1,10 @@
 import Supabase from "@/helpers/Supabase";
 
+export const getJabatan = async () => {
+	const results = await Supabase.from("jabatan").select("*");
+	return results;
+};
+
 export const createJabatan = async (newData) => {
 	const { data, error } = await Supabase.from("jabatan").insert(newData).select();
 	if (error) throw error;
@@ -19,6 +24,7 @@ export const deleteJabatan = async (id) => {
 };
 
 export default {
+	getJabatan,
 	createJabatan,
 	updateJabatan,
 	deleteJabatan,

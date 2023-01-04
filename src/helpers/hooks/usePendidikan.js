@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getPendidikan } from "@/helpers/api/databases/pendidikanTable";
 import { PendidikanActions, PendidikanSelector } from "@/helpers/redux/slices/PendidikanSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ export default function usePendidikan(nip) {
 	const dispatch = useDispatch();
 
 	const fetchPendidikan = async () => {
-		const { data } = await Supabase.from("pendidikan").select("*").eq("nipPegawai", nip);
+		const { data } = await getPendidikan(nip);
 		if (data) dispatch(PendidikanActions.set(data));
 	};
 

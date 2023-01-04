@@ -31,6 +31,7 @@ export default function TambahForm() {
 	const toast = useToast();
 
 	const onSubmit = async (data) => {
+		clearTimeout();
 		setLoading(true);
 		try {
 			const tipe = tipePegawai?.filter((el) => el.id === parseInt(data.tipe, 10))[0]?.nama?.toLowerCase();

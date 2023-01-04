@@ -1,5 +1,10 @@
 import Supabase from "@/helpers/Supabase";
 
+export const getDivisi = async () => {
+	const results = await Supabase.from("divisi").select("*");
+	return results;
+};
+
 export const createDivisi = async (newData) => {
 	const { data, error } = await Supabase.from("divisi").insert(newData).select();
 	if (error) throw error;
@@ -19,6 +24,7 @@ export const deleteDivisi = async (id) => {
 };
 
 export default {
+	getDivisi,
 	createDivisi,
 	updateDivisi,
 	deleteDivisi,

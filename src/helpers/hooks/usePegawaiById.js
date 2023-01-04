@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getPegawaiById } from "@/helpers/api/databases/pegawaiTable";
 import { PegawaiActions, PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ export default function usePegawaiById(nipPegawai) {
 	const dispatch = useDispatch();
 
 	const fetchPegawai = async () => {
-		const { data } = await Supabase.from("pegawai").select("*").eq("nip", nipPegawai);
+		const { data } = await getPegawaiById(nipPegawai);
 		if (data) dispatch(PegawaiActions.set(data));
 	};
 

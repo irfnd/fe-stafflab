@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getDokumen } from "@/helpers/api/databases/dokumenTable";
 import { DokumenActions, DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ export default function useDokumen(nip) {
 	const dispatch = useDispatch();
 
 	const fetchDokumen = async () => {
-		const { data } = await Supabase.from("dokumen").select("*").eq("nipPegawai", nip);
+		const { data } = await getDokumen(nip);
 		if (data) dispatch(DokumenActions.set(data));
 	};
 

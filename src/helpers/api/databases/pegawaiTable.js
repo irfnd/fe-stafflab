@@ -1,5 +1,10 @@
 import Supabase from "@/helpers/Supabase";
 
+export const getPegawaiById = async (nip) => {
+	const results = await Supabase.from("pegawai").select("*").eq("nip", nip);
+	return results;
+};
+
 export const createPegawai = async (newData) => {
 	const {
 		nip,
@@ -28,6 +33,7 @@ export const updatePegawai = async (newData, nip) => {
 };
 
 export default {
+	getPegawaiById,
 	createPegawai,
 	updatePegawai,
 };

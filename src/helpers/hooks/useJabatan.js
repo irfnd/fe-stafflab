@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getJabatan } from "@/helpers/api/databases/jabatanTable";
 import { JabatanActions, JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,7 +9,7 @@ export default function useJabatan() {
 	const dispatch = useDispatch();
 
 	const fetchJabatan = async () => {
-		const { data } = await Supabase.from("jabatan").select("*");
+		const { data } = await getJabatan();
 		if (data) dispatch(JabatanActions.set(data));
 	};
 

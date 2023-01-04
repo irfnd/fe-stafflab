@@ -1,4 +1,5 @@
 import Supabase from "@/helpers/Supabase";
+import { getDataPribadi } from "@/helpers/api/databases/dataPribadiTable";
 import { DataPribadiActions, DataPribadiSelector } from "@/helpers/redux/slices/DataPribadiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +11,7 @@ export default function useDataPribadi(nip) {
 	const dispatch = useDispatch();
 
 	const fetchDataPribadi = async () => {
-		const { data } = await Supabase.from("data_pribadi").select("*").eq("nipPegawai", nip);
+		const { data } = await getDataPribadi(nip);
 		if (data) dispatch(DataPribadiActions.set(data));
 	};
 

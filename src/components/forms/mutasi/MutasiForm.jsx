@@ -5,7 +5,7 @@ import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 
 // Styles & Icons
@@ -19,10 +19,10 @@ import DetailStatusPegawaiForm from "@/components/forms/mutasi/DetailStatusPegaw
 import DetailTanggalForm from "@/components/forms/mutasi/DetailTanggalForm";
 import DetailTipePegawaiForm from "@/components/forms/mutasi/DetailTipePegawaiForm";
 import FileMutasiForm from "@/components/forms/nested/FileMutasiForm";
-import useDataPribadi from "@/helpers/hooks/useDataPribadi";
 
 export default function MutasiForm() {
 	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
 
 	const params = useParams();
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, params?.id));
@@ -55,61 +55,63 @@ export default function MutasiForm() {
 	};
 
 	const onSubmit = async (data) => {
+		const { jenisMutasi, dokumen, tanggalMutasi } = data;
+		clearTimeout();
 		setLoading(true);
 		try {
-			if (data.jenisMutasi.length < 1) throw new Error("Jenis mutasi wajib diisi!");
+			if (jenisMutasi.length < 1) throw new Error("Jenis mutasi wajib diisi!");
 			if (data.dokumen.length < 1) throw new Error("Dokumen berkaitan wajib diisi!");
 
-			if (data.jenisMutasi === "Golongan") {
+			if (jenisMutasi === "Golongan") {
 				if (data.toGolongan.length < 1) throw new Error("Golongan pegawai wajib diisi!");
 			}
 
-			if (data.jenisMutasi === "Pengangkatan") {
+			if (jenisMutasi === "Pengangkatan") {
 				if (data.toTipe.length < 1) throw new Error("Tipe pegawai wajib diisi!");
 			}
 
-			if (data.jenisMutasi === "PHK" || data.jenisMutasi === "Pensiun") {
+			if (jenisMutasi === "PHK" || jenisMutasi === "Pensiun") {
 				if (data.toStatus.length < 1) throw new Error("Status pegawai wajib diisi!");
 			}
 
-			if (data.jenisMutasi === "Instansi" || data.jenisMutasi === "Divisi" || data.jenisMutasi === "Jabatan") {
+			if (jenisMutasi === "Instansi" || jenisMutasi === "Divisi" || jenisMutasi === "Jabatan") {
 				if (data.toInstansi.length < 1) throw new Error("Instansi tujuan wajib diisi!");
 				if (data.toDivisi.length < 1) throw new Error("Divisi tujuan wajib diisi!");
 				if (data.toJabatan.length < 1) throw new Error("Jabatan tujuan wajib diisi!");
 			}
 
-			const dokumen = await data.dokumen.map(async (file) => {
-				const filePath = await uploadDocument({
-					folder: pegawai?.nip,
-					kategori: "mutasi",
-					file: file.dokumen,
-					namaFile: file.nama,
-					pegawai: pegawai?.nama,
-				});
-				const fileId = await createDokumen({
-					nama: `${file.nama} - ${pegawai?.nama}`,
-					detail: { ...filePath },
-					kategori: "mutasi",
-					nipPegawai: pegawai?.nip,
-				});
-				return { id: fileId.id, path: filePath.path };
+			const uploadedDocuments = await Promise.all(
+				dokumen.map(async (file) => {
+					const filePath = await uploadDocument({
+						folder: pegawai?.nip,
+						kategori: "mutasi",
+						file: file.dokumen,
+						namaFile: file.nama,
+						pegawai: pegawai?.nama,
+					});
+					const fileId = await createDokumen({
+						nama: `${file.nama} - ${pegawai?.nama}`,
+						detail: { ...filePath },
+						kategori: "mutasi",
+						nipPegawai: pegawai?.nip,
+					});
+					return { id: fileId.id, path: filePath.path };
+				})
+			);
+
+			await createMutasi({
+				nipPegawai: pegawai?.nip,
+				dokumen: { files: uploadedDocuments },
+				detail: detailMutasi(jenisMutasi, data),
+				jenisMutasi: jenisMutasi.toLowerCase(),
+				tanggalMutasi,
 			});
 
-			console.log(dokumen);
-
-			// await createMutasi({
-			// 	nipPegawai: pegawai?.nip,
-			// 	jenisMutasi: data.jenisMutasi,
-			// 	tanggalMutasi: data.tanggalMutasi,
-			// 	detail: detailMutasi(data.jenisMutasi, data),
-			// 	dokumen,
-			// });
-
-			if (data.jenisMutasi === "Golongan") await updatePegawai({ idGolongan: data.toGolongan }, pegawai?.nip);
-			if (data.jenisMutasi === "Pengangkatan") await updatePegawai({ idTipe: data.toTipe }, pegawai?.nip);
-			if (data.jenisMutasi === "PHK") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
-			if (data.jenisMutasi === "Pensiun") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
-			if (data.jenisMutasi === "Instansi" || data.jenisMutasi === "Divisi" || data.jenisMutasi === "Jabatan") {
+			if (jenisMutasi === "Golongan") await updatePegawai({ idGolongan: data.toGolongan }, pegawai?.nip);
+			if (jenisMutasi === "Pengangkatan") await updatePegawai({ idTipe: data.toTipe }, pegawai?.nip);
+			if (jenisMutasi === "PHK") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
+			if (jenisMutasi === "Pensiun") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
+			if (jenisMutasi === "Instansi" || jenisMutasi === "Divisi" || jenisMutasi === "Jabatan") {
 				await updatePegawai({ idInstansi: data.toInstansi, idDivisi: data.toDivisi, idJabatan: data.toJabatan });
 			}
 
@@ -120,8 +122,11 @@ export default function MutasiForm() {
 				position: "top",
 				duration: 2000,
 			});
-			setLoading(false);
-			mainForm.reset();
+			setTimeout(() => {
+				setLoading(false);
+				mainForm.reset();
+				navigate(`/mutasi/list`);
+			}, 2000);
 		} catch (err) {
 			setLoading(false);
 			toast({
