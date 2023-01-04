@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import useMutasi from "@/helpers/hooks/useMutasi";
 
 // Styles & Icons
 import { Button, Flex } from "@chakra-ui/react";
@@ -9,6 +10,7 @@ import MutasiList from "@/components/lists/MutasiList";
 
 export default function Mutasi() {
 	const navigate = useNavigate();
+	useMutasi();
 
 	return (
 		<Flex direction='column' w='full' gap={8}>

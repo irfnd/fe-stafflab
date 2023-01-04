@@ -1,3 +1,6 @@
+import { useSelector } from "react-redux";
+import { MutasiSelector } from "@/helpers/redux/slices/MutasiSlice";
+
 // Styles & Icons
 import { SimpleGrid } from "@chakra-ui/react";
 
@@ -5,11 +8,11 @@ import { SimpleGrid } from "@chakra-ui/react";
 import MutasiCard from "@/components/cards/MutasiCard";
 
 export default function MutasiList() {
+	const mutasi = useSelector(MutasiSelector.selectAll);
+
 	return (
 		<SimpleGrid columns={1} spacing={6}>
-			{[...Array(2)].map((el, i) => (
-				<MutasiCard key={i} />
-			))}
+			{mutasi && mutasi.map((data, i) => <MutasiCard key={i} mutasi={data} />)}
 		</SimpleGrid>
 	);
 }

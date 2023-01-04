@@ -1,4 +1,4 @@
-import { createMutasi } from "@/helpers/api/databases/MutasiTable";
+import { createMutasi } from "@/helpers/api/databases/mutasiTable";
 import { createDokumen } from "@/helpers/api/databases/dokumenTable";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
@@ -31,26 +31,26 @@ export default function MutasiForm() {
 	const bgSection = useColorModeValue("white", "gray.800");
 	const toast = useToast();
 
-	const detailMutasi = (jenisMutasi, formData) => {
+	const detailMutasi = (jenisMutasi, data) => {
 		const getData = {
-			tipe: { from: formData.fromTipe, to: formData.fromTipe },
-			status: { from: formData.fromStatus, to: formData.fromStatus },
-			instansi: { from: formData.fromInstansi, to: formData.fromInstansi },
-			divisi: { from: formData.fromDivisi, to: formData.fromDivisi },
-			jabatan: { from: formData.fromJabatan, to: formData.fromJabatan },
-			golongan: { from: formData.fromGolongan, to: formData.fromGolongan },
+			tipe: { from: data.fromTipe, to: data.fromTipe },
+			status: { from: data.fromStatus, to: data.fromStatus },
+			instansi: { from: data.fromInstansi, to: data.fromInstansi },
+			divisi: { from: data.fromDivisi, to: data.fromDivisi },
+			jabatan: { from: data.fromJabatan, to: data.fromJabatan },
+			golongan: { from: data.fromGolongan, to: data.fromGolongan },
 		};
 
-		if (jenisMutasi === "Golongan") return { ...getData, golongan: { from: formData.fromGolongan, to: formData.toGolongan } };
-		if (jenisMutasi === "Pengangkatan") return { ...getData, tipe: { from: formData.formTipe, to: formData.toTipe } };
-		if (jenisMutasi === "Pensiun") return { ...getData, status: { from: formData.fromStatus, to: formData.toStatus } };
-		if (jenisMutasi === "PHK") return { ...getData, status: { from: formData.fromStatus, to: formData.toStatus } };
+		if (jenisMutasi === "Golongan") return { ...getData, golongan: { from: data.fromGolongan, to: parseInt(data.toGolongan, 10) } };
+		if (jenisMutasi === "Pengangkatan") return { ...getData, tipe: { from: data.fromTipe, to: parseInt(data.toTipe, 10) } };
+		if (jenisMutasi === "Pensiun") return { ...getData, status: { from: data.fromStatus, to: parseInt(data.toStatus, 10) } };
+		if (jenisMutasi === "PHK") return { ...getData, status: { from: data.fromStatus, to: parseInt(data.toStatus, 10) } };
 
 		return {
 			...getData,
-			instansi: { from: formData.fromInstansi, to: formData.toInstansi },
-			divisi: { from: formData.fromDivisi, to: formData.toDivisi },
-			jabatan: { from: formData.fromJabatan, to: formData.toJabatan },
+			instansi: { from: data.fromInstansi, to: parseInt(data.toInstansi, 10) },
+			divisi: { from: data.fromDivisi, to: parseInt(data.toDivisi, 10) },
+			jabatan: { from: data.fromJabatan, to: parseInt(data.toJabatan, 10) },
 		};
 	};
 
