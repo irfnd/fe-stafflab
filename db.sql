@@ -169,53 +169,101 @@ alter table cuti enable row level security;
 alter table dokumen enable row level security;
 
 -- Set RLS Policies
+-- Tipe Pegawai
 create policy "CRUD (Only Admin)"
   on public.tipe_pegawai as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.tipe_pegawai as permissive for select to authenticated
+  using (true);
 
+-- Status Pegawai
 create policy "CRUD (Only Admin)"
   on public.status_pegawai as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.status_pegawai as permissive for select to authenticated
+  using (true);
 
+-- Instansi
 create policy "CRUD (Only Admin)"
   on public.instansi as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.instansi as permissive for select to authenticated
+  using (true);
 
+-- Divisi
 create policy "CRUD (Only Admin)"
   on public.divisi as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.divisi as permissive for select to authenticated
+  using (true);
 
+-- Jabatan
 create policy "CRUD (Only Admin)"
   on public.jabatan as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.jabatan as permissive for select to authenticated
+  using (true);
 
+-- Golongan
 create policy "CRUD (Only Admin)"
   on public.golongan as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.golongan as permissive for select to authenticated
+  using (true);
 
+-- Pegawai
 create policy "CRUD (Only Admin)"
   on public.pegawai as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.pegawai as permissive for select to authenticated
+  using (true);
 
+-- Data Pribadi
 create policy "CRUD (Only Admin)"
   on public.data_pribadi as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.data_pribadi as permissive for select to authenticated
+  using (true);
 
+-- Pendidikan
 create policy "CRUD (Only Admin)"
   on public.pendidikan as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.pendidikan as permissive for select to authenticated
+  using (true);
 
+-- Mutasi
 create policy "CRUD (Only Admin)"
   on public.mutasi as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.mutasi as permissive for select to authenticated
+  using (true);
 
+-- Cuti
 create policy "CRUD (Only Admin)"
   on public.cuti as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.cuti as permissive for select to authenticated
+  using (true);
 
+-- Dokumen
 create policy "CRUD (Only Admin)"
   on public.dokumen as permissive for all to authenticated
   using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "READ (Auth Users)"
+  on public.dokumen as permissive for select to authenticated
+  using (true);
 
 -- drop type jenis_kelamin;
 -- drop type agama;
