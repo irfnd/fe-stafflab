@@ -1,22 +1,22 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const PendidikanAdaptor = createEntityAdapter({
+const PendidikanAdapter = createEntityAdapter({
 	sortComparer: (a, b) => a.createdAt.localeCompare(b.createdAt),
 });
 
 const PendidikanSlice = createSlice({
 	name: "pendidikan",
-	initialState: PendidikanAdaptor.getInitialState(),
+	initialState: PendidikanAdapter.getInitialState(),
 	reducers: {
-		set: (state, action) => PendidikanAdaptor.setAll(state, action.payload),
-		add: PendidikanAdaptor.addOne,
-		update: PendidikanAdaptor.updateOne,
-		delete: PendidikanAdaptor.removeOne,
-		reset: (state) => PendidikanAdaptor.removeAll(state),
+		set: (state, action) => PendidikanAdapter.setAll(state, action.payload),
+		add: PendidikanAdapter.addOne,
+		update: PendidikanAdapter.updateOne,
+		delete: PendidikanAdapter.removeOne,
+		reset: (state) => PendidikanAdapter.removeAll(state),
 	},
 });
 
-export const PendidikanSelector = PendidikanAdaptor.getSelectors((state) => state.pendidikan);
+export const PendidikanSelector = PendidikanAdapter.getSelectors((state) => state.pendidikan);
 export const PendidikanActions = PendidikanSlice.actions;
 
 export default PendidikanSlice;

@@ -1,16 +1,23 @@
 import Supabase from "@/helpers/Supabase";
-import { getMutasi } from "../api/databases/mutasiTable";
+import { getMutasi, getMutasiById } from "../api/databases/mutasiTable";
 import { MutasiActions, MutasiSelector } from "@/helpers/redux/slices/MutasiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function useMutasi() {
+let mutasiSubs = null;
+
+export default function useMutasi(nip = null) {
 	const mutasi = useSelector(MutasiSelector.selectAll);
 	const dispatch = useDispatch();
 
 	const fetchMutasi = async () => {
-		const { data } = await getMutasi();
-		if (data) dispatch(MutasiActions.set(data));
+		if (nip) {
+			const { data } = await getMutasiById(nip);
+			if (data) dispatch(MutasiActions.set(data));
+		} else {
+			const { data } = await getMutasi();
+			if (data) dispatch(MutasiActions.set(data));
+		}
 	};
 
 	const changeMutasi = (payload) => {
@@ -32,7 +39,13 @@ export default function useMutasi() {
 
 	useEffect(() => {
 		fetchMutasi();
-		Supabase.channel("public:mutasi").on("postgres_changes", { event: "*", schema: "public", table: "mutasi" }, changeMutasi).subscribe();
+		mutasiSubs = Supabase.channel("public:mutasi")
+			.on("postgres_changes", { event: "*", schema: "public", table: "mutasi" }, changeMutasi)
+			.subscribe();
+		return () => {
+			dispatch(MutasiActions.reset());
+			Supabase.removeChannel(mutasiSubs);
+		};
 	}, []);
 
 	return { mutasi };

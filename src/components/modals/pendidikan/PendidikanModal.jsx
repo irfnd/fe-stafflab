@@ -84,15 +84,10 @@ export default function PendidikanModal({ type = "add", disclosure, pendidikan =
 				});
 				await createPendidikan({
 					...selectedData,
-					dokumen: {
-						ijazah: dokumenIjazah.id,
-						transkrip: dokumenTranskrip.id,
-					},
+					dokumen: { ijazah: dokumenIjazah.id, transkrip: dokumenTranskrip.id },
 					nipPegawai: pegawai?.nip,
 				});
-			}
-
-			if (type === "update") {
+			} else {
 				let dokumenIjazah = null;
 				let dokumenTranskrip = null;
 

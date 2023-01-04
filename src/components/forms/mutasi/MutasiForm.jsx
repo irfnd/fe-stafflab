@@ -112,7 +112,7 @@ export default function MutasiForm() {
 			if (jenisMutasi === "PHK") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
 			if (jenisMutasi === "Pensiun") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
 			if (jenisMutasi === "Instansi" || jenisMutasi === "Divisi" || jenisMutasi === "Jabatan") {
-				await updatePegawai({ idInstansi: data.toInstansi, idDivisi: data.toDivisi, idJabatan: data.toJabatan });
+				await updatePegawai({ idInstansi: data.toInstansi, idDivisi: data.toDivisi, idJabatan: data.toJabatan }, pegawai?.nip);
 			}
 
 			toast({

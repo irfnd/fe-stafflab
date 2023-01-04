@@ -1,5 +1,6 @@
 import useDataPribadi from "@/helpers/hooks/useDataPribadi";
 import useDokumen from "@/helpers/hooks/useDokumen";
+import useMutasi from "@/helpers/hooks/useMutasi";
 import usePegawaiById from "@/helpers/hooks/usePegawaiById";
 import usePendidikan from "@/helpers/hooks/usePendidikan";
 import { useParams } from "react-router-dom";
@@ -17,6 +18,7 @@ export default function ProfilePegawai() {
 	useDataPribadi(params?.id);
 	useDokumen(params?.id);
 	usePendidikan(params?.id);
+	useMutasi(params?.id);
 
 	return (
 		<Flex direction='column' w='full' gap={8}>

@@ -116,13 +116,13 @@ export const PendidikanSchema = {
 		nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi!"),
 		jenjang: yup.mixed().oneOf(JenjangPendidikan, "Pilih jenjang yang tertera!").required("Jenjang wajib diisi!"),
 		jurusan: yup.string().trim().max(150, "Jurusan harus berisi kurang dari 150 karakter!").required("Jurusan wajib diisi!"),
-		tanggalMasuk: yup
+		tahunMasuk: yup
 			.number()
 			.min(1000, "Masukan tahun masuk dengan benar!")
 			.max(9999, "Masukan tahun masuk dengan benar!")
 			.required("Tahun masuk wajib diisi!")
 			.typeError("Tahun masuk wajib diisi!"),
-		tanggalLulus: yup
+		tahunLulus: yup
 			.number()
 			.min(1000, "Masukan tahun lulus dengan benar!")
 			.max(9999, "Masukan tahun lulus dengan benar!")
@@ -136,13 +136,13 @@ export const PendidikanSchema = {
 		nama: yup.string().trim().max(100, "Nama instansi harus berisi kurang dari 100 karakter!").required("Nama instansi wajib diisi!"),
 		jenjang: yup.mixed().oneOf(JenjangPendidikan, "Pilih jenjang yang tertera!").required("Jenjang wajib diisi!"),
 		jurusan: yup.string().trim().max(150, "Jurusan harus berisi kurang dari 150 karakter!").required("Jurusan wajib diisi!"),
-		tanggalMasuk: yup
+		tahunMasuk: yup
 			.number()
 			.min(1000, "Masukan tahun masuk dengan benar!")
 			.max(9999, "Masukan tahun masuk dengan benar!")
 			.required("Tahun masuk wajib diisi!")
 			.typeError("Tahun masuk wajib diisi!"),
-		tanggalLulus: yup
+		tahunLulus: yup
 			.number()
 			.min(1000, "Masukan tahun lulus dengan benar!")
 			.max(9999, "Masukan tahun lulus dengan benar!")

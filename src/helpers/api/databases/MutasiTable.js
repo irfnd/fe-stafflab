@@ -5,6 +5,11 @@ export const getMutasi = async () => {
 	return results;
 };
 
+export const getMutasiById = async (nip) => {
+	const results = await Supabase.from("mutasi").select("*").eq("nipPegawai", nip);
+	return results;
+};
+
 export const createMutasi = async (newData) => {
 	const { data, error } = await Supabase.from("mutasi").insert(newData).select();
 	if (error) throw error;
@@ -13,5 +18,6 @@ export const createMutasi = async (newData) => {
 
 export default {
 	getMutasi,
+	getMutasiById,
 	createMutasi,
 };
