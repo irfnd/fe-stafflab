@@ -60,7 +60,8 @@ export default function MutasiForm() {
 		setLoading(true);
 		try {
 			if (jenisMutasi.length < 1) throw new Error("Jenis mutasi wajib diisi!");
-			if (data.dokumen.length < 1) throw new Error("Dokumen berkaitan wajib diisi!");
+			if (dokumen.length < 1) throw new Error("Dokumen mutasi wajib diisi!");
+			if (tanggalMutasi.length < 1) throw new Error("Tanggal mutasi wajib diisi!");
 
 			if (jenisMutasi === "Golongan") {
 				if (data.toGolongan.length < 1) throw new Error("Golongan pegawai wajib diisi!");

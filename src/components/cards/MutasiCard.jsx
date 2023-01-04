@@ -1,12 +1,14 @@
-import useDokumen from "@/helpers/hooks/useDokumen";
 import usePegawaiById from "@/helpers/hooks/usePegawaiById";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
+import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
 import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
+import { getPegawaiById } from "@/helpers/api/databases/pegawaiTable";
 
 // Styles & Icons
 import {
@@ -21,8 +23,8 @@ import {
 	CardHeader,
 	Flex,
 	Icon,
-	Text,
 	Skeleton,
+	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
 import { Award, Building2, CalendarClock, Cog, FileBadge, Network, Pocket, Tags } from "lucide-react";
@@ -31,9 +33,8 @@ import { Award, Building2, CalendarClock, Cog, FileBadge, Network, Pocket, Tags 
 import FilesMutasiList from "@/components/lists/FilesMutasiList";
 
 export default function MutasiCard({ mutasi, page = "mutasi" }) {
-	const { pegawai } = usePegawaiById(mutasi?.nipPegawai);
-	const { dokumen } = useDokumen(mutasi?.nipPegawai);
-
+	const [pegawai, setPegawai] = useState(null);
+	const dokumen = useSelector(DokumenSelector.selectAll);
 	const fromTipe = useSelector((state) => TipePegawaiSelector.selectById(state, mutasi?.detail?.tipe?.from));
 	const toTipe = useSelector((state) => TipePegawaiSelector.selectById(state, mutasi?.detail?.tipe?.to));
 	const fromStatus = useSelector((state) => StatusPegawaiSelector.selectById(state, mutasi?.detail?.status?.from));
@@ -51,6 +52,15 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 	const borderCard = useColorModeValue("gray.200", "whiteAlpha.300");
 	const iconFileColor = useColorModeValue("cyan.500", "cyan.300");
 	const fontFileColor = useColorModeValue("black", "whiteAlpha.400");
+
+	const getPegawai = async () => {
+		const { data } = await getPegawaiById(mutasi?.nipPegawai);
+		if (data) setPegawai(data[0]);
+	};
+
+	useEffect(() => {
+		getPegawai();
+	}, [mutasi]);
 
 	return (
 		<Card

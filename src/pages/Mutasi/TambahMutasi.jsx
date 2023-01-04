@@ -1,5 +1,6 @@
 import usePegawai from "@/helpers/hooks/usePegawai";
 import useQueryParams from "@/helpers/hooks/useQueryParams";
+import useDokumen from "@/helpers/hooks/useDokumen";
 
 // Styles & Icons
 import { Flex } from "@chakra-ui/react";
@@ -12,6 +13,7 @@ import PegawaiAllList from "@/components/lists/PegawaiAllList";
 export default function TambahMutasi() {
 	const { queryParams } = useQueryParams();
 	const { totalPages } = usePegawai(queryParams);
+	useDokumen();
 
 	return (
 		<Flex direction='column' w='full' gap={8}>

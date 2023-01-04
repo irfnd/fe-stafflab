@@ -1,18 +1,23 @@
 import Supabase from "@/helpers/Supabase";
-import { getDokumen } from "@/helpers/api/databases/dokumenTable";
+import { getDokumen, getDokumenById } from "@/helpers/api/databases/dokumenTable";
 import { DokumenActions, DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 let dokumenSubs = null;
 
-export default function useDokumen(nip) {
+export default function useDokumen(nip = null) {
 	const dokumen = useSelector(DokumenSelector.selectAll);
 	const dispatch = useDispatch();
 
 	const fetchDokumen = async () => {
-		const { data } = await getDokumen(nip);
-		if (data) dispatch(DokumenActions.set(data));
+		if (nip) {
+			const { data } = await getDokumenById(nip);
+			if (data) dispatch(DokumenActions.set(data));
+		} else {
+			const { data } = await getDokumen();
+			if (data) dispatch(DokumenActions.set(data));
+		}
 	};
 
 	const changeDokumen = (payload) => {

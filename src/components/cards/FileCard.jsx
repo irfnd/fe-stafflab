@@ -4,7 +4,7 @@ import fileDownload from "js-file-download";
 import { useState } from "react";
 
 // Styles & Icons
-import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useColorModeValue, useToast, Tooltip } from "@chakra-ui/react";
 import { DownloadCloud, FileBadge, FileClock } from "lucide-react";
 
 // Components
@@ -15,6 +15,8 @@ export default function FileCard({ file, cardBtn }) {
 
 	const toast = useToast();
 
+	const bgTooltip = useColorModeValue("cyan.500", "cyan.200");
+	const fontTooltipColor = useColorModeValue("white", "black");
 	const borderFileCard = useColorModeValue("gray.200", "whiteAlpha.300");
 	const iconFileColor = useColorModeValue("cyan.500", "cyan.300");
 	const fontFileColor = useColorModeValue("black", "whiteAlpha.400");
@@ -49,9 +51,11 @@ export default function FileCard({ file, cardBtn }) {
 	return (
 		<Card bg='transparent' display='flex' flexDir='column' p={4} gap={4} border='1px solid' borderColor={borderFileCard}>
 			<CardHeader display='flex' justifyContent='space-between' alignItems='center' p={0}>
-				<Text fontSize='lg' fontWeight='semibold' noOfLines={1}>
-					{file.nama}
-				</Text>
+				<Tooltip label={file.nama} bg={bgTooltip} color={fontTooltipColor} placement='top-start' rounded='md' hasArrow>
+					<Text fontSize='lg' fontWeight='semibold' noOfLines={1}>
+						{file.nama}
+					</Text>
+				</Tooltip>
 				{cardBtn && <FileCardMenu category={file?.kategori} file={file} />}
 			</CardHeader>
 			<CardBody display='flex' flexDir='column' p={0} gap={2}>

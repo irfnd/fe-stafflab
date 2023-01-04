@@ -24,6 +24,8 @@ export default function PegawaiCard({ pegawai, page }) {
 	const dokumen = useSelector(DokumenSelector.selectAll);
 	const [profilePhoto, setProfilePhoto] = useState(null);
 
+	console.log(dokumen);
+
 	const navigate = useNavigate();
 	const bgCard = useColorModeValue("white", "gray.800");
 	const iconColor = useColorModeValue("cyan.600", "cyan.200");
@@ -41,10 +43,8 @@ export default function PegawaiCard({ pegawai, page }) {
 		}
 	};
 
-	useDokumen(pegawai.nip);
-
 	useEffect(() => {
-		setProfilePhoto(dokumen?.filter((el) => el.kategori === "profil")[0]?.detail?.publicUrl);
+		setProfilePhoto(dokumen?.filter((el) => el.kategori === "profil" && el.nipPegawai === pegawai?.nip)[0]?.detail?.publicUrl);
 	}, [dokumen]);
 
 	return (

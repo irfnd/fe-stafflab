@@ -1,6 +1,11 @@
 import Supabase from "@/helpers/Supabase";
 
-export const getDokumen = async (nip) => {
+export const getDokumen = async () => {
+	const results = await Supabase.from("dokumen").select("*");
+	return results;
+};
+
+export const getDokumenById = async (nip) => {
 	const results = await Supabase.from("dokumen").select("*").eq("nipPegawai", nip);
 	return results;
 };
@@ -26,6 +31,7 @@ export const deleteDokumen = async (id) => {
 
 export default {
 	getDokumen,
+	getDokumenById,
 	createDokumen,
 	updateDokumen,
 	deleteDokumen,
