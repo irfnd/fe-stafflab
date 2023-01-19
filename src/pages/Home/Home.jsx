@@ -1,8 +1,13 @@
 // Styles & Icons
-import { Text } from "@chakra-ui/react";
+import { Text, Flex } from "@chakra-ui/react";
 
 // Components
+import GenderPegawaiChart from "@/components/charts/GenderPegawaiChart";
 
 export default function Home() {
-	return <Text>Homepage</Text>;
+	return (
+		<Flex w='full'>
+			<GenderPegawaiChart />
+		</Flex>
+	);
 }
