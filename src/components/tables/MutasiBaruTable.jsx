@@ -1,28 +1,12 @@
-import { Link as RouterLink } from "react-router-dom";
 import { getNewMutasi } from "@/helpers/api/databases/mutasiTable";
 import useDate from "@/helpers/hooks/useDate";
-import { useEffect, useState } from "react";
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 
 // Styles & Icons
-import {
-	Flex,
-	Link,
-	Skeleton,
-	Table,
-	TableContainer,
-	Tag,
-	TagLabel,
-	TagLeftIcon,
-	Tbody,
-	Td,
-	Text,
-	Th,
-	Thead,
-	Tr,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Flex, Link, Skeleton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
 
 export default function MutasiBaruTable() {
 	const [tableData, setTableData] = useState();

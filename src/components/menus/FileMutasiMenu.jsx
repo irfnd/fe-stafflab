@@ -5,8 +5,8 @@ import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from 
 import { Edit, MoreHorizontal, Trash } from "lucide-react";
 
 // Components
-import MutasiModal from "@/components/modals/mutasi/MutasiModal";
 import MutasiDeleteModal from "@/components/modals/mutasi/MutasiDeleteModal";
+import MutasiModal from "@/components/modals/mutasi/MutasiModal";
 
 export default function FileCardMenu({ file, form }) {
 	const [selectedDokumen, setSelectedDokumen] = useState();
