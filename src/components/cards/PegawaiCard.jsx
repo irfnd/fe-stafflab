@@ -24,8 +24,6 @@ export default function PegawaiCard({ pegawai, page }) {
 	const dokumen = useSelector(DokumenSelector.selectAll);
 	const [profilePhoto, setProfilePhoto] = useState(null);
 
-	console.log(dokumen);
-
 	const navigate = useNavigate();
 	const bgCard = useColorModeValue("white", "gray.800");
 	const iconColor = useColorModeValue("cyan.600", "cyan.200");

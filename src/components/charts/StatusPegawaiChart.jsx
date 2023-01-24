@@ -1,7 +1,9 @@
-import { getGender } from "@/helpers/api/databases/chartData";
+import { getStatusPegawai } from "@/helpers/api/databases/chartData";
 import { ArcElement, Chart as ChartJS, Legend, Tooltip } from "chart.js";
 import { useEffect, useState } from "react";
-import { Pie } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
+import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
+import { useSelector } from "react-redux";
 
 // Styles & Icons
 import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
@@ -9,15 +11,16 @@ import { Flex, Heading, useColorModeValue } from "@chakra-ui/react";
 // Chart Init
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-export default function GenderPegawaiChart() {
+export default function StatusPegawaiChart() {
 	const [chartData, setChartData] = useState();
+	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
 
 	// Colormode
 	const bgChart = useColorModeValue("white", "gray.800");
 	const legendColor = useColorModeValue("#1A202C", "white");
 
 	const fetchData = async () => {
-		const results = await getGender();
+		const results = await getStatusPegawai();
 		if (results) setChartData(results);
 	};
 
@@ -28,18 +31,18 @@ export default function GenderPegawaiChart() {
 	return (
 		<Flex direction='column' bg={bgChart} h='fit-content' w={{ md: "50%", lg: "full" }} py={8} px={6} gap={6} shadow='md' rounded='md'>
 			<Heading fontSize='lg' align='center' noOfLines={1}>
-				Jenis Kelamin Pegawai
+				Status Pegawai
 			</Heading>
 			<Flex h={200} w='full' justify='center' align='center'>
-				<Pie
+				<Doughnut
 					{...{
 						data: {
-							labels: ["Pria", "Wanita"],
+							labels: statusPegawai?.map((status) => status.nama),
 							datasets: [
 								{
 									label: "Total",
 									data: chartData,
-									backgroundColor: ["#00B5D8", "#B83280"],
+									backgroundColor: ["#38A169", "#00B5D8", "#B83280", "#E53E3E"],
 									borderWidth: 0,
 								},
 							],
