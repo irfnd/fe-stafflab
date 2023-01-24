@@ -10,6 +10,12 @@ export const getMutasiById = async (nip) => {
 	return results;
 };
 
+export const getNewMutasi = async () => {
+	const { data, error } = await Supabase.from("mutasi").select("*, pegawai (*)").order("createdAt", { ascending: false }).range(0, 4);
+	if (!error) return data;
+	return null;
+};
+
 export const createMutasi = async (newData) => {
 	const { data, error } = await Supabase.from("mutasi").insert(newData).select();
 	if (error) throw error;
@@ -19,5 +25,6 @@ export const createMutasi = async (newData) => {
 export default {
 	getMutasi,
 	getMutasiById,
+	getNewMutasi,
 	createMutasi,
 };

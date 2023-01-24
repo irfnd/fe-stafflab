@@ -5,6 +5,12 @@ export const getPegawaiById = async (nip) => {
 	return results;
 };
 
+export const getNewPegawai = async () => {
+	const { data, error } = await Supabase.from("pegawai").select("*").order("createdAt", { ascending: false }).range(0, 4);
+	if (!error) return data;
+	return null;
+};
+
 export const createPegawai = async (newData) => {
 	const {
 		nip,
@@ -34,6 +40,7 @@ export const updatePegawai = async (newData, nip) => {
 
 export default {
 	getPegawaiById,
+	getNewPegawai,
 	createPegawai,
 	updatePegawai,
 };
