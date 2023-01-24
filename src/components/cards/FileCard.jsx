@@ -4,7 +4,7 @@ import fileDownload from "js-file-download";
 import { useState } from "react";
 
 // Styles & Icons
-import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, useColorModeValue, useToast, Tooltip } from "@chakra-ui/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Flex, Icon, Text, Tooltip, useColorModeValue, useToast } from "@chakra-ui/react";
 import { DownloadCloud, FileBadge, FileClock } from "lucide-react";
 
 // Components

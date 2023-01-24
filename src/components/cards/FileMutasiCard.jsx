@@ -1,8 +1,7 @@
 import useDate from "@/helpers/hooks/useDate";
-import { useState } from "react";
 
 // Styles & Icons
-import { Card, CardBody, CardHeader, Flex, Icon, Text, useColorModeValue, useToast } from "@chakra-ui/react";
+import { Card, CardBody, CardHeader, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 import { FileBadge, FileClock } from "lucide-react";
 
 // Components

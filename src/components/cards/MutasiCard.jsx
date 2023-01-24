@@ -1,4 +1,4 @@
-import usePegawaiById from "@/helpers/hooks/usePegawaiById";
+import { getPegawaiById } from "@/helpers/api/databases/pegawaiTable";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
@@ -6,9 +6,8 @@ import { InstansiSelector } from "@/helpers/redux/slices/InstansiSlice";
 import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice";
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { getPegawaiById } from "@/helpers/api/databases/pegawaiTable";
 
 // Styles & Icons
 import {
