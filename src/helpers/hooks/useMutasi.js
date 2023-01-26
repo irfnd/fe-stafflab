@@ -1,5 +1,5 @@
 import Supabase from "@/helpers/Supabase";
-import { getMutasi, getMutasiById } from "../api/databases/mutasiTable";
+import { getMutasi, getMutasiById } from "@/helpers/api/databases/mutasiTable";
 import { MutasiActions, MutasiSelector } from "@/helpers/redux/slices/MutasiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
