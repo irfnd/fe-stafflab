@@ -8,11 +8,12 @@ export default function useAuth() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
-				dispatch(AuthActions.setSession(currentSession));
-			} else {
-				dispatch(AuthActions.setSession(null));
+		if(session) {
+			Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+				if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
+					dispatch(AuthActions.setSession(currentSession));
+				} else {
+					dispatch(AuthActions.setSession(null));
 			}
 		});
 
@@ -23,6 +24,7 @@ export default function useAuth() {
 				dispatch(AuthActions.setSession(null));
 			}
 		});
+	}
 	}, []);
 
 	return { session };
