@@ -2,6 +2,7 @@
 	"name": "stafflab-fe",
 	"description": "A Frontend Stafflab project",
 	"version": "1.0.0",
+	"homepage": "https://irfnd.space/stafflab",
 	"author": "irfnd <irfandiabimanyu@gmail.com>",
 	"private": true,
 	"license": "MIT",
@@ -12,7 +13,7 @@
 		"preview": "vite preview",
 		"prepare": "husky install",
 		"lint": "eslint . --fix",
-		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
+		"format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,json,md}\""
 	},
 	"dependencies": {
 		"@chakra-ui/react": "^2.4.9",

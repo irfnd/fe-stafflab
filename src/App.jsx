@@ -23,7 +23,7 @@ export default function App() {
 	const { session } = useAuth();
 
 	return (
-		<BrowserRouter>
+		<BrowserRouter basename='/stafflab'>
 			<ScrollToTop />
 			<Routes>
 				<Route path='/' element={<BaseLayout session={session} />}>

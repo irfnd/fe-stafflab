@@ -7,13 +7,12 @@ export default function useAuth() {
 	const { session } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		if(session) {
-			Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-				if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
-					dispatch(AuthActions.setSession(currentSession));
-				} else {
-					dispatch(AuthActions.setSession(null));
+	const refreshSession = () => {
+		Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
+			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
+				dispatch(AuthActions.setSession(currentSession));
+			} else {
+				dispatch(AuthActions.setSession(null));
 			}
 		});
 
@@ -24,7 +23,10 @@ export default function useAuth() {
 				dispatch(AuthActions.setSession(null));
 			}
 		});
-	}
+	};
+
+	useEffect(() => {
+		refreshSession();
 	}, []);
 
 	return { session };

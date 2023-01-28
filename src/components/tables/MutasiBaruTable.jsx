@@ -23,7 +23,7 @@ export default function MutasiBaruTable() {
 	useEffect(() => {
 		fetchData();
 	}, []);
-	
+
 	return (
 		<Flex w='full'>
 			<TableContainer bg={bgTable} w='full' shadow='md' rounded='md'>

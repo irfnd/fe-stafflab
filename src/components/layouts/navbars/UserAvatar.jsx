@@ -1,12 +1,12 @@
-import { AuthActions } from "@/helpers/redux/slices/AuthSlice";
-import { useDispatch } from "react-redux";
-
 // Styles & Icons
 import { Avatar, Flex, Menu, MenuButton, MenuItem, MenuList, Text } from "@chakra-ui/react";
 import { LogOut } from "lucide-react";
 
 export default function UserAvatar() {
-	const dispatch = useDispatch()
+	const onLogout = () => {
+		localStorage.clear();
+		window.location.reload();
+	};
 
 	return (
 		<Flex alignItems='center'>
@@ -23,7 +23,9 @@ export default function UserAvatar() {
 					</Flex>
 				</MenuButton>
 				<MenuList>
-					<MenuItem icon={<LogOut size={18} />} onClick={() => dispatch(AuthActions.reset())}>Log Out</MenuItem>
+					<MenuItem icon={<LogOut size={18} />} onClick={onLogout}>
+						Log Out
+					</MenuItem>
 				</MenuList>
 			</Menu>
 		</Flex>
