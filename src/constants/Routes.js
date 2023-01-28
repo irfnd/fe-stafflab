@@ -1,6 +1,21 @@
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useSelector } from "react-redux";
-import { Award, Building2, Factory, Home, Network, Pocket, UserCheck, UserCog, UserPlus, Users, Cog, FilePlus, List } from "lucide-react";
+import {
+	Award,
+	Building2,
+	Factory,
+	Home,
+	Network,
+	Pocket,
+	UserCheck,
+	UserCog,
+	UserPlus,
+	Users,
+	Cog,
+	FilePlus,
+	List,
+	Luggage,
+} from "lucide-react";
 
 const dynamicBreadcrumb = ({ match }) => {
 	const pegawai = useSelector((state) => PegawaiSelector.selectById(state, match.params.id));
@@ -25,6 +40,11 @@ export const BREADCRUMBS = (title) => [
 	{ path: "/mutasi/tambah", title: "Tambah Mutasi", breadcrumb: "Tambah", isIndex: true },
 	{ path: "/mutasi/tambah/:id", title, breadcrumb: dynamicBreadcrumb },
 	{ path: "/mutasi/list", title: "Riwayat Mutasi", breadcrumb: "Riwayat" },
+
+	// Cuti
+	{ path: "/cuti", title: "Cuti Pegawai", breadcrumb: "Cuti" },
+	{ path: "/cuti/pengajuan", title: "Pengajuan Cuti", breadcrumb: "Pengajuan", isIndex: true },
+	{ path: "/cuti/list", title: "Riwayat Cuti", breadcrumb: "Riwayat" },
 
 	// Perusahaan
 	{ path: "/perusahaan", title: "Instansi Perusahaan", breadcrumb: "Perusahaan" },
@@ -58,6 +78,17 @@ export const SIDEBARS = {
 		children: [
 			{ path: "/mutasi/tambah", name: "Tambah", icon: FilePlus, isIndex: true },
 			{ path: "/mutasi/list", name: "Riwayat Mutasi", icon: List },
+		],
+	},
+
+	// Cuti
+	cuti: {
+		path: "/cuti",
+		name: "Cuti",
+		icon: Luggage,
+		children: [
+			{ path: "/cuti/pengajuan", name: "Pegajuan", icon: FilePlus, isIndex: true },
+			{ path: "/cuti/list", name: "Riwayat Cuti", icon: List },
 		],
 	},
 

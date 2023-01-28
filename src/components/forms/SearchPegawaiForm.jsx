@@ -20,7 +20,7 @@ import {
 } from "@chakra-ui/react";
 import { Filter, Search, UserCheck } from "lucide-react";
 
-export default function SearchForm() {
+export default function SearchPegawaiForm() {
 	const { queryParams, setQueryParams } = useQueryParams();
 	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
 

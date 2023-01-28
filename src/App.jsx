@@ -18,6 +18,8 @@ import Divisi from "@/pages/Perusahaan/Divisi";
 import Golongan from "@/pages/Perusahaan/Golongan";
 import Instansi from "@/pages/Perusahaan/Instansi";
 import Jabatan from "@/pages/Perusahaan/Jabatan";
+import Cuti from "@/pages/Cuti/Cuti";
+import PengajuanCuti from "@/pages/Cuti/PengajuanCuti";
 
 export default function App() {
 	const { session } = useAuth();
@@ -50,6 +52,12 @@ export default function App() {
 							<Route path=':id' element={<MutasiPegawai />} />
 						</Route>
 						<Route path='list' element={<Mutasi />} />
+					</Route>
+
+					<Route path='cuti'>
+						<Route index element={<PengajuanCuti />} />
+						<Route path='pengajuan' element={<PengajuanCuti />} />
+						<Route path='list' element={<Cuti />} />
 					</Route>
 
 					<Route path='/perusahaan'>

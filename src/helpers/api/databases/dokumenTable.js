@@ -12,21 +12,21 @@ export const getDokumenById = async (nip) => {
 
 export const createDokumen = async (newData) => {
 	const { nama, detail, nipPegawai, kategori } = newData;
-	const { data, error } = await Supabase.from("dokumen").insert({ nama, detail, nipPegawai, kategori }).select();
+	const { data, error } = await Supabase.from("dokumen").insert({ nama, detail, nipPegawai, kategori }).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const updateDokumen = async (newData, id) => {
-	const { data, error } = await Supabase.from("dokumen").update(newData).eq("id", id).select();
+	const { data, error } = await Supabase.from("dokumen").update(newData).eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const deleteDokumen = async (id) => {
-	const { data, error } = await Supabase.from("dokumen").delete().eq("id", id).select();
+	const { data, error } = await Supabase.from("dokumen").delete().eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export default {

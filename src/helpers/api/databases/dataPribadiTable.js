@@ -9,15 +9,15 @@ export const createDataPribadi = async (newData) => {
 	const { nik, tempatLahir, tanggalLahir, jenisKelamin, agama, kawin, alamat, nipPegawai } = newData;
 	const { data, error } = await Supabase.from("data_pribadi")
 		.insert({ nik, tempatLahir, tanggalLahir, jenisKelamin, agama, kawin, alamat, nipPegawai })
-		.select();
+		.single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const updateDataPribadi = async (newData, nik) => {
-	const { data, error } = await Supabase.from("data_pribadi").update(newData).eq("nik", nik).select();
+	const { data, error } = await Supabase.from("data_pribadi").update(newData).eq("nik", nik).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export default {

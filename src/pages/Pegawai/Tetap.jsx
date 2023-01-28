@@ -6,7 +6,7 @@ import useDokumen from "@/helpers/hooks/useDokumen";
 import { Flex } from "@chakra-ui/react";
 
 // Components
-import SearchForm from "@/components/forms/SearchForm";
+import SearchPegawaiForm from "@/components/forms/SearchPegawaiForm";
 import BasePagination from "@/components/layouts/paginations/BasePagination";
 import PegawaiTetapList from "@/components/lists/PegawaiTetapList";
 
@@ -17,7 +17,7 @@ export default function Tetap() {
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
-			<SearchForm />
+			<SearchPegawaiForm />
 			<PegawaiTetapList />
 			<BasePagination page={queryParams.page} totalPages={totalPages} />
 		</Flex>

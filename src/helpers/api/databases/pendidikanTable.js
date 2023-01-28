@@ -6,21 +6,21 @@ export const getPendidikan = async (nip) => {
 };
 
 export const createPendidikan = async (newData) => {
-	const { data, error } = await Supabase.from("pendidikan").insert(newData).select();
+	const { data, error } = await Supabase.from("pendidikan").insert(newData).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const updatePendidikan = async (newData, id) => {
-	const { data, error } = await Supabase.from("pendidikan").update(newData).eq("id", id).select();
+	const { data, error } = await Supabase.from("pendidikan").update(newData).eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const deletePendidikan = async (id) => {
-	const { data, error } = await Supabase.from("pendidikan").delete().eq("id", id).select();
+	const { data, error } = await Supabase.from("pendidikan").delete().eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export default {

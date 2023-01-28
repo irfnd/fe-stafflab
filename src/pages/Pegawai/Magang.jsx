@@ -6,7 +6,7 @@ import useQueryParams from "@/helpers/hooks/useQueryParams";
 import { Flex } from "@chakra-ui/react";
 
 // Components
-import SearchForm from "@/components/forms/SearchForm";
+import SearchPegawaiForm from "@/components/forms/SearchPegawaiForm";
 import BasePagination from "@/components/layouts/paginations/BasePagination";
 import PegawaiMagangList from "@/components/lists/PegawaiMagangList";
 
@@ -17,7 +17,7 @@ export default function Magang() {
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
-			<SearchForm />
+			<SearchPegawaiForm />
 			<PegawaiMagangList />
 			<BasePagination page={queryParams.page} totalPages={totalPages} />
 		</Flex>

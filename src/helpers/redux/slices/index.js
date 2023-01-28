@@ -12,6 +12,7 @@ import PendidikanSlice from "@/helpers/redux/slices/PendidikanSlice";
 import StatusPegawaiSlice from "@/helpers/redux/slices/StatusPegawaiSlice";
 import TipePegawaiSlice from "@/helpers/redux/slices/TipePegawaiSlice";
 import MutasiSlice from "@/helpers/redux/slices/MutasiSlice";
+import CutiSlice from "@/helpers/redux/slices/CutiSlice";
 
 const rootReducers = combineReducers({
 	[AuthSlice.name]: AuthSlice.reducer,
@@ -26,6 +27,7 @@ const rootReducers = combineReducers({
 	[StatusPegawaiSlice.name]: StatusPegawaiSlice.reducer,
 	[TipePegawaiSlice.name]: TipePegawaiSlice.reducer,
 	[MutasiSlice.name]: MutasiSlice.reducer,
+	[CutiSlice.name]: CutiSlice.reducer,
 });
 
 export default rootReducers;

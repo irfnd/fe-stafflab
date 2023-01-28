@@ -6,21 +6,21 @@ export const getInstansi = async () => {
 };
 
 export const createInstansi = async (newData) => {
-	const { data, error } = await Supabase.from("instansi").insert(newData).select();
+	const { data, error } = await Supabase.from("instansi").insert(newData).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const updateInstansi = async (newData, id) => {
-	const { data, error } = await Supabase.from("instansi").update(newData).eq("id", id).select();
+	const { data, error } = await Supabase.from("instansi").update(newData).eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export const deleteInstansi = async (id) => {
-	const { data, error } = await Supabase.from("instansi").delete().eq("id", id).select();
+	const { data, error } = await Supabase.from("instansi").delete().eq("id", id).single();
 	if (error) throw error;
-	return data[0];
+	return data;
 };
 
 export default {
