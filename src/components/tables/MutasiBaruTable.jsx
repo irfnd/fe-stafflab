@@ -6,7 +6,25 @@ import { useSelector } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, Link, Skeleton, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from "@chakra-ui/react";
+import {
+	Flex,
+	Link,
+	Skeleton,
+	Table,
+	TableContainer,
+	Tbody,
+	Td,
+	Text,
+	Th,
+	Thead,
+	Tr,
+	useColorModeValue,
+	Button,
+	Icon,
+} from "@chakra-ui/react";
+
+// Components
+import DetailMutasiPopover from "@/components/popovers/DetailMutasiPopover";
 
 export default function MutasiBaruTable() {
 	const [tableData, setTableData] = useState();
@@ -35,9 +53,14 @@ export default function MutasiBaruTable() {
 									Nama
 								</Text>
 							</Th>
-							<Th>
+							<Th textAlign='center'>
 								<Text casing='capitalize' fontSize={14}>
 									Jenis Mutasi
+								</Text>
+							</Th>
+							<Th textAlign='center'>
+								<Text casing='capitalize' fontSize={14}>
+									Detail Mutasi
 								</Text>
 							</Th>
 							<Th w={10}>
@@ -62,8 +85,11 @@ export default function MutasiBaruTable() {
 											{mutasi?.pegawai?.nama}
 										</Link>
 									</Td>
-									<Td>
+									<Td textAlign='center'>
 										<Text casing='capitalize'>Mutasi {mutasi?.jenisMutasi}</Text>
+									</Td>
+									<Td textAlign='center'>
+										<DetailMutasiPopover mutasi={mutasi} />
 									</Td>
 									<Td>{useDate(mutasi?.tanggalMutasi, false)}</Td>
 								</Tr>

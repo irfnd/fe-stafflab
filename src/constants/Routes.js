@@ -87,7 +87,7 @@ export const SIDEBARS = {
 		name: "Cuti",
 		icon: Luggage,
 		children: [
-			{ path: "/cuti/pengajuan", name: "Pegajuan", icon: FilePlus, isIndex: true },
+			{ path: "/cuti/pengajuan", name: "Pengajuan", icon: FilePlus, isIndex: true },
 			{ path: "/cuti/list", name: "Riwayat Cuti", icon: List },
 		],
 	},
