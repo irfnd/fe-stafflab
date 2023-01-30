@@ -27,15 +27,15 @@ export const createPegawai = async (newData) => {
 	} = newData;
 	const { data, error } = await Supabase.from("pegawai")
 		.insert({ nip, nama, email, noTelepon: `+62${noTelepon}`, idTipe, idStatus, idInstansi, idDivisi, idJabatan, idGolongan, uuidUser })
-		.single();
+		.select();
 	if (error) throw error;
-	return data;
+	return data[0];
 };
 
 export const updatePegawai = async (newData, nip) => {
-	const { data, error } = await Supabase.from("pegawai").update(newData).eq("nip", nip).single();
+	const { data, error } = await Supabase.from("pegawai").update(newData).eq("nip", nip).select();
 	if (error) throw error;
-	return data;
+	return data[0];
 };
 
 export default {

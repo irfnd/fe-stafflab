@@ -19,7 +19,7 @@ export const getNewMutasi = async () => {
 export const createMutasi = async (newData) => {
 	const { data, error } = await Supabase.from("mutasi").insert(newData).select();
 	if (error) throw error;
-	return data;
+	return data[0];
 };
 
 export default {

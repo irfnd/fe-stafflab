@@ -135,7 +135,8 @@ create table cuti (
   "keterangan" varchar not null,
   "mulaiCuti" date not null,
   "selesaiCuti" date not null,
-  "dokumen" jsonb not null,
+  "dokumen" jsonb null default '{}'::jsonb,
+  "diterima" boolean null default(false),
   "nipPegawai" bigint not null references public.pegawai on delete cascade,
   "createdAt" timestamp with time zone null default(now())
 );

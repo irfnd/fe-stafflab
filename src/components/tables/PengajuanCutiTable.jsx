@@ -64,7 +64,7 @@ export default function PengajuanCutiTable() {
 					<Tbody>
 						{cuti &&
 							cuti
-								.filter((el) => el.approve === false)
+								.filter((el) => el.diterima === false)
 								.map((el) => (
 									<Tr key={el.id}>
 										<Td>{el.pegawai.nama}</Td>

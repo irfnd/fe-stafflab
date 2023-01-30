@@ -16,10 +16,13 @@ export const getTotalPegawai = async () => {
 };
 
 export const getGender = async () => {
-	const { count: pria, error: priaErr } = await Supabase.from("data_pribadi").select("*", { count: "exact" }).eq("jenisKelamin", "l");
-	const { count: wanita, error: wanitaErr } = await Supabase.from("data_pribadi").select("*", { count: "exact" }).eq("jenisKelamin", "p");
-	if (!priaErr && !wanitaErr) return [pria, wanita];
-	return null;
+	const { data, error } = await Supabase.from("data_pribadi").select("*");
+	if (!error) {
+		const pria = data?.filter((el) => el.jenisKelamin === "l").length;
+		const wanita = data?.filter((el) => el.jenisKelamin === "p").length;
+		return [pria, wanita];
+	}
+	return [0, 0];
 };
 
 export const getStatusPegawai = async () => {

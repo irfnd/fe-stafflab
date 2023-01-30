@@ -6,9 +6,9 @@ export const getCuti = async () => {
 };
 
 export const updateCuti = async (newData, id) => {
-	const { data, error } = await Supabase.from("cuti").update(newData).eq("id", id).single();
+	const { data, error } = await Supabase.from("cuti").update(newData).eq("id", id).select();
 	if (error) throw error;
-	return data;
+	return data[0];
 };
 
 export default {

@@ -43,7 +43,7 @@ export default function PengajuanCutiModal({ disclosure, cuti }) {
 				kategori: "cuti",
 				nipPegawai: cuti?.nipPegawai,
 			});
-			await updateCuti({ approve: true, dokumen: dokumenFile }, cuti?.id);
+			await updateCuti({ diterima: true, dokumen: dokumenFile }, cuti?.id);
 			setLoading(false);
 			toast({
 				title: "Pengajuan Cuti Disetujui.",

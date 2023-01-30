@@ -1,14 +1,25 @@
+import usePegawai from "@/helpers/hooks/usePegawai";
+import useQueryParams from "@/helpers/hooks/useQueryParams";
+import useDokumen from "@/helpers/hooks/useDokumen";
+
 // Styles & Icons
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 // Components
 import SearchPegawaiForm from "@/components/forms/SearchPegawaiForm";
+import BasePagination from "@/components/layouts/paginations/BasePagination";
+import PegawaiOutsourcingList from "@/components/lists/PegawaiOutsourcingList";
 
 export default function Outsourcing() {
+	const { queryParams } = useQueryParams();
+	const { totalPages } = usePegawai(queryParams);
+	useDokumen();
+
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<SearchPegawaiForm />
-			<Text>Pegawai Oursourcing Page</Text>
+			<PegawaiOutsourcingList />
+			<BasePagination page={queryParams.page} totalPages={totalPages} />
 		</Flex>
 	);
 }
