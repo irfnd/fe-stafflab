@@ -1,6 +1,6 @@
+import useDokumen from "@/helpers/hooks/useDokumen";
 import usePegawai from "@/helpers/hooks/usePegawai";
 import useQueryParams from "@/helpers/hooks/useQueryParams";
-import useDokumen from "@/helpers/hooks/useDokumen";
 
 // Styles & Icons
 import { Flex } from "@chakra-ui/react";
@@ -16,7 +16,7 @@ export default function Outsourcing() {
 	useDokumen();
 
 	return (
-		<Flex direction='column' w='full' gap={8}>
+		<Flex direction='column' w='full' h='full' gap={8}>
 			<SearchPegawaiForm />
 			<PegawaiOutsourcingList />
 			<BasePagination page={queryParams.page} totalPages={totalPages} />

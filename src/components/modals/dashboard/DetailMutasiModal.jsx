@@ -8,22 +8,20 @@ import { useSelector } from "react-redux";
 
 // Styles & Icons
 import {
-	Button,
 	Flex,
 	Icon,
-	Popover,
-	PopoverArrow,
-	PopoverBody,
-	PopoverCloseButton,
-	PopoverContent,
-	PopoverHeader,
-	PopoverTrigger,
+	Modal,
+	ModalBody,
+	ModalCloseButton,
+	ModalContent,
+	ModalHeader,
+	ModalOverlay,
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
-import { Award, Building2, Eye, FileBadge, Network, Pocket, Tags } from "lucide-react";
+import { Award, Building2, FileBadge, Network, Pocket, Tags } from "lucide-react";
 
-export default function DetailMutasiPopover({ mutasi }) {
+export default function DetailMutasiModal({ disclosure, mutasi }) {
 	const fromTipe = useSelector((state) => TipePegawaiSelector.selectById(state, mutasi?.detail?.tipe?.from));
 	const toTipe = useSelector((state) => TipePegawaiSelector.selectById(state, mutasi?.detail?.tipe?.to));
 	const fromStatus = useSelector((state) => StatusPegawaiSelector.selectById(state, mutasi?.detail?.status?.from));
@@ -36,23 +34,17 @@ export default function DetailMutasiPopover({ mutasi }) {
 	const toJabatan = useSelector((state) => JabatanSelector.selectById(state, mutasi?.detail?.jabatan?.to));
 	const fromGolongan = useSelector((state) => GolonganSelector.selectById(state, mutasi?.detail?.golongan?.from));
 	const toGolongan = useSelector((state) => GolonganSelector.selectById(state, mutasi?.detail?.golongan?.to));
+	const { isOpen, onClose } = disclosure;
 
 	const iconFileColor = useColorModeValue("cyan.500", "cyan.300");
 
 	return (
-		<Popover placement='top-end'>
-			<PopoverTrigger>
-				<Button size='sm' variant='ghost' colorScheme='cyan' leftIcon={<Icon as={Eye} fontSize={18} />}>
-					Lihat Detail
-				</Button>
-			</PopoverTrigger>
-			<PopoverContent rounded='md' shadow='lg'>
-				<PopoverArrow />
-				<PopoverCloseButton size='md' />
-				<PopoverHeader textAlign='start' fontWeight='semibold'>
-					Detail Mutasi
-				</PopoverHeader>
-				<PopoverBody>
+		<Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
+			<ModalOverlay />
+			<ModalContent p={4} mx={4}>
+				<ModalHeader pb={2}>Detail Mutasi</ModalHeader>
+				<ModalCloseButton size='lg' mt={4} mr={4} />
+				<ModalBody py={4} pt={2}>
 					<Flex direction='column' gap={1}>
 						<Flex align='center' gap={2}>
 							<Icon as={Tags} color={iconFileColor} />
@@ -79,21 +71,21 @@ export default function DetailMutasiPopover({ mutasi }) {
 							{fromGolongan && toGolongan && <DynamicDetailMutasi from={fromGolongan} to={toGolongan} />}
 						</Flex>
 					</Flex>
-				</PopoverBody>
-			</PopoverContent>
-		</Popover>
+				</ModalBody>
+			</ModalContent>
+		</Modal>
 	);
 }
 
 function DynamicDetailMutasi({ from, to }) {
 	if (from !== to)
 		return (
-			<Text fontSize='sm' casing='capitalize' noOfLines={1}>
+			<Text casing='capitalize' noOfLines={1}>
 				{from?.nama} &rarr; <Text as='u'>{to?.nama}</Text>
 			</Text>
 		);
 	return (
-		<Text fontSize='sm' casing='capitalize' noOfLines={1}>
+		<Text casing='capitalize' noOfLines={1}>
 			{from?.nama}
 		</Text>
 	);

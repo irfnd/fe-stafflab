@@ -21,17 +21,26 @@ import {
 	useColorModeValue,
 	Button,
 	Icon,
+	useDisclosure,
 } from "@chakra-ui/react";
+import { Eye } from "lucide-react";
 
 // Components
-import DetailMutasiPopover from "@/components/popovers/DetailMutasiPopover";
+import DetailMutasiModal from "@/components/modals/dashboard/DetailMutasiModal";
 
 export default function MutasiBaruTable() {
+	const [detailMutasi, setDetailMutasi] = useState();
 	const [tableData, setTableData] = useState();
 	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
+	const disclosureDetail = useDisclosure();
 
 	// Colormode
 	const bgTable = useColorModeValue("white", "gray.800");
+
+	const showDetail = (data) => {
+		setDetailMutasi(data);
+		disclosureDetail.onOpen();
+	};
 
 	const fetchData = async () => {
 		const results = await getNewMutasi();
@@ -89,7 +98,15 @@ export default function MutasiBaruTable() {
 										<Text casing='capitalize'>Mutasi {mutasi?.jenisMutasi}</Text>
 									</Td>
 									<Td textAlign='center'>
-										<DetailMutasiPopover mutasi={mutasi} />
+										<Button
+											size='sm'
+											variant='ghost'
+											colorScheme='cyan'
+											leftIcon={<Icon as={Eye} fontSize={18} />}
+											onClick={() => showDetail(mutasi)}
+										>
+											Lihat Detail
+										</Button>
 									</Td>
 									<Td>{useDate(mutasi?.tanggalMutasi, false)}</Td>
 								</Tr>
@@ -104,6 +121,7 @@ export default function MutasiBaruTable() {
 					</Tbody>
 				</Table>
 			</TableContainer>
+			<DetailMutasiModal disclosure={disclosureDetail} mutasi={detailMutasi} />
 		</Flex>
 	);
 }

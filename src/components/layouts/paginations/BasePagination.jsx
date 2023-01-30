@@ -26,21 +26,21 @@ export default function BasePagination({ page, totalPages }) {
 			base:
 				dir === "left" ? (
 					<Skeleton isLoaded={page && totalPages} rounded='md'>
-						<BtnIcon icon={leftIcon} onClick={clickPrev} disabled={page <= 1} />
+						<BtnIcon icon={leftIcon} onClick={clickPrev} aria-disabled={page <= 1} />
 					</Skeleton>
 				) : (
 					<Skeleton isLoaded={page && totalPages} rounded='md'>
-						<BtnIcon icon={rightIcon} onClick={clickNext} disabled={page >= totalPages} />
+						<BtnIcon icon={rightIcon} onClick={clickNext} aria-disabled={page >= totalPages} />
 					</Skeleton>
 				),
 			md:
 				dir === "left" ? (
 					<Skeleton isLoaded={page && totalPages} rounded='md'>
-						<BtnText leftIcon={leftIcon} text='Sebelumnya' onClick={clickPrev} disabled={page <= 1} />
+						<BtnText leftIcon={leftIcon} text='Sebelumnya' onClick={clickPrev} aria-disabled={page <= 1} />
 					</Skeleton>
 				) : (
 					<Skeleton isLoaded={page && totalPages} rounded='md'>
-						<BtnText rightIcon={rightIcon} text='Selanjutnya' onClick={clickNext} disabled={page >= totalPages} />
+						<BtnText rightIcon={rightIcon} text='Selanjutnya' onClick={clickNext} aria-disabled={page >= totalPages} />
 					</Skeleton>
 				),
 		});

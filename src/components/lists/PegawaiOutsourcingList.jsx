@@ -11,8 +11,8 @@ import PegawaiCard from "@/components/cards/PegawaiCard";
 export default function PegawaiOutsourcingList() {
 	const pegawai = useSelector(PegawaiSelector.selectAll);
 	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
-	const magang = tipePegawai?.filter((el) => el.nama === "Outsourcing")[0];
-	const pegawaiOutsourcing = pegawai?.filter((el) => el.idTipe === magang?.id);
+	const outsourcing = tipePegawai?.filter((el) => el.nama === "Outsourcing")[0];
+	const pegawaiOutsourcing = pegawai?.filter((el) => el.idTipe === outsourcing?.id);
 
 	return (
 		<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
