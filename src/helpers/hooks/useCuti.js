@@ -1,5 +1,5 @@
 import Supabase from "@/helpers/Supabase";
-import { getCuti } from "@/helpers/api/databases/cutiTable";
+import { getCuti, getCutiById } from "@/helpers/api/databases/cutiTable";
 import { CutiActions, CutiSelector } from "@/helpers/redux/slices/CutiSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,26 +13,26 @@ export default function useCuti() {
 		if (data) dispatch(CutiActions.set(data));
 	};
 
-	const changeCuti = (payload) => {
-		const { createdAt, id, ...newCuti } = payload.new;
-		switch (payload.eventType) {
-			case "INSERT":
-				dispatch(CutiActions.add(payload.new));
-				break;
-			case "UPDATE":
-				dispatch(CutiActions.update({ id: payload.old.id, changes: newCuti }));
-				break;
-			case "DELETE":
-				dispatch(CutiActions.delete(payload.old.id));
-				break;
-			default:
-				break;
-		}
+	const insertCuti = async (payload) => {
+		const { data } = await getCutiById(payload.new.id);
+		dispatch(CutiActions.add(data));
 	};
+
+	const updateCuti = async (payload) => {
+		const { data } = await getCutiById(payload.old.id);
+		const { createdAt, id, ...newCuti } = data;
+		dispatch(CutiActions.update({ id: payload.old.id, changes: newCuti }));
+	};
+
+	const deleteCuti = (payload) => dispatch(CutiActions.delete(payload.old.id));
 
 	useEffect(() => {
 		fetchCuti();
-		Supabase.channel("public:cuti").on("postgres_changes", { event: "*", schema: "public", table: "cuti" }, changeCuti).subscribe();
+		Supabase.channel("public:cuti")
+			.on("postgres_changes", { event: "INSERT", schema: "public", table: "cuti" }, insertCuti)
+			.on("postgres_changes", { event: "UPDATE", schema: "public", table: "cuti" }, updateCuti)
+			.on("postgres_changes", { event: "DELETE", schema: "public", table: "cuti" }, deleteCuti)
+			.subscribe();
 	}, []);
 
 	return { cuti };

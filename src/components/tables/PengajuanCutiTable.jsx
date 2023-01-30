@@ -22,6 +22,7 @@ import { Check, X } from "lucide-react";
 
 // Components
 import PengajuanCutiModal from "@/components/modals/cuti/PengajuanCutiModal";
+import PengajuanCutiModalDelete from "@/components/modals/cuti/PengajuanCutiModalDelete";
 
 export default function PengajuanCutiTable() {
 	const [selectedCuti, setSelectedCuti] = useState();
@@ -64,13 +65,13 @@ export default function PengajuanCutiTable() {
 					<Tbody>
 						{cuti &&
 							cuti
-								.filter((el) => el.diterima === false)
+								.filter((el) => el?.diterima === false)
 								.map((el) => (
-									<Tr key={el.id}>
-										<Td>{el.pegawai.nama}</Td>
-										<Td>{useDate(el.mulaiCuti, false)}</Td>
-										<Td>{useDate(el.selesaiCuti, false)}</Td>
-										<Td>{el.keterangan}</Td>
+									<Tr key={el?.id}>
+										<Td>{el?.pegawai?.nama}</Td>
+										<Td>{useDate(el?.mulaiCuti, false)}</Td>
+										<Td>{useDate(el?.selesaiCuti, false)}</Td>
+										<Td>{el?.keterangan}</Td>
 										<Td w={4}>
 											<ButtonGroup display='flex' justifyContent='center' w='full'>
 												<IconButton size='sm' colorScheme='cyan' icon={<Check size={18} />} onClick={() => modalOpen("approve", el)} />
@@ -83,6 +84,7 @@ export default function PengajuanCutiTable() {
 				</Table>
 			</TableContainer>
 			<PengajuanCutiModal disclosure={disclosureApprove} cuti={selectedCuti} />
+			<PengajuanCutiModalDelete disclosure={disclosureDeny} cuti={selectedCuti} />
 		</>
 	);
 }

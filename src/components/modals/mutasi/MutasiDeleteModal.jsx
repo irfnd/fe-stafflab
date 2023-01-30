@@ -67,11 +67,11 @@ export default function MutasiDeleteModal({ disclosure, fileMutasi, form }) {
 							{fileMutasi?.nama}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={FileBadge} fontSize={20} color='cyan.500' />
 						<Text casing='capitalize'>File {fileMutasi?.kategori}</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={FileClock} fontSize={20} color='cyan.500' />
 						<Text>{fileMutasi && useDate(fileMutasi?.uploadedAt)}</Text>
 					</Flex>

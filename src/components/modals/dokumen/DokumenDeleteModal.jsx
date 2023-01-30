@@ -69,11 +69,11 @@ export default function DokumenDeleteModal({ disclosure, dokumen }) {
 							{dokumen?.nama}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={FileBadge} fontSize={20} color='cyan.500' />
 						<Text casing='capitalize'>File {dokumen?.kategori}</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={FileClock} fontSize={20} color='cyan.500' />
 						<Text>{dokumen && useDate(dokumen?.uploadedAt)}</Text>
 					</Flex>

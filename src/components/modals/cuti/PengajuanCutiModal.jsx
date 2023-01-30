@@ -30,20 +30,26 @@ export default function PengajuanCutiModal({ disclosure, cuti }) {
 	const onApprove = async (data) => {
 		setLoading(true);
 		try {
-			const dokumenFile = await uploadDocument({
+			const uploadedFile = await uploadDocument({
 				folder: cuti?.nipPegawai,
 				kategori: "cuti",
-				namaFile: cuti?.keterangan,
+				namaFile: `SK Cuti (${cuti?.keterangan})`,
 				file: data.dokumen,
 				pegawai: cuti?.pegawai?.nama,
 			});
-			await createDokumen({
-				nama: `${cuti?.keterangan} - ${cuti?.pegawai?.nama}`,
-				detail: dokumenFile,
+			const dokumenFile = await createDokumen({
+				nama: `SK Cuti (${cuti?.keterangan}) - ${cuti?.pegawai?.nama}`,
+				detail: uploadedFile,
 				kategori: "cuti",
 				nipPegawai: cuti?.nipPegawai,
 			});
-			await updateCuti({ diterima: true, dokumen: dokumenFile }, cuti?.id);
+			await updateCuti(
+				{
+					diterima: true,
+					dokumen: { files: [{ id: dokumenFile.id, ...uploadedFile }] },
+				},
+				cuti?.id
+			);
 			setLoading(false);
 			toast({
 				title: "Pengajuan Cuti Disetujui.",
@@ -57,7 +63,7 @@ export default function PengajuanCutiModal({ disclosure, cuti }) {
 		} catch (err) {
 			setLoading(false);
 			toast({
-				title: "Pengajuan Cuti Ditolak!.",
+				title: "Proses Persetujuan Gagal!",
 				description: err.message,
 				status: "error",
 				position: "top",

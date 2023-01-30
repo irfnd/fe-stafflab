@@ -78,25 +78,25 @@ export default function PendidikanDeleteModal({ disclosure, pendidikan }) {
 							{pendidikan?.jenjang}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={Building2} fontSize={20} color='cyan.500' />
 						<Text casing='capitalize'>{pendidikan?.nama}</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={Lightbulb} fontSize={20} color='cyan.500' />
 						<Text casing='capitalize'>{pendidikan?.jurusan}</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={CalendarCheck2} fontSize={20} color='cyan.500' />
 						<Text>
 							{pendidikan?.tahunMasuk} - {pendidikan?.tahunLulus}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={GraduationCap} fontSize={20} color='cyan.500' />
 						<Text>{pendidikan?.gelar || "-"}</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={FileClock} fontSize={20} color='cyan.500' />
 						<Text>{pendidikan && useDate(pendidikan?.createdAt)}</Text>
 					</Flex>

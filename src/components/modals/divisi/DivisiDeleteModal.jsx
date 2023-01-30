@@ -69,7 +69,7 @@ export default function DivisiDeleteModal({ disclosure, divisi }) {
 							{divisi?.nama}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={Building2} fontSize={20} color='cyan.500' />
 						<Text>{instansi?.filter((item) => item.id === divisi?.idInstansi)[0]?.nama}</Text>
 					</Flex>

@@ -66,7 +66,7 @@ export default function InstansiDeleteModal({ disclosure, instansi }) {
 							{instansi?.nama}
 						</Text>
 					</Flex>
-					<Flex gap={2}>
+					<Flex align='center' gap={2}>
 						<Icon as={MapPin} fontSize={20} color='cyan.500' />
 						<Text>{instansi?.alamat}</Text>
 					</Flex>

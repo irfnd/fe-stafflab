@@ -1,13 +1,19 @@
+import useCuti from "@/helpers/hooks/useCuti";
+import useDokumen from "@/helpers/hooks/useDokumen";
+
 // Styles & Icons
 import { Flex } from "@chakra-ui/react";
 
 // Components
-import PengajuanCutiTable from "@/components/tables/PengajuanCutiTable";
+import CutiList from "@/components/lists/CutiList";
 
 export default function Cuti() {
+	useCuti();
+	useDokumen();
+
 	return (
 		<Flex direction='column' w='full' gap={8}>
-			<PengajuanCutiTable />
+			<CutiList />
 		</Flex>
 	);
 }
