@@ -9,6 +9,7 @@ import { ChevronRight } from "lucide-react";
 
 // Components & Constants
 import { BREADCRUMBS } from "@/constants/Routes";
+const subMenuPath = ["/pegawai", "/mutasi", "/cuti", "/perusahaan"];
 
 export default function BaseBreadcrumbs() {
 	const dynamicTitle = useDynamicPageTitle();
@@ -32,7 +33,7 @@ export default function BaseBreadcrumbs() {
 				</BreadcrumbItem>
 			))}
 
-			{breadcrumbs.length === 2 && breadcrumbs.some((el) => ["/pegawai", "/mutasi"].includes(el.key)) && (
+			{breadcrumbs.length === 2 && breadcrumbs.some((el) => subMenuPath.includes(el.key)) && (
 				<BreadcrumbItem>
 					<BreadcrumbLink
 						as={NavLink}
