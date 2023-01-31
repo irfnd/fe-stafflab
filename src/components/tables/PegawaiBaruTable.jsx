@@ -66,7 +66,7 @@ export default function PegawaiBaruTable() {
 						<Tr>
 							<Th>
 								<Text casing='capitalize' fontSize={14}>
-									Nama
+									Nama Pegawai
 								</Text>
 							</Th>
 							<Th>

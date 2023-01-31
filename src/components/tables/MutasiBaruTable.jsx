@@ -59,7 +59,7 @@ export default function MutasiBaruTable() {
 						<Tr>
 							<Th>
 								<Text casing='capitalize' fontSize={14}>
-									Nama
+									Nama Pegawai
 								</Text>
 							</Th>
 							<Th textAlign='center'>
