@@ -113,7 +113,7 @@ export default function MutasiBaruTable() {
 							))
 						) : (
 							<Tr>
-								<Td colSpan={5}>
+								<Td colSpan={4}>
 									<Skeleton rounded='md' w='full' h={100} />
 								</Td>
 							</Tr>

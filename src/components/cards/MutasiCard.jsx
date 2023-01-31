@@ -8,6 +8,7 @@ import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import useDate from "@/helpers/hooks/useDate";
 
 // Styles & Icons
 import {
@@ -209,7 +210,7 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 							<Flex align='center' gap={2}>
 								<Icon as={CalendarClock} fontSize='lg' color={iconFileColor} />
 								<Text fontSize='sm' color={fontFileColor}>
-									{mutasi?.tanggalMutasi}
+									{mutasi && useDate(mutasi?.tanggalMutasi, false)}
 								</Text>
 							</Flex>
 						</Skeleton>
