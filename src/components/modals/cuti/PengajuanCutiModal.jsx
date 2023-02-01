@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { createDokumen } from "@/helpers/api/databases/dokumenTable";
+import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 import { updateCuti } from "@/helpers/api/databases/cutiTable";
 
 // Styles & Icons
@@ -43,13 +44,8 @@ export default function PengajuanCutiModal({ disclosure, cuti }) {
 				kategori: "cuti",
 				nipPegawai: cuti?.nipPegawai,
 			});
-			await updateCuti(
-				{
-					diterima: true,
-					dokumen: { files: [{ id: dokumenFile.id, ...uploadedFile }] },
-				},
-				cuti?.id
-			);
+			await updateCuti({ diterima: true, dokumen: { files: [{ id: dokumenFile.id, ...uploadedFile }] } }, cuti?.id);
+			await updatePegawai({ idStatus: 2 }, cuti?.nipPegawai);
 			setLoading(false);
 			toast({
 				title: "Pengajuan Cuti Disetujui.",
