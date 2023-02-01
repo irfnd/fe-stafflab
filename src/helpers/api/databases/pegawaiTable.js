@@ -38,9 +38,27 @@ export const updatePegawai = async (newData, nip) => {
 	return data[0];
 };
 
+export const deletePegawai = async (nip) => {
+	const { data: allFile } = await Supabase.from("dokumen").select("kategori, detail->path").eq("nipPegawai", nip);
+	const listDokumen = allFile.filter((el) => el.kategori !== "profil").map((el) => el.path);
+	const listFoto = allFile.filter((el) => el.kategori === "profil").map((el) => el.path);
+
+	const { error: dokumenErr } = await Supabase.storage.from("dokumen").remove(listDokumen);
+	if (dokumenErr) throw dokumenErr;
+
+	const { error: fotoErr } = await Supabase.storage.from("foto").remove(listFoto);
+	if (fotoErr) throw fotoErr;
+
+	const { error: pegawaiErr } = await Supabase.from("pegawai").delete().eq("nip", nip);
+	if (pegawaiErr) throw pegawaiErr;
+
+	return true;
+};
+
 export default {
 	getPegawaiById,
 	getNewPegawai,
 	createPegawai,
 	updatePegawai,
+	deletePegawai,
 };

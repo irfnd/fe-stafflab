@@ -17,6 +17,7 @@ export default function Mutasi() {
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<Button
+				size={{ base: "md", lg: "lg" }}
 				colorScheme='cyan'
 				w={{ base: "full", md: "fit-content" }}
 				leftIcon={<Plus size={20} />}

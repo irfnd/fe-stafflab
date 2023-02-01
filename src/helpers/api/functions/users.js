@@ -20,7 +20,13 @@ export const updateUser = async (newData, uuid) => {
 	return results.data.user;
 };
 
+export const deleteUser = async (uuid) => {
+	await api.delete(`users/${uuid}`);
+	return true;
+};
+
 export default {
 	createUser,
 	updateUser,
+	deleteUser,
 };

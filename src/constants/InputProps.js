@@ -35,10 +35,13 @@ export const JenisMutasi = [
 	{ value: "PHK", text: "PHK" },
 ];
 
+export const KategoriDokumen = ["profil", "pribadi", "lamaran", "pendidikan", "mutasi", "cuti", "hukuman"];
+
 export default {
 	Agama,
 	StatusPernikahan,
 	JenisKelamin,
 	JenjangPendidikan,
 	JenisMutasi,
+	KategoriDokumen,
 };
