@@ -10,6 +10,7 @@ const CutiSlice = createSlice({
 		add: CutiAdapter.addOne,
 		update: CutiAdapter.updateOne,
 		delete: CutiAdapter.removeOne,
+		reset: (state) => CutiAdapter.removeAll(state),
 	},
 });
 

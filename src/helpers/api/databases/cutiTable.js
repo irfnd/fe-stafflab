@@ -10,6 +10,11 @@ export const getCutiById = async (id) => {
 	return results;
 };
 
+export const getCutiByNip = async (nip) => {
+	const results = await Supabase.from("cuti").select("*, pegawai(*)").eq("nipPegawai", nip);
+	return results;
+};
+
 export const getNewCuti = async () => {
 	const { data, error } = await Supabase.from("cuti").select("*, pegawai (*)").order("createdAt", { ascending: false }).range(0, 4);
 	if (!error) return data;
@@ -31,6 +36,7 @@ export const deleteCuti = async (id) => {
 export default {
 	getCuti,
 	getCutiById,
+	getCutiByNip,
 	getNewCuti,
 	updateCuti,
 	deleteCuti,

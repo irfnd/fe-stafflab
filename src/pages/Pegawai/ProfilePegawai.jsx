@@ -1,3 +1,4 @@
+import useCuti from "@/helpers/hooks/useCuti";
 import useDataPribadi from "@/helpers/hooks/useDataPribadi";
 import useDokumen from "@/helpers/hooks/useDokumen";
 import useMutasi from "@/helpers/hooks/useMutasi";
@@ -6,7 +7,7 @@ import usePendidikan from "@/helpers/hooks/usePendidikan";
 import { useParams } from "react-router-dom";
 
 // Styles & Icons
-import { Flex, Button, useDisclosure } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure } from "@chakra-ui/react";
 import { Trash2 } from "lucide-react";
 
 // Components
@@ -18,10 +19,12 @@ export default function ProfilePegawai() {
 	const disclosureDelete = useDisclosure();
 	const params = useParams();
 	const { pegawai } = usePegawaiById(params?.id);
+
 	useDataPribadi(params?.id);
 	useDokumen(params?.id);
 	usePendidikan(params?.id);
 	useMutasi(params?.id);
+	useCuti(params?.id);
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
