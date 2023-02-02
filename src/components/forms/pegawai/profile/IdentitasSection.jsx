@@ -1,7 +1,7 @@
 import { IdentitasSchema } from "@/helpers/Validations";
 import { updateDokumen } from "@/helpers/api/databases/dokumenTable";
 import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
-import { getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
+import { deletePhoto, getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
@@ -43,6 +43,7 @@ export default function IdentitasSection() {
 		setLoading(true);
 		try {
 			if (data.foto) {
+				await deletePhoto(fotoProfil?.detail?.publicUrl);
 				const foto = await uploadPhoto({
 					folder: pegawai.nip,
 					kategori: "profil",
@@ -50,7 +51,8 @@ export default function IdentitasSection() {
 					namaFile: "Foto Profil",
 					pegawai: pegawai.nama,
 				});
-				await updateDokumen({ detail: { ...foto, ...getUrlPhoto(foto.path) } }, fotoProfil?.id);
+				const { publicUrl } = getUrlPhoto(foto.path);
+				await updateDokumen({ detail: { ...foto, publicUrl: `${publicUrl}?t=${foto.updated_at}` } }, fotoProfil?.id);
 			}
 			await updatePegawai({ nama: data.nama }, pegawai.nip);
 			toast({
