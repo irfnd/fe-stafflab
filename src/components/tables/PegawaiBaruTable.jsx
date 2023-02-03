@@ -29,6 +29,7 @@ import { Backpack, CheckCircle, Home, XCircle } from "lucide-react";
 
 export default function PegawaiBaruTable() {
 	const [tableData, setTableData] = useState();
+	const [isLoaded, setIsLoaded] = useState(false);
 	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
 	const statusPegawai = useSelector(StatusPegawaiSelector.selectAll);
 	const instansi = useSelector(InstansiSelector.selectAll);
@@ -51,11 +52,17 @@ export default function PegawaiBaruTable() {
 
 	const fetchData = async () => {
 		const results = await getNewPegawai();
-		if (results) setTableData(results);
+		if (results) {
+			setTableData(results);
+			setIsLoaded(true);
+		}
 	};
 
 	useEffect(() => {
 		fetchData();
+		return () => {
+			setIsLoaded(false);
+		};
 	}, []);
 
 	return (
@@ -92,37 +99,49 @@ export default function PegawaiBaruTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{tableData && tipePegawai && statusPegawai && instansi ? (
-							tableData.map((pegawai, i) => (
-								<Tr key={i}>
-									<Td>
-										<Link
-											as={RouterLink}
-											to={`/pegawai/${tipePegawai?.filter((tipe) => tipe?.id === pegawai?.idTipe)[0]?.nama.toLowerCase()}/${pegawai?.nip}`}
-											fontWeight='semibold'
-										>
-											{pegawai?.nama}
-										</Link>
+						{isLoaded && tipePegawai && statusPegawai && instansi ? (
+							tableData?.length !== 0 ? (
+								tableData.map((pegawai, i) => (
+									<Tr key={i}>
+										<Td>
+											<Link
+												as={RouterLink}
+												to={`/pegawai/${tipePegawai?.filter((tipe) => tipe?.id === pegawai?.idTipe)[0]?.nama.toLowerCase()}/${
+													pegawai?.nip
+												}`}
+												fontWeight='semibold'
+											>
+												{pegawai?.nama}
+											</Link>
+										</Td>
+										<Td>
+											<Text align='center'>{tipePegawai?.filter((tipe) => tipe?.id === pegawai?.idTipe)[0]?.nama}</Text>
+										</Td>
+										<Td>
+											<Flex justify='center'>
+												<Tag colorScheme={tagDynamic(statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama).color}>
+													<TagLeftIcon as={tagDynamic(statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama).icon} />
+													<TagLabel>{statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama}</TagLabel>
+												</Tag>
+											</Flex>
+										</Td>
+										<Td>{instansi?.filter((el) => el?.id === pegawai?.idInstansi)[0]?.nama}</Td>
+										<Td>{useDate(pegawai?.createdAt)}</Td>
+									</Tr>
+								))
+							) : (
+								<Tr>
+									<Td colSpan={5}>
+										<Text casing='capitalize' align='center'>
+											Data pegawai terbaru belum tersedia.
+										</Text>
 									</Td>
-									<Td>
-										<Text align='center'>{tipePegawai?.filter((tipe) => tipe?.id === pegawai?.idTipe)[0]?.nama}</Text>
-									</Td>
-									<Td>
-										<Flex justify='center'>
-											<Tag colorScheme={tagDynamic(statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama).color}>
-												<TagLeftIcon as={tagDynamic(statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama).icon} />
-												<TagLabel>{statusPegawai?.filter((status) => status?.id === pegawai?.idStatus)[0]?.nama}</TagLabel>
-											</Tag>
-										</Flex>
-									</Td>
-									<Td>{instansi?.filter((el) => el?.id === pegawai?.idInstansi)[0]?.nama}</Td>
-									<Td>{useDate(pegawai?.createdAt)}</Td>
 								</Tr>
-							))
+							)
 						) : (
 							<Tr>
 								<Td colSpan={5}>
-									<Skeleton rounded='md' w='full' h={100} />
+									<Skeleton rounded='md' w='full' h='20px' />
 								</Td>
 							</Tr>
 						)}

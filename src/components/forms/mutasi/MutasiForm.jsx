@@ -1,12 +1,12 @@
-import { createMutasi } from "@/helpers/api/databases/mutasiTable";
 import { createDokumen } from "@/helpers/api/databases/dokumenTable";
+import { createMutasi } from "@/helpers/api/databases/mutasiTable";
+import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { PegawaiSelector } from "@/helpers/redux/slices/PegawaiSlice";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 
 // Styles & Icons
 import { Button, Divider, Flex, Heading, useColorModeValue, useToast } from "@chakra-ui/react";
@@ -129,7 +129,6 @@ export default function MutasiForm() {
 				navigate(`/mutasi/list`);
 			}, 2000);
 		} catch (err) {
-			setLoading(false);
 			toast({
 				title: "Gagal Menambahkan Mutasi.",
 				description: err.message,
@@ -138,6 +137,7 @@ export default function MutasiForm() {
 				duration: 3000,
 				isClosable: true,
 			});
+			setLoading(false);
 		}
 	};
 

@@ -7,7 +7,9 @@ import { Link as RouterLink } from "react-router-dom";
 
 // Styles & Icons
 import {
+	Button,
 	Flex,
+	Icon,
 	Link,
 	Skeleton,
 	Table,
@@ -19,8 +21,6 @@ import {
 	Thead,
 	Tr,
 	useColorModeValue,
-	Button,
-	Icon,
 	useDisclosure,
 } from "@chakra-ui/react";
 import { Eye } from "lucide-react";
@@ -31,6 +31,7 @@ import DetailMutasiModal from "@/components/modals/dashboard/DetailMutasiModal";
 export default function MutasiBaruTable() {
 	const [detailMutasi, setDetailMutasi] = useState();
 	const [tableData, setTableData] = useState();
+	const [isLoaded, setIsLoaded] = useState(false);
 	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
 	const disclosureDetail = useDisclosure();
 
@@ -44,11 +45,17 @@ export default function MutasiBaruTable() {
 
 	const fetchData = async () => {
 		const results = await getNewMutasi();
-		if (results) setTableData(results);
+		if (results) {
+			setTableData(results);
+			setIsLoaded(true);
+		}
 	};
 
 	useEffect(() => {
 		fetchData();
+		return () => {
+			setIsLoaded(false);
+		};
 	}, []);
 
 	return (
@@ -80,41 +87,51 @@ export default function MutasiBaruTable() {
 						</Tr>
 					</Thead>
 					<Tbody>
-						{tableData && tipePegawai ? (
-							tableData.map((mutasi, i) => (
-								<Tr key={i}>
-									<Td>
-										<Link
-											as={RouterLink}
-											to={`/pegawai/${tipePegawai?.filter((tipe) => tipe?.id === mutasi?.pegawai?.idTipe)[0]?.nama.toLowerCase()}/${
-												mutasi?.nipPegawai
-											}`}
-											fontWeight='semibold'
-										>
-											{mutasi?.pegawai?.nama}
-										</Link>
+						{isLoaded && tipePegawai ? (
+							tableData?.length !== 0 ? (
+								tableData.map((mutasi, i) => (
+									<Tr key={i}>
+										<Td>
+											<Link
+												as={RouterLink}
+												to={`/pegawai/${tipePegawai?.filter((tipe) => tipe?.id === mutasi?.pegawai?.idTipe)[0]?.nama.toLowerCase()}/${
+													mutasi?.nipPegawai
+												}`}
+												fontWeight='semibold'
+											>
+												{mutasi?.pegawai?.nama}
+											</Link>
+										</Td>
+										<Td textAlign='center'>
+											<Text casing='capitalize'>Mutasi {mutasi?.jenisMutasi}</Text>
+										</Td>
+										<Td textAlign='center'>
+											<Button
+												size='sm'
+												variant='ghost'
+												colorScheme='cyan'
+												leftIcon={<Icon as={Eye} fontSize={18} />}
+												onClick={() => showDetail(mutasi)}
+											>
+												Lihat Detail
+											</Button>
+										</Td>
+										<Td>{useDate(mutasi?.tanggalMutasi, false)}</Td>
+									</Tr>
+								))
+							) : (
+								<Tr>
+									<Td colSpan={4}>
+										<Text casing='capitalize' align='center'>
+											Data mutasi terbaru belum tersedia.
+										</Text>
 									</Td>
-									<Td textAlign='center'>
-										<Text casing='capitalize'>Mutasi {mutasi?.jenisMutasi}</Text>
-									</Td>
-									<Td textAlign='center'>
-										<Button
-											size='sm'
-											variant='ghost'
-											colorScheme='cyan'
-											leftIcon={<Icon as={Eye} fontSize={18} />}
-											onClick={() => showDetail(mutasi)}
-										>
-											Lihat Detail
-										</Button>
-									</Td>
-									<Td>{useDate(mutasi?.tanggalMutasi, false)}</Td>
 								</Tr>
-							))
+							)
 						) : (
 							<Tr>
 								<Td colSpan={4}>
-									<Skeleton rounded='md' w='full' h={100} />
+									<Skeleton rounded='md' w='full' h='20px' />
 								</Td>
 							</Tr>
 						)}

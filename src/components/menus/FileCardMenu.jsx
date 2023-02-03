@@ -2,7 +2,7 @@ import { useState } from "react";
 
 // Styles & Icons
 import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from "@chakra-ui/react";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
 // Components
 import DokumenDeleteModal from "@/components/modals/dokumen/DokumenDeleteModal";
@@ -28,7 +28,7 @@ export default function FileCardMenu({ category, file }) {
 					<MenuItem icon={<Edit size={16} />} onClick={() => modalOpen("update", file)}>
 						Edit
 					</MenuItem>
-					<MenuItem icon={<Trash size={16} />} onClick={() => modalOpen("delete", file)}>
+					<MenuItem icon={<Trash2 size={16} />} onClick={() => modalOpen("delete", file)}>
 						Hapus
 					</MenuItem>
 				</MenuList>

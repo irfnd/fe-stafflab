@@ -6,7 +6,7 @@ import { Plus } from "lucide-react";
 
 // Components & Constants
 import FileMutasiCard from "@/components/cards/FileMutasiCard";
-import MutasiForm from "@/components/modals/mutasi/MutasiModal";
+import MutasiFileForm from "@/components/modals/mutasi/MutasiFileModal";
 
 export default function FileMutasiForm() {
 	const disclosureAdd = useDisclosure();
@@ -36,7 +36,7 @@ export default function FileMutasiForm() {
 						))}
 					</SimpleGrid>
 				)}
-				<MutasiForm disclosure={disclosureAdd} form={arrayForm} />
+				<MutasiFileForm disclosure={disclosureAdd} form={arrayForm} />
 			</Flex>
 		)
 	);

@@ -26,11 +26,13 @@ import {
 	Skeleton,
 	Text,
 	useColorModeValue,
+	IconButton,
 } from "@chakra-ui/react";
-import { Award, Building2, CalendarClock, Cog, FileBadge, Network, Pocket, Tags } from "lucide-react";
+import { Award, Building2, CalendarClock, Cog, FileBadge, Network, Pocket, Tags, MoreHorizontal } from "lucide-react";
 
 // Components
 import FilesMutasiList from "@/components/lists/FilesMutasiList";
+import MutasiCardMenu from "@/components/menus/MutasiCardMenu";
 
 export default function MutasiCard({ mutasi, page = "mutasi" }) {
 	const [pegawai, setPegawai] = useState(null);
@@ -74,33 +76,34 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 			shadow={page === "mutasi" ? "md" : "none"}
 		>
 			{page === "mutasi" ? (
-				<CardHeader display='flex' justifyContent='space-between' alignItems='center' p={0}>
-					<Skeleton
-						w='full'
-						rounded='md'
-						isLoaded={
-							mutasi &&
-							pegawai &&
-							dokumen &&
-							fromTipe &&
-							toTipe &&
-							fromStatus &&
-							toStatus &&
-							fromInstansi &&
-							toInstansi &&
-							fromDivisi &&
-							toDivisi &&
-							fromJabatan &&
-							toJabatan &&
-							fromGolongan &&
-							toGolongan
-						}
-					>
+				<Skeleton
+					w='full'
+					rounded='md'
+					isLoaded={
+						mutasi &&
+						pegawai &&
+						dokumen &&
+						fromTipe &&
+						toTipe &&
+						fromStatus &&
+						toStatus &&
+						fromInstansi &&
+						toInstansi &&
+						fromDivisi &&
+						toDivisi &&
+						fromJabatan &&
+						toJabatan &&
+						fromGolongan &&
+						toGolongan
+					}
+				>
+					<CardHeader display='flex' justifyContent='space-between' alignItems='center' p={0}>
 						<Text fontSize='2xl' fontWeight='semibold' noOfLines={1}>
 							{pegawai?.nama} ({pegawai?.nip})
 						</Text>
-					</Skeleton>
-				</CardHeader>
+						<MutasiCardMenu mutasi={mutasi} />
+					</CardHeader>
+				</Skeleton>
 			) : (
 				<CardHeader display='flex' justifyContent='space-between' alignItems='center' p={0}>
 					<Skeleton

@@ -22,9 +22,16 @@ export const createMutasi = async (newData) => {
 	return data[0];
 };
 
+export const deleteMutasi = async (id) => {
+	const { data, error } = await Supabase.from("mutasi").delete().eq("id", id).select();
+	if (error) throw error;
+	return data[0];
+};
+
 export default {
 	getMutasi,
 	getMutasiById,
 	getNewMutasi,
 	createMutasi,
+	deleteMutasi,
 };

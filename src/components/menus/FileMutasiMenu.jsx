@@ -2,11 +2,11 @@ import { useState } from "react";
 
 // Styles & Icons
 import { IconButton, Menu, MenuButton, MenuItem, MenuList, useDisclosure } from "@chakra-ui/react";
-import { Edit, MoreHorizontal, Trash } from "lucide-react";
+import { Edit, MoreHorizontal, Trash2 } from "lucide-react";
 
 // Components
-import MutasiDeleteModal from "@/components/modals/mutasi/MutasiDeleteModal";
-import MutasiModal from "@/components/modals/mutasi/MutasiModal";
+import MutasiDeleteFileModal from "@/components/modals/mutasi/MutasiDeleteFileModal";
+import MutasiModal from "@/components/modals/mutasi/MutasiFileModal";
 
 export default function FileCardMenu({ file, form }) {
 	const [selectedDokumen, setSelectedDokumen] = useState();
@@ -28,12 +28,12 @@ export default function FileCardMenu({ file, form }) {
 					<MenuItem icon={<Edit size={16} />} onClick={() => modalOpen("update", file)}>
 						Edit
 					</MenuItem>
-					<MenuItem icon={<Trash size={16} />} onClick={() => modalOpen("delete", file)}>
+					<MenuItem icon={<Trash2 size={16} />} onClick={() => modalOpen("delete", file)}>
 						Hapus
 					</MenuItem>
 				</MenuList>
 			</Menu>
-			<MutasiDeleteModal disclosure={disclosureDelete} fileMutasi={selectedDokumen} form={form} />
+			<MutasiDeleteFileModal disclosure={disclosureDelete} fileMutasi={selectedDokumen} form={form} />
 			<MutasiModal disclosure={disclosureUpdate} type='update' fileMutasi={selectedDokumen} form={form} />
 		</>
 	);

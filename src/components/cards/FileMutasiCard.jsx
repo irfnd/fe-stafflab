@@ -7,7 +7,7 @@ import { FileBadge, FileClock } from "lucide-react";
 // Components
 import FileMutasiMenu from "@/components/menus/FileMutasiMenu";
 
-export default function FileCard({ file, form }) {
+export default function FileMutasiCard({ file, form }) {
 	const borderFileCard = useColorModeValue("gray.200", "whiteAlpha.300");
 	const iconFileColor = useColorModeValue("cyan.500", "cyan.300");
 	const fontFileColor = useColorModeValue("black", "whiteAlpha.400");

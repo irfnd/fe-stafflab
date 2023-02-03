@@ -19,7 +19,7 @@ import {
 // Components
 import DokumenForm from "@/components/forms/DokumenForm";
 
-export default function MutasiModal({ type = "add", disclosure, form, fileMutasi = null }) {
+export default function MutasiFileModal({ type = "add", disclosure, form, fileMutasi = null }) {
 	const { isOpen, onClose } = disclosure;
 	const [loading, setLoading] = useState(false);
 

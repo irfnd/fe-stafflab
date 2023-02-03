@@ -17,7 +17,7 @@ import {
 	useColorModeValue,
 	useDisclosure,
 } from "@chakra-ui/react";
-import { Edit, Trash } from "lucide-react";
+import { Edit, Trash2 } from "lucide-react";
 
 // Components
 import InstansiDeleteModal from "@/components/modals/instansi/InstansiDeleteModal";
@@ -66,7 +66,7 @@ export default function InstansiTable() {
 								<Td w={4}>
 									<ButtonGroup display='flex' justifyContent='center' w='full'>
 										<IconButton size='sm' colorScheme='cyan' icon={<Edit size={18} />} onClick={() => modalOpen("update", el)} />
-										<IconButton size='sm' colorScheme='red' icon={<Trash size={18} />} onClick={() => modalOpen("delete", el)} />
+										<IconButton size='sm' colorScheme='red' icon={<Trash2 size={18} />} onClick={() => modalOpen("delete", el)} />
 									</ButtonGroup>
 								</Td>
 							</Tr>

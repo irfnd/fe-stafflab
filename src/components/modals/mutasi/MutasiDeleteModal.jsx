@@ -1,11 +1,12 @@
-import useDate from "@/helpers/hooks/useDate";
+import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
+import { deleteMutasi } from "@/helpers/api/databases/mutasiTable";
+import { deleteDokumen } from "@/helpers/api/databases/dokumenTable";
+import { deleteDokumen as deleteDoc } from "@/helpers/api/storages/dokumen";
 import { useState } from "react";
 
 // Styles & Icons
 import {
 	Button,
-	Flex,
-	Icon,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -14,71 +15,80 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Text,
+	Flex,
 	useToast,
 } from "@chakra-ui/react";
-import { FileBadge, FileClock, FileType2 } from "lucide-react";
 
 // Components
 
-export default function MutasiDeleteModal({ disclosure, fileMutasi, form }) {
+export default function MutasiDeleteModal({ disclosure, mutasi }) {
 	const { isOpen, onClose } = disclosure;
 	const [loading, setLoading] = useState(false);
-	const { remove } = form;
-
 	const toast = useToast();
 
-	const onDelete = () => {
+	const onDelete = async () => {
 		setLoading(true);
 		try {
-			remove(fileMutasi?.index);
-			setLoading(false);
+			const newData = {
+				idTipe: mutasi?.detail?.tipe?.from,
+				idStatus: mutasi?.detail?.status?.from,
+				idInstansi: mutasi?.detail?.instansi?.from,
+				idDivisi: mutasi?.detail?.divisi?.from,
+				idJabatan: mutasi?.detail?.jabatan?.from,
+				idGolongan: mutasi?.detail?.golongan?.from,
+			};
+
+			await Promise.all(
+				mutasi?.dokumen?.files?.map(async (file) => {
+					try {
+						await deleteDoc(file?.path);
+						await deleteDokumen(file?.id);
+						return true;
+					} catch (err) {
+						return false;
+					}
+				})
+			);
+			await updatePegawai(newData, mutasi?.nipPegawai);
+			await deleteMutasi(mutasi?.id);
+
 			toast({
-				title: "Berhasil Menghapus Dokumen.",
-				description: "Dokumen berhasil dihapus!",
+				title: "Berhasil Menghapus Mutasi.",
+				description: "Mutasi telah dihapus!",
 				status: "success",
 				position: "top",
 				duration: 2000,
 			});
+			setLoading(false);
 			onClose();
 		} catch (err) {
-			setLoading(false);
 			toast({
-				title: "Gagal Menghapus Dokumen.",
+				title: "Gagal Menghapus Mutasi.",
 				description: err.message,
 				status: "error",
 				position: "top",
 				duration: 3000,
 				isClosable: true,
 			});
+			setLoading(false);
 		}
 	};
 
 	return (
-		<Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
+		<Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered scrollBehavior='inside'>
 			<ModalOverlay />
 			<ModalContent p={4} mx={4}>
-				<ModalHeader>Hapus Dokumen</ModalHeader>
+				<ModalHeader>Hapus Mutasi</ModalHeader>
 				<ModalCloseButton size='lg' mt={4} mr={4} />
 				<ModalBody display='flex' flexDirection='column' gap={2}>
-					<Text mb={4}>Apakah Anda yakin ingin menghapus dokumen ini?</Text>
-					<Flex align='center' gap={2}>
-						<Icon as={FileType2} fontSize={20} color='cyan.500' />
-						<Text fontWeight='bold' fontSize='lg'>
-							{fileMutasi?.nama}
-						</Text>
-					</Flex>
-					<Flex align='center' gap={2}>
-						<Icon as={FileBadge} fontSize={20} color='cyan.500' />
-						<Text casing='capitalize'>File {fileMutasi?.kategori}</Text>
-					</Flex>
-					<Flex align='center' gap={2}>
-						<Icon as={FileClock} fontSize={20} color='cyan.500' />
-						<Text>{fileMutasi && useDate(fileMutasi?.uploadedAt)}</Text>
+					<Flex direction='column' gap={1} mb={4}>
+						<Text>Apakah Anda yakin ingin menghapus mutasi ini?</Text>
+						<Text fontWeight='semibold'>Mutasi pegawai akan dibatalkan.</Text>
 					</Flex>
 				</ModalBody>
 
 				<ModalFooter display='flex' gap={2}>
-					<Button isLoading={loading} colorScheme='cyan' onClick={onDelete}>
+					<Button isLoading={loading} type='submit' form='dokumen-form' colorScheme='cyan' onClick={onDelete}>
 						Hapus
 					</Button>
 					<Button colorScheme='red' variant='ghost' onClick={onClose}>
