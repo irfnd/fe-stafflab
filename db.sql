@@ -172,7 +172,7 @@ alter table dokumen enable row level security;
 -- Set RLS Policies
 -- Cuti
 create policy "CRUD (Only Admin)" on public.cuti as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
-create policy "INSERT (Auth Users)" on public.cuti as permissive for select to authenticated using (true);
+create policy "INSERT (Auth Users)" on public.cuti as permissive for insert to authenticated using (true);
 create policy "READ (Auth Users)" on public.cuti as permissive for select to authenticated using (true);
 create policy "READ (Functions)" on public.cuti as permissive for select to anon using (true);
 
