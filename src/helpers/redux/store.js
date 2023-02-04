@@ -7,7 +7,12 @@ import thunk from "redux-thunk";
 const persistConfig = { key: "stafflab", version: 1, storage, whitelist: ["auth"] };
 const persistedReducers = persistReducer(persistConfig, rootReducers);
 
-export const store = configureStore({ reducer: persistedReducers, middleware: [thunk] });
+export const store = configureStore({
+	reducer: persistedReducers,
+	middleware: [thunk],
+	devTools: import.meta.env.MODE === "development",
+});
+
 export const persistor = persistStore(store);
 
 export default store;
