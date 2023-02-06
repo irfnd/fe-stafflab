@@ -28,10 +28,11 @@ export const BREADCRUMBS = (title) => [
 
 	// Pegawai
 	{ path: "/pegawai", title: "Pegawai Aktif", breadcrumb: "Pegawai" },
+	{ path: "/pegawai/tambah", title: "Tambah Pegawai", breadcrumb: "Tambah" },
 	{ path: "/pegawai/tetap", title: "Pegawai Tetap", breadcrumb: "Tetap", isIndex: true },
 	{ path: "/pegawai/tetap/:id", title, breadcrumb: dynamicBreadcrumb },
-	{ path: "/pegawai/tambah", title: "Tambah Pegawai", breadcrumb: "Tambah" },
 	{ path: "/pegawai/outsourcing", title: "Pegawai Outsourcing", breadcrumb: "Outsourcing" },
+	{ path: "/pegawai/outsourcing/:id", title, breadcrumb: dynamicBreadcrumb },
 	{ path: "/pegawai/magang", title: "Pegawai Magang", breadcrumb: "Magang" },
 	{ path: "/pegawai/magang/:id", title, breadcrumb: dynamicBreadcrumb },
 

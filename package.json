@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --base=/stafflab",
 		"build": "vite build --base=/stafflab",
 		"preview": "vite preview",
 		"prepare": "husky install",

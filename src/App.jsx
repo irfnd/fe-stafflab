@@ -42,7 +42,10 @@ export default function App() {
 								<Route index element={<Tetap />} />
 								<Route path=':id' element={<ProfilePegawai />} />
 							</Route>
-							<Route path='outsourcing' element={<Outsourcing />} />
+							<Route path='outsourcing'>
+								<Route index element={<Outsourcing />} />
+								<Route path=':id' element={<ProfilePegawai />} />
+							</Route>
 							<Route path='magang'>
 								<Route index element={<Magang />} />
 								<Route path=':id' element={<ProfilePegawai />} />
