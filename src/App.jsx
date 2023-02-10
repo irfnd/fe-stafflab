@@ -29,7 +29,7 @@ export default function App() {
 	const { session } = useAuth();
 
 	return (
-		<BrowserRouter basename='/stafflab'>
+		<BrowserRouter>
 			<ScrollToTop />
 			<Suspense fallback={<Loading />}>
 				<Routes>
