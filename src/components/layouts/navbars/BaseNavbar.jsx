@@ -31,6 +31,7 @@ export default function BaseNavbar({ disclosure }) {
 				variant='ghost'
 				rounded='full'
 				icon={<Menu size={28} />}
+				aria-label='humberger-menu'
 			/>
 			<Flex gap={{ base: 2, md: 4 }}>
 				<ToggleTheme />

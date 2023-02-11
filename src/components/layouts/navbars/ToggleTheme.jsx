@@ -6,5 +6,5 @@ export default function ToggleTheme() {
 	const { colorMode, toggleColorMode } = useColorMode();
 	const iconTheme = colorMode === "light" ? <Moon size={28} /> : <Sun size={28} />;
 
-	return <IconButton name='toggle-theme' size='lg' icon={iconTheme} variant='ghost' rounded='full' onClick={toggleColorMode} />;
+	return <IconButton aria-label='toggle-theme' size='lg' icon={iconTheme} variant='ghost' rounded='full' onClick={toggleColorMode} />;
 }
