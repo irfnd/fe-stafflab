@@ -1,3 +1,4 @@
+import useClaims from "@/helpers/hooks/useClaims";
 import useDynamicPageTitle from "@/helpers/hooks/useDynamicPageTitle";
 import usePageTitle from "@/helpers/hooks/usePageTitle";
 import { NavLink } from "react-router-dom";
@@ -12,8 +13,10 @@ import { BREADCRUMBS } from "@/constants/Routes";
 const subMenuPath = ["/pegawai", "/mutasi", "/cuti", "/perusahaan"];
 
 export default function BaseBreadcrumbs() {
+	const claims = useClaims();
+
 	const dynamicTitle = useDynamicPageTitle();
-	const breadcrumbs = useBreadcrumbs(BREADCRUMBS(dynamicTitle));
+	const breadcrumbs = useBreadcrumbs(BREADCRUMBS(dynamicTitle, claims));
 
 	usePageTitle(breadcrumbs);
 

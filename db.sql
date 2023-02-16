@@ -124,6 +124,7 @@ create table mutasi (
   "tanggalMutasi" date not null,
   "detail" jsonb not null,
   "dokumen" jsonb not null,
+  "diterima" boolean null default(false),
   "nipPegawai" bigint not null references public.pegawai on delete cascade,
   "createdAt" timestamp with time zone null default(now())
 );
@@ -172,7 +173,7 @@ alter table dokumen enable row level security;
 -- Set RLS Policies
 -- Cuti
 create policy "CRUD (Only Admin)" on public.cuti as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
-create policy "INSERT (Auth Users)" on public.cuti as permissive for insert to authenticated using (true);
+create policy "INSERT (Auth Users)" on public.cuti as permissive for insert to authenticated with check (true);
 create policy "READ (Auth Users)" on public.cuti as permissive for select to authenticated using (true);
 create policy "READ (Functions)" on public.cuti as permissive for select to anon using (true);
 
@@ -186,6 +187,7 @@ create policy "READ (Auth Users)" on public.divisi as permissive for select to a
 
 -- Dokumen
 create policy "CRUD (Only Admin)" on public.dokumen as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "UPDATE (Only Manager)" on public.dokumen as permissive for update to authenticated using (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb)) with check (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb));
 create policy "READ (Auth Users)" on public.dokumen as permissive for select to authenticated using (true);
 
 -- Golongan
@@ -202,13 +204,15 @@ create policy "READ (Auth Users)" on public.jabatan as permissive for select to 
 
 -- Mutasi
 create policy "CRUD (Only Admin)" on public.mutasi as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "UPDATE (Only Manager)" on public.mutasi as permissive for update to authenticated using (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb)) with check (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb));
 create policy "READ (Auth Users)" on public.mutasi as permissive for select to authenticated using (true);
 
 -- Pegawai
 create policy "CRUD (Only Admin)" on public.pegawai as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));
+create policy "UPDATE (Only Manager)" on public.pegawai as permissive for update to authenticated using (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb)) with check (((get_my_claim('claims'::text)) = '"MANAJER"'::jsonb));
 create policy "READ (Auth Users)" on public.pegawai as permissive for select to authenticated using (true);
 create policy "READ (Functions)" on public.pegawai as permissive for select to anon using (true);
-create policy "UPDATE (Functions)" on public.pegawai as permissive for update to anon using (true);
+create policy "UPDATE (Functions)" on public.pegawai as permissive for update to anon using (true) with check (true);
 
 -- Pendidikan
 create policy "CRUD (Only Admin)" on public.pendidikan as permissive for all to authenticated using (((get_my_claim('claims'::text)) = '"ADMIN"'::jsonb));

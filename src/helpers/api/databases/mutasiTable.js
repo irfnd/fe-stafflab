@@ -1,12 +1,12 @@
 import Supabase from "@/helpers/Supabase";
 
-export const getMutasi = async () => {
-	const results = await Supabase.from("mutasi").select("*");
+export const getMutasi = async (diterima) => {
+	const results = await Supabase.from("mutasi").select("*").eq("diterima", diterima);
 	return results;
 };
 
 export const getMutasiById = async (nip) => {
-	const results = await Supabase.from("mutasi").select("*").eq("nipPegawai", nip);
+	const results = await Supabase.from("mutasi").select("*").eq("nipPegawai", nip).eq("diterima", true);
 	return results;
 };
 
@@ -22,6 +22,12 @@ export const createMutasi = async (newData) => {
 	return data[0];
 };
 
+export const updateMutasi = async (newData, id) => {
+	const { data, error } = await Supabase.from("mutasi").update(newData).eq("id", id).select();
+	if (error) throw error;
+	return data[0];
+};
+
 export const deleteMutasi = async (id) => {
 	const { data, error } = await Supabase.from("mutasi").delete().eq("id", id).select();
 	if (error) throw error;
@@ -33,5 +39,6 @@ export default {
 	getMutasiById,
 	getNewMutasi,
 	createMutasi,
+	updateMutasi,
 	deleteMutasi,
 };

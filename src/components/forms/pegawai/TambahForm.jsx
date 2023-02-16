@@ -2,9 +2,11 @@ import { PegawaiSchema } from "@/helpers/Validations";
 import { createDataPribadi } from "@/helpers/api/databases/dataPribadiTable";
 import { createDokumen } from "@/helpers/api/databases/dokumenTable";
 import { createPegawai } from "@/helpers/api/databases/pegawaiTable";
+import { setClaims } from "@/helpers/api/functions/claims";
 import { createUser } from "@/helpers/api/functions/users";
 import { uploadDocument } from "@/helpers/api/storages/dokumen";
 import { getUrlPhoto, uploadPhoto } from "@/helpers/api/storages/foto";
+import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
@@ -24,6 +26,7 @@ import KontakForm from "@/components/forms/pegawai/KontakForm";
 export default function TambahForm() {
 	const [loading, setLoading] = useState(false);
 	const tipePegawai = useSelector(TipePegawaiSelector.selectAll);
+	const jabatanPegawai = useSelector(JabatanSelector.selectAll);
 
 	const resolver = yupResolver(PegawaiSchema);
 	const mainForm = useForm({ resolver, mode: "onChange" });
@@ -35,9 +38,15 @@ export default function TambahForm() {
 		setLoading(true);
 		try {
 			const tipe = tipePegawai?.filter((el) => el.id === parseInt(data.tipe, 10))[0]?.nama?.toLowerCase();
+			const jabatan = jabatanPegawai?.filter((el) => el.id === parseInt(data.jabatan, 10))[0]?.nama?.toLowerCase();
+
+			// Create Account
+			const akun = await createUser(data);
+			if (jabatan.length > 0 && jabatan === "manajer") {
+				await setClaims({ claim: "claims", value: jabatan.toUpperCase(), uid: akun?.id });
+			}
 
 			// Create Data
-			const akun = await createUser(data);
 			const pegawai = await createPegawai({ ...data, uuidUser: akun?.id });
 			await createDataPribadi({ ...data, nipPegawai: pegawai.nip });
 

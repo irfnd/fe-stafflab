@@ -5,7 +5,7 @@ import { LogOut } from "lucide-react";
 export default function UserAvatar() {
 	const onLogout = () => {
 		localStorage.clear();
-		window.location.reload();
+		window.location.href = "/";
 	};
 
 	return (

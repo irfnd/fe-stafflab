@@ -18,16 +18,18 @@ export default function FileMutasiForm() {
 			<Flex direction='column' w='full' gap={4}>
 				<Flex direction={{ base: "column", md: "row" }} align={{ base: "flex-start", md: "center" }} justify='space-between' gap={4}>
 					<Heading fontSize={{ base: "xl", md: "2xl" }}>Dokumen Berkaitan</Heading>
-					<Button
-						variant='outline'
-						colorScheme='cyan'
-						size='sm'
-						leftIcon={<Plus size={18} />}
-						w={{ base: "full", md: "fit-content" }}
-						onClick={disclosureAdd.onOpen}
-					>
-						Tambah
-					</Button>
+					{arrayForm.fields.length < 1 && (
+						<Button
+							variant='outline'
+							colorScheme='cyan'
+							size='sm'
+							leftIcon={<Plus size={18} />}
+							w={{ base: "full", md: "fit-content" }}
+							onClick={disclosureAdd.onOpen}
+						>
+							Tambah
+						</Button>
+					)}
 				</Flex>
 				{arrayForm.fields.length > 0 && (
 					<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>

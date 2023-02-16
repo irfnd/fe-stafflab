@@ -1,4 +1,5 @@
 import { getPegawaiById } from "@/helpers/api/databases/pegawaiTable";
+import useDate from "@/helpers/hooks/useDate";
 import { DivisiSelector } from "@/helpers/redux/slices/DivisiSlice";
 import { DokumenSelector } from "@/helpers/redux/slices/DokumenSlice";
 import { GolonganSelector } from "@/helpers/redux/slices/GolonganSlice";
@@ -8,7 +9,7 @@ import { StatusPegawaiSelector } from "@/helpers/redux/slices/StatusPegawaiSlice
 import { TipePegawaiSelector } from "@/helpers/redux/slices/TipePegawaiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import useDate from "@/helpers/hooks/useDate";
+import useClaims from "@/helpers/hooks/useClaims";
 
 // Styles & Icons
 import {
@@ -24,17 +25,19 @@ import {
 	Flex,
 	Icon,
 	Skeleton,
+	Tag,
+	TagLabel,
+	TagLeftIcon,
 	Text,
 	useColorModeValue,
-	IconButton,
 } from "@chakra-ui/react";
-import { Award, Building2, CalendarClock, Cog, FileBadge, Network, Pocket, Tags, MoreHorizontal } from "lucide-react";
+import { Award, Building2, CalendarClock, Cog, FileBadge, Hourglass, Network, Pocket, Tags } from "lucide-react";
 
 // Components
 import FilesMutasiList from "@/components/lists/FilesMutasiList";
 import MutasiCardMenu from "@/components/menus/MutasiCardMenu";
 
-export default function MutasiCard({ mutasi, page = "mutasi" }) {
+export default function MutasiCard({ mutasi, page = "mutasi", withMenu = false }) {
 	const [pegawai, setPegawai] = useState(null);
 	const dokumen = useSelector(DokumenSelector.selectAll);
 	const fromTipe = useSelector((state) => TipePegawaiSelector.selectById(state, mutasi?.detail?.tipe?.from));
@@ -49,6 +52,7 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 	const toJabatan = useSelector((state) => JabatanSelector.selectById(state, mutasi?.detail?.jabatan?.to));
 	const fromGolongan = useSelector((state) => GolonganSelector.selectById(state, mutasi?.detail?.golongan?.from));
 	const toGolongan = useSelector((state) => GolonganSelector.selectById(state, mutasi?.detail?.golongan?.to));
+	const claims = useClaims();
 
 	const bgCard = useColorModeValue("white", "gray.800");
 	const borderCard = useColorModeValue("gray.200", "whiteAlpha.300");
@@ -101,7 +105,17 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 						<Text fontSize='2xl' fontWeight='semibold' noOfLines={1}>
 							{pegawai?.nama} ({pegawai?.nip})
 						</Text>
-						<MutasiCardMenu mutasi={mutasi} />
+						{withMenu ? (
+							<MutasiCardMenu mutasi={mutasi} />
+						) : (
+							claims &&
+							claims === "ADMIN" && (
+								<Tag size='lg' colorScheme='orange'>
+									<TagLeftIcon as={Hourglass} />
+									<TagLabel fontWeight='bold'>Sedang Diproses</TagLabel>
+								</Tag>
+							)
+						)}
 					</CardHeader>
 				</Skeleton>
 			) : (
@@ -219,6 +233,7 @@ export default function MutasiCard({ mutasi, page = "mutasi" }) {
 						</Skeleton>
 					</Flex>
 				</Flex>
+
 				<Flex direction='column' w={{ base: "full", md: "60%", xl: "50%" }} gap={2}>
 					<Skeleton
 						w='full'

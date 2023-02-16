@@ -1,3 +1,4 @@
+import useClaims from "@/helpers/hooks/useClaims";
 import { useEffect, useState } from "react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 
@@ -20,11 +21,14 @@ import { SIDEBARS } from "@/constants/Routes";
 
 export default function SidebarMenu({ onClose }) {
 	const [NestedOpen, setNestedOpen] = useState([]);
+	const claims = useClaims();
+
 	const location = useLocation();
 	const params = useParams();
 	const navigate = useNavigate();
-	const sidebarMenu = Object.values(SIDEBARS);
+	const sidebarMenu = Object.values(SIDEBARS(claims)).filter(Boolean);
 
+	// Colormode
 	const activeLink = useColorModeValue("cyan.400", "cyan.200");
 	const activeNestedLink = useColorModeValue("gray.100", "gray.700");
 	const expandTextLink = useColorModeValue("gray.800", "white");

@@ -8,7 +8,7 @@ import { Flex } from "@chakra-ui/react";
 // Components
 import MutasiForm from "@/components/forms/mutasi/MutasiForm";
 
-export default function MutasiPegawai() {
+export default function PilihMutasiPegawai() {
 	const params = useParams();
 	usePegawaiById(params?.id);
 	useDokumen(params?.id);

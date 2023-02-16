@@ -9,7 +9,7 @@ export default function useAuth() {
 
 	const refreshSession = () => {
 		Supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
-			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
+			if (["ADMIN", "MANAJER"].includes(currentSession?.user?.app_metadata?.claims)) {
 				dispatch(AuthActions.setSession(currentSession));
 			} else {
 				dispatch(AuthActions.setSession(null));
@@ -17,7 +17,7 @@ export default function useAuth() {
 		});
 
 		Supabase.auth.onAuthStateChange((_event, currentSession) => {
-			if (currentSession?.user?.app_metadata?.claims === "ADMIN") {
+			if (["ADMIN", "MANAJER"].includes(currentSession?.user?.app_metadata?.claims)) {
 				dispatch(AuthActions.setSession(currentSession));
 			} else {
 				dispatch(AuthActions.setSession(null));

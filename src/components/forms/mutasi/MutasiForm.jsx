@@ -108,14 +108,6 @@ export default function MutasiForm() {
 				tanggalMutasi,
 			});
 
-			if (jenisMutasi === "Golongan") await updatePegawai({ idGolongan: data.toGolongan }, pegawai?.nip);
-			if (jenisMutasi === "Pengangkatan") await updatePegawai({ idTipe: data.toTipe }, pegawai?.nip);
-			if (jenisMutasi === "PHK") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
-			if (jenisMutasi === "Pensiun") await updatePegawai({ idStatus: data.toStatus }, pegawai?.nip);
-			if (jenisMutasi === "Instansi" || jenisMutasi === "Divisi" || jenisMutasi === "Jabatan") {
-				await updatePegawai({ idInstansi: data.toInstansi, idDivisi: data.toDivisi, idJabatan: data.toJabatan }, pegawai?.nip);
-			}
-
 			toast({
 				title: "Berhasil Menambahkan Mutasi.",
 				description: "Mutasi baru telah ditambahkan!",
@@ -126,7 +118,7 @@ export default function MutasiForm() {
 			setTimeout(() => {
 				setLoading(false);
 				mainForm.reset();
-				navigate(`/mutasi/list`);
+				navigate(`/mutasi/proses`);
 			}, 2000);
 		} catch (err) {
 			toast({
