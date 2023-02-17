@@ -17,6 +17,7 @@ const Instansi = lazy(() => import("@/pages/Perusahaan/Instansi"));
 const Jabatan = lazy(() => import("@/pages/Perusahaan/Jabatan"));
 const Login = lazy(() => import("@/pages/Auth/Login"));
 const Magang = lazy(() => import("@/pages/Pegawai/Magang"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
 const Outsourcing = lazy(() => import("@/pages/Pegawai/Outsourcing"));
 const PengajuanCuti = lazy(() => import("@/pages/Cuti/PengajuanCuti"));
 const PilihMutasiPegawai = lazy(() => import("@/pages/Mutasi/PilihMutasiPegawai"));
@@ -101,6 +102,8 @@ export default function App() {
 					</Route>
 
 					<Route path='login' element={<Login session={session} />} />
+
+					<Route path='*' element={<NotFound />} />
 				</Routes>
 			</Suspense>
 		</BrowserRouter>

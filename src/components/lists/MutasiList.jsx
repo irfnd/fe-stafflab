@@ -18,6 +18,6 @@ export default function MutasiList({ page, withMenu }) {
 			))}
 		</SimpleGrid>
 	) : (
-		<NoData page='Riwayat Mutasi' inProfile={page && page !== "profile"} />
+		<NoData page='Riwayat Mutasi' inProfile={page && page === "profil"} />
 	);
 }

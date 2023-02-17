@@ -20,6 +20,6 @@ export default function CutiList({ page }) {
 				))}
 		</SimpleGrid>
 	) : (
-		<NoData page='Riwayat Cuti' inProfile />
+		<NoData page='Riwayat Cuti' inProfile={page && page === "profil"} />
 	);
 }
