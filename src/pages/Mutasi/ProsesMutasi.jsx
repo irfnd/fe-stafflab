@@ -2,6 +2,8 @@ import useClaims from "@/helpers/hooks/useClaims";
 import useDokumen from "@/helpers/hooks/useDokumen";
 import useMutasi from "@/helpers/hooks/useMutasi";
 import { useNavigate } from "react-router-dom";
+import useManajer from "@/helpers/hooks/useManajer";
+import { useSelector } from "react-redux";
 
 // Styles & Icons
 import { Button, Flex } from "@chakra-ui/react";
@@ -11,9 +13,12 @@ import { Plus } from "lucide-react";
 import MutasiList from "@/components/lists/MutasiList";
 
 export default function ProsesMutasi() {
+	const { session } = useSelector((state) => state.auth);
 	const claims = useClaims();
 	const navigate = useNavigate();
-	useMutasi(null, false);
+
+	const manajer = useManajer(session?.user?.id);
+	useMutasi({ diterima: false, divisi: manajer?.idDivisi });
 	useDokumen();
 
 	return (

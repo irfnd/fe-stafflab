@@ -1,6 +1,10 @@
 import Supabase from "@/helpers/Supabase";
 
-export const getMutasi = async (diterima) => {
+export const getMutasi = async (diterima, divisi) => {
+	if (divisi) {
+		const results = await Supabase.from("mutasi").select("*").eq("diterima", diterima).eq("detail->divisi->from", divisi);
+		return results;
+	}
 	const results = await Supabase.from("mutasi").select("*").eq("diterima", diterima);
 	return results;
 };

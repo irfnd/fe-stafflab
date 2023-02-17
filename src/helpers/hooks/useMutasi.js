@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 let mutasiSubs = null;
 
-export default function useMutasi(nip = null, diterima = true) {
+export default function useMutasi({ nip = null, diterima = true, divisi = null }) {
 	const mutasi = useSelector(MutasiSelector.selectAll);
 	const dispatch = useDispatch();
 
@@ -15,7 +15,7 @@ export default function useMutasi(nip = null, diterima = true) {
 			const { data } = await getMutasiById(nip);
 			if (data) dispatch(MutasiActions.set(data));
 		} else {
-			const { data } = await getMutasi(diterima);
+			const { data } = await getMutasi(diterima, divisi);
 			if (data) dispatch(MutasiActions.set(data));
 		}
 	};
