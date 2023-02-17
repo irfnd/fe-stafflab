@@ -5,7 +5,7 @@ import { createSearchParams } from "react-router-dom";
 import { Button, Flex, IconButton, Skeleton, Text, useBreakpointValue } from "@chakra-ui/react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
-export default function BasePagination({ page, totalPages }) {
+export default function BasePagination({ page, totalPages, results }) {
 	const { queryParams, setQueryParams } = useQueryParams();
 
 	const leftIcon = <ChevronLeft />;
@@ -46,7 +46,7 @@ export default function BasePagination({ page, totalPages }) {
 		});
 
 	return (
-		<Flex align='center' justify='space-between' w='full'>
+		<Flex align='center' justify='space-between' w='full' display={results ? "flex" : "none"}>
 			{btn("left")}
 			<Skeleton isLoaded={page && totalPages} w={page && totalPages ? "auto" : 10} rounded='md'>
 				<Text fontSize={{ base: 16, md: 18 }} fontWeight='semibold'>

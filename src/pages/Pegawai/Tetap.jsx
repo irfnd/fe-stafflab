@@ -12,14 +12,14 @@ import PegawaiTetapList from "@/components/lists/PegawaiTetapList";
 
 export default function Tetap() {
 	const { queryParams } = useQueryParams();
-	const { totalPages } = usePegawai(queryParams);
+	const { pegawai, totalPages } = usePegawai(queryParams);
 	useDokumen();
 
 	return (
 		<Flex direction='column' w='full' gap={8}>
 			<SearchPegawaiForm />
 			<PegawaiTetapList />
-			<BasePagination page={queryParams.page} totalPages={totalPages} />
+			<BasePagination page={queryParams.page} totalPages={totalPages} results={pegawai} />
 		</Flex>
 	);
 }

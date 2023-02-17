@@ -31,8 +31,6 @@ export default function MutasiProsesModal({ disclosure, mutasi }) {
 	const mainForm = useForm({ mode: "onChange" });
 	const toast = useToast();
 
-	console.log(mutasi);
-
 	const onSubmit = async (data) => {
 		clearTimeout();
 		setLoading(true);

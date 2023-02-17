@@ -6,13 +6,18 @@ import { SimpleGrid } from "@chakra-ui/react";
 
 // Components
 import MutasiCard from "@/components/cards/MutasiCard";
+import NoData from "@/components/others/NoData";
 
 export default function MutasiList({ page, withMenu }) {
 	const mutasi = useSelector(MutasiSelector.selectAll);
 
-	return (
+	return mutasi?.length > 0 ? (
 		<SimpleGrid columns={1} spacing={6}>
-			{mutasi && mutasi.map((data, i) => <MutasiCard key={i} mutasi={data} page={page} withMenu={withMenu} />)}
+			{mutasi.map((data, i) => (
+				<MutasiCard key={i} mutasi={data} page={page} withMenu={withMenu} />
+			))}
 		</SimpleGrid>
+	) : (
+		<NoData page='Riwayat Mutasi' inProfile={page && page !== "profile"} />
 	);
 }

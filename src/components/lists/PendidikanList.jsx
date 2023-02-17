@@ -8,6 +8,7 @@ import { Plus } from "lucide-react";
 // Components
 import PendidikanCard from "@/components/cards/PendidikanCard";
 import PendidikanModal from "@/components/modals/pendidikan/PendidikanModal";
+import NoData from "@/components/others/NoData";
 
 export default function PendidikanList() {
 	const pendidikan = useSelector(PendidikanSelector.selectAll);
@@ -34,9 +35,15 @@ export default function PendidikanList() {
 					Tambah
 				</Button>
 			</Flex>
-			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
-				{pendidikan && pendidikan.map((el, i) => <PendidikanCard key={i} pendidikan={el} />)}
-			</SimpleGrid>
+			{pendidikan?.length > 0 ? (
+				<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
+					{pendidikan.map((el, i) => (
+						<PendidikanCard key={i} pendidikan={el} />
+					))}
+				</SimpleGrid>
+			) : (
+				<NoData page='Riwayat Pendidikan' inProfile />
+			)}
 			<PendidikanModal disclosure={disclosureAdd} />
 		</Flex>
 	);

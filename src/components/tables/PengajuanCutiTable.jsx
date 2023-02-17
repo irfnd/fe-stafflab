@@ -1,7 +1,7 @@
+import useDate from "@/helpers/hooks/useDate";
 import { CutiSelector } from "@/helpers/redux/slices/CutiSlice";
 import { useState } from "react";
 import { useSelector } from "react-redux";
-import useDate from "@/helpers/hooks/useDate";
 
 // Styles & Icons
 import {
@@ -23,6 +23,7 @@ import { Check, X } from "lucide-react";
 // Components
 import PengajuanCutiModal from "@/components/modals/cuti/PengajuanCutiModal";
 import PengajuanCutiModalDelete from "@/components/modals/cuti/PengajuanCutiModalDelete";
+import NoData from "@/components/others/NoData";
 
 export default function PengajuanCutiTable() {
 	const [selectedCuti, setSelectedCuti] = useState();
@@ -39,7 +40,7 @@ export default function PengajuanCutiTable() {
 		if (type === "deny") disclosureDeny.onOpen();
 	};
 
-	return (
+	return cuti && cuti.filter((el) => el?.diterima === false).length > 0 ? (
 		<>
 			<TableContainer bg={bgTable} shadow='md' rounded='md'>
 				<Table size={{ base: "md", lg: "lg" }} variant='simple'>
@@ -86,5 +87,7 @@ export default function PengajuanCutiTable() {
 			<PengajuanCutiModal disclosure={disclosureApprove} cuti={selectedCuti} />
 			<PengajuanCutiModalDelete disclosure={disclosureDeny} cuti={selectedCuti} />
 		</>
+	) : (
+		<NoData page='Pengajuan Cuti' />
 	);
 }

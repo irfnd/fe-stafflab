@@ -7,6 +7,7 @@ import { SimpleGrid } from "@chakra-ui/react";
 
 // Components
 import PegawaiCard from "@/components/cards/PegawaiCard";
+import NoData from "@/components/others/NoData";
 
 export default function PegawaiMagangList() {
 	const pegawai = useSelector(PegawaiSelector.selectAll);
@@ -14,11 +15,13 @@ export default function PegawaiMagangList() {
 	const magang = tipePegawai?.filter((el) => el.nama === "Magang")[0];
 	const pegawaiMagang = pegawai?.filter((el) => el.idTipe === magang?.id);
 
-	return (
+	return pegawaiMagang?.length > 0 ? (
 		<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
-			{pegawaiMagang?.map((el) => (
+			{pegawaiMagang.map((el) => (
 				<PegawaiCard key={el.nip} pegawai={el} page='magang' />
 			))}
 		</SimpleGrid>
+	) : (
+		<NoData page='Pegawai' />
 	);
 }
