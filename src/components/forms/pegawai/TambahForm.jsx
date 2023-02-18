@@ -50,7 +50,7 @@ export default function TambahForm() {
 			const pegawai = await createPegawai({ ...data, uuidUser: akun?.id });
 			await createDataPribadi({ ...data, nipPegawai: pegawai.nip });
 
-			// Upload File
+			// Upload Foto
 			const foto = await uploadPhoto({
 				folder: pegawai.nip,
 				kategori: "profil",
@@ -58,6 +58,8 @@ export default function TambahForm() {
 				namaFile: "Foto Profil",
 				pegawai: pegawai.nama,
 			});
+
+			// Upload Documents
 			const akta = await uploadDocument({
 				folder: pegawai.nip,
 				kategori: "pribadi",

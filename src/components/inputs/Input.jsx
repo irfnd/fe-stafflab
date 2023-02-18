@@ -6,6 +6,7 @@ import InputPassword from "@/components/inputs/InputPassword";
 import InputPhoto from "@/components/inputs/InputPhoto";
 import InputSelect from "@/components/inputs/InputSelect";
 import InputTextarea from "@/components/inputs/InputTextarea";
+import InputSwitch from "@/components/inputs/InputSwitch";
 
 export default function Input({ type, ...props }) {
 	switch (type) {
@@ -21,6 +22,8 @@ export default function Input({ type, ...props }) {
 			return <InputNumber {...props} />;
 		case "textarea":
 			return <InputTextarea {...props} />;
+		case "switch":
+			return <InputSwitch {...props} />;
 		default:
 			return <InputBase type={type} {...props} />;
 	}

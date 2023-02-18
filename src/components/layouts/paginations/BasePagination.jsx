@@ -46,7 +46,7 @@ export default function BasePagination({ page, totalPages, results }) {
 		});
 
 	return (
-		<Flex align='center' justify='space-between' w='full' display={results ? "flex" : "none"}>
+		<Flex align='center' justify='space-between' w='full' display={results?.length > 0 ? "flex" : "none"}>
 			{btn("left")}
 			<Skeleton isLoaded={page && totalPages} w={page && totalPages ? "auto" : 10} rounded='md'>
 				<Text fontSize={{ base: 16, md: 18 }} fontWeight='semibold'>
