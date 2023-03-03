@@ -15,7 +15,11 @@ export const getMutasiById = async (nip) => {
 };
 
 export const getNewMutasi = async () => {
-	const { data, error } = await Supabase.from("mutasi").select("*, pegawai (*)").order("createdAt", { ascending: false }).range(0, 4);
+	const { data, error } = await Supabase.from("mutasi")
+		.select("*, pegawai (*)")
+		.eq("diterima", true)
+		.order("createdAt", { ascending: false })
+		.range(0, 4);
 	if (!error) return data;
 	return null;
 };

@@ -43,7 +43,7 @@ export default function IdentitasSection() {
 		setLoading(true);
 		try {
 			if (data.foto) {
-				await deletePhoto(fotoProfil?.detail?.publicUrl);
+				await deletePhoto(fotoProfil?.detail?.path);
 				const foto = await uploadPhoto({
 					folder: pegawai.nip,
 					kategori: "profil",

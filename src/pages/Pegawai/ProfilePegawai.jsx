@@ -23,7 +23,7 @@ export default function ProfilePegawai() {
 	useDataPribadi(params?.id);
 	useDokumen(params?.id);
 	usePendidikan(params?.id);
-	useMutasi(params?.id);
+	useMutasi({ nip: params?.id, diterima: true });
 	useCuti(params?.id);
 
 	return (

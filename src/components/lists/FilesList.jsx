@@ -8,6 +8,7 @@ import { Plus } from "lucide-react";
 // Components
 import FileCard from "@/components/cards/FileCard";
 import DokumenModal from "@/components/modals/dokumen/DokumenModal";
+import NoData from "@/components/others/NoData";
 
 export default function FilesList({ category, withTitle = true, withAddBtn = true, fileCardBtn = true }) {
 	const dokumen = useSelector(DokumenSelector.selectAll);
@@ -39,9 +40,21 @@ export default function FilesList({ category, withTitle = true, withAddBtn = tru
 					)}
 				</Flex>
 			)}
-			<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
-				{dokumen && dokumenPribadi.map((file, i) => <FileCard key={i} file={file} cardBtn={fileCardBtn} />)}
-			</SimpleGrid>
+			{["lamaran", "pribadi"].includes(category) ? (
+				dokumen && dokumenPribadi.length > 0 ? (
+					<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
+						{dokumenPribadi.map((file, i) => (
+							<FileCard key={i} file={file} cardBtn={fileCardBtn} />
+						))}
+					</SimpleGrid>
+				) : (
+					<NoData page={category} inProfile />
+				)
+			) : (
+				<SimpleGrid columns={{ base: 1, md: 2, xl: 3 }} spacing={6}>
+					{dokumen && dokumenPribadi.map((file, i) => <FileCard key={i} file={file} cardBtn={fileCardBtn} />)}
+				</SimpleGrid>
+			)}
 			<DokumenModal disclosure={disclosureAdd} category={category} />
 		</Flex>
 	);
