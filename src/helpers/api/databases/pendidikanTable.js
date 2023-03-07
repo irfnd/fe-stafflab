@@ -24,6 +24,7 @@ export const deletePendidikan = async (id) => {
 };
 
 export default {
+	getPendidikan,
 	createPendidikan,
 	updatePendidikan,
 	deletePendidikan,

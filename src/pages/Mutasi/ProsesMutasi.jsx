@@ -1,9 +1,10 @@
 import useClaims from "@/helpers/hooks/useClaims";
 import useDokumen from "@/helpers/hooks/useDokumen";
-import useMutasi from "@/helpers/hooks/useMutasi";
-import { useNavigate } from "react-router-dom";
+import useJabatan from "@/helpers/hooks/useJabatan";
 import useManajer from "@/helpers/hooks/useManajer";
+import useMutasi from "@/helpers/hooks/useMutasi";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
 import { Button, Flex } from "@chakra-ui/react";
@@ -20,6 +21,7 @@ export default function ProsesMutasi() {
 	const manajer = useManajer(session?.user?.id);
 	useMutasi({ diterima: false, divisi: manajer?.idDivisi });
 	useDokumen();
+	useJabatan();
 
 	return (
 		<Flex direction='column' w='full' gap={8}>

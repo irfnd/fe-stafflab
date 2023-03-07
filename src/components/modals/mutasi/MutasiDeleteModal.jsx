@@ -1,12 +1,16 @@
-import { updatePegawai } from "@/helpers/api/databases/pegawaiTable";
-import { deleteMutasi } from "@/helpers/api/databases/mutasiTable";
 import { deleteDokumen } from "@/helpers/api/databases/dokumenTable";
+import { deleteMutasi } from "@/helpers/api/databases/mutasiTable";
+import { getPegawaiById, updatePegawai } from "@/helpers/api/databases/pegawaiTable";
 import { deleteDokumen as deleteDoc } from "@/helpers/api/storages/dokumen";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
+import { useSelector } from "react-redux";
+import { deleteClaims } from "@/helpers/api/functions/claims";
 
 // Styles & Icons
 import {
 	Button,
+	Flex,
 	Modal,
 	ModalBody,
 	ModalCloseButton,
@@ -15,7 +19,6 @@ import {
 	ModalHeader,
 	ModalOverlay,
 	Text,
-	Flex,
 	useToast,
 } from "@chakra-ui/react";
 
@@ -23,7 +26,9 @@ import {
 
 export default function MutasiDeleteModal({ disclosure, mutasi }) {
 	const { isOpen, onClose } = disclosure;
+	const [pegawai, setPegawai] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const jabatanPegawai = useSelector(JabatanSelector.selectAll);
 	const toast = useToast();
 
 	const onDelete = async () => {
@@ -50,6 +55,13 @@ export default function MutasiDeleteModal({ disclosure, mutasi }) {
 				})
 			);
 			await updatePegawai(newData, mutasi?.nipPegawai);
+			const getJabatanTo = jabatanPegawai?.filter((el) => el.id === parseInt(mutasi?.detail?.jabatan?.to, 10))[0]?.nama?.toLowerCase();
+			const getJabatanFrom = jabatanPegawai?.filter((el) => el.id === parseInt(mutasi?.detail?.jabatan?.from, 10))[0]?.nama?.toLowerCase();
+			if (getJabatanTo.length > 0 && getJabatanFrom.length > 0) {
+				if (getJabatanTo !== getJabatanFrom && getJabatanTo === "manajer") {
+					await deleteClaims({ claim: "claims", uid: pegawai?.uuidUser });
+				}
+			}
 			await deleteMutasi(mutasi?.id);
 
 			toast({
@@ -73,6 +85,15 @@ export default function MutasiDeleteModal({ disclosure, mutasi }) {
 			setLoading(false);
 		}
 	};
+
+	const getPegawai = async () => {
+		const { data } = await getPegawaiById(mutasi?.nipPegawai);
+		if (data) setPegawai(data[0]);
+	};
+
+	useEffect(() => {
+		if (mutasi?.nipPegawai) getPegawai();
+	}, [mutasi]);
 
 	return (
 		<Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered scrollBehavior='inside'>

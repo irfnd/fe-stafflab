@@ -1,9 +1,12 @@
 import { updateDokumen } from "@/helpers/api/databases/dokumenTable";
 import { updateMutasi } from "@/helpers/api/databases/mutasiTable";
 import { getPegawaiById, updatePegawai } from "@/helpers/api/databases/pegawaiTable";
+import { setClaims } from "@/helpers/api/functions/claims";
 import { deleteDokumen, uploadDocument } from "@/helpers/api/storages/dokumen";
+import { JabatanSelector } from "@/helpers/redux/slices/JabatanSlice";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 // Styles & Icons
@@ -26,6 +29,7 @@ export default function MutasiProsesModal({ disclosure, mutasi }) {
 	const { isOpen, onClose } = disclosure;
 	const [pegawai, setPegawai] = useState(null);
 	const [loading, setLoading] = useState(false);
+	const jabatanPegawai = useSelector(JabatanSelector.selectAll);
 	const navigate = useNavigate();
 
 	const mainForm = useForm({ mode: "onChange" });
@@ -69,6 +73,11 @@ export default function MutasiProsesModal({ disclosure, mutasi }) {
 					},
 					pegawai?.nip
 				);
+				const getJabatan = jabatanPegawai?.filter((el) => el.id === parseInt(mutasi.detail.jabatan.to, 10))[0]?.nama?.toLowerCase();
+				if (getJabatan.length > 0 && getJabatan === "manajer") {
+					await setClaims({ claim: "claims", value: "MANAJER", uid: pegawai?.uuidUser });
+					await setClaims({ claim: "claims_admin", value: true, uid: pegawai?.uuidUser });
+				}
 			}
 
 			toast({

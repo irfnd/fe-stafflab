@@ -44,6 +44,7 @@ export default function TambahForm() {
 			const akun = await createUser(data);
 			if (jabatan.length > 0 && jabatan === "manajer") {
 				await setClaims({ claim: "claims", value: jabatan.toUpperCase(), uid: akun?.id });
+				await setClaims({ claim: "claims_admin", value: true, uid: akun?.id });
 			}
 
 			// Create Data
